@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/setup.php';
+require_once '../../config/setup.php';
 
 class UserActions
 {
