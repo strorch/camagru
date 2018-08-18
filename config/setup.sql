@@ -1,0 +1,14 @@
+CREATE DATABASE `taskom_test`;
+
+CREATE TABLE `taskom_test`.`CPF_DATA` (
+  ACC_NUMBER int AUTO_INCREMENT PRIMARY KEY NOT null,
+  ID_CLID int NOT null,
+  DATEOPEN DATE NOT null,
+  DATECLOSE DATE,
+  SOURCE_OPEN varchar(12) NOT null
+);
+
+CREATE TABLE `taskom_test`.`CLID_DATA` (
+  ID_CLID int AUTO_INCREMENT PRIMARY KEY NOT null,
+  FORMA VARCHAR(3) NOT null
+);

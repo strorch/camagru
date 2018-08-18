@@ -40,13 +40,10 @@ class Router
         {
             $controled = new Controller($this->params);
             $controled->calling();
-
-           // var_dump($this->params);
         }
         else
         {
             echo "nothing";
-            //require_once './application/html/front_page.html';
         }
     }
 }

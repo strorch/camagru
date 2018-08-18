@@ -15,8 +15,14 @@ class DB_connection
         $this->database = $database;
         $this->user = $user;
         $this->passwd = $passwd;
-
-        $this->DBH = new PDO("mysql:host=".$this->host.";dbname=".$this->database, $this->user, $this->passwd);
+        try
+        {
+            $this->DBH = new PDO("mysql:host=$host;dbname=$database", $user, $passwd);
+        }
+        catch (Exception $ex)
+        {
+            echo "crash";
+        }
     }
     public function __destruct(){}
 
