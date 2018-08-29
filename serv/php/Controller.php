@@ -16,37 +16,29 @@ class Controller
     public function calling()
     {
         if ($this->control === "main" && $this->action === "none")
-            require_once "./public/login.html";
-        elseif ($this->control === "admin" && $this->action === "login")
-        {
-            if (Session::start_session("", htmlentities($_POST["passwd"])) === true)
-            {
-                header("Location: /admin");
-            }
-            else
-                header("Location: /");
-        }
-        elseif ($this->control === "admin" && $this->action === "none")
+            require_once "./public/html/login.html";
+        elseif ($this->control === "user" && $this->action === "loged")
         {
             session_start();
-            if ($_SESSION["passwd"] === null)
-            {
-                header("Location: /");
-            }
-            else
-            {
-                require_once "./public/table.html";
-            }
+            $arr = [];
+            $arr["login"] = $_SESSION["login"];
+            $arr["passwd"] = $_SESSION["passwd"];
+            echo json_encode($arr);
         }
-        elseif ($this->control === "admin" && $this->action === "get_data")
+        elseif ($this->control === "user" && $this->action === "login")
         {
-            //echo json_encode(DB_parser::get_result());
+            session_start();
+            $_SESSION["login"] = $_POST["login"];
+            $_SESSION["passwd"] = $_POST["passwd"];
+            header("Location: /");
         }
-        elseif ($this->control === "none" && $this->action === "fill")
+        elseif ($this->control === "main" && $this->action === "posts")
         {
-            //Controller::fill_db();
+            $DB = new DB_connection("localhost", "camagru", "root", "123456");
 
-            //echo json_encode(true);
+            $result = $DB->query("");
         }
+        else
+            echo "nothing";
     }
 }

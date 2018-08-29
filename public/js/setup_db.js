@@ -1,5 +1,5 @@
 "use strict"
-
+/*
 function fill_db() {
     var tmp = document.getElementById("done");
     if (tmp === null)
@@ -19,4 +19,4 @@ function fill_db() {
                 }
             });
     }
-}
+}*/

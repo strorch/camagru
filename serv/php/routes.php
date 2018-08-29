@@ -8,24 +8,19 @@ return [
         'action' => 'none'
     ],
 
-    'admin/login' => [
-        'controller' => 'admin',
+    'user/loged' => [
+        'controller' => 'user',
+        'action' => 'loged'
+    ],
+
+    'user/login' => [
+        'controller' => 'user',
         'action' => 'login'
     ],
 
-    'admin' => [
-        'controller' => 'admin',
-        'action' => 'none'
-    ],
-
-    'get_data' => [
-        'controller' => 'admin',
-        'action' => 'get_data'
-    ],
-
-    'fill_db' => [
-        'controller' => 'none',
-        'action' => 'fill'
+    'posts' => [
+        'controller' => 'main',
+        'action' => 'posts'
     ]
 
 ];
