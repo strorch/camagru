@@ -34,13 +34,13 @@ fetch('/user/loged')
     })
     .then(function (input) {
 
-        if (input["login"] !== "" && input["login"] !== null)
-        {
-            console.log(input);
-        }
-        else
-        {
+        // if (input["login"] !== "" && input["login"] !== null)
+        // {
+        //     console.log(input);
+        // }
+        // else
+        // {
             var parent = document.getElementById("create_block");
             parent.appendChild(get_login_form());
-        }
+        //}
     });
