@@ -4,8 +4,8 @@
     require_once "./serv/php/DB_connection.php";
 
     $router = new Router();
-    $router->run();
-
+    //$router->run();
+    $router->get("/", "kek@lol");
 
 //
 //    $to_stikers = "./public/stikers/";

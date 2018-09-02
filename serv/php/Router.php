@@ -34,6 +34,18 @@ class Router
         return false;
     }
 
+    public function get($url, $method)
+    {
+        $kek = explode("@", $method);
+        var_dump($kek);
+    }
+
+    public function post($url, $method)
+    {
+        $kek = explode("@", $method);
+        var_dump($kek);
+    }
+
     public function run()
     {
         if ($this->match())
