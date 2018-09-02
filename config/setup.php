@@ -1,5 +1,3 @@
-#!/usr/bin/php
-
 <?php
 
 //require_once '../serv/php/DB_connection.php';
@@ -22,11 +20,11 @@ class DB_connection
 
         try {
 
-            $this->DBH = new PDO("mysql:host=".$this->host.";dbname=".$this->database, $this->user, $this->passwd);
+            $this->DBH = new PDO("mysql:host=".$this->host.";port=3308;dbname=".$this->database, $this->user, $this->passwd);
         }
         catch(Exception $exception)
         {
-            print($exception);
+            echo $exception->getMessage();
         }
     }
     public function __destruct(){}
@@ -48,18 +46,5 @@ class DB_connection
     }
 }
 
-$connection = new DB_connection("localhost", "taskom_test", "root", "123456");
 
-$row = 1;
-if (($handle = fopen("test.csv", "r")) !== FALSE) {
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        $num = count($data);
-        echo "<p> $num полей в строке $row: <br /></p>\n";
-        $row++;
-        for ($c=0; $c < $num; $c++) {
-            echo $data[$c] . "<br />\n";
-        }
-    }
-    fclose($handle);
-}
-
+$connection = new DB_connection("127.0.0.1", "camagru", "root", "123456");

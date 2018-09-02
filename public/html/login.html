@@ -3,11 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>MEMAGRU</title>
+    <style>
+
+        #head {
+            border: solid 2px black;
+            min-height: inherit;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+
+        .block_post {
+            border: solid 1px red;
+        }
+
+        #create_block {
+        }
+    </style>
 </head>
 <body>
-    <p>login page</p>
+    <div id="head">
+        <p>login page</p>
+        <div id="create_block"></div>
+    </div>
     <br/>
-    <div id="create_block"></div>
     <div id="pictures"></div>
 
     <script src="./public/js/setup_db.js"></script>
