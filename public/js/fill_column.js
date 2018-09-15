@@ -18,7 +18,7 @@ function create_post(user, photo) {
 
     return par_div;
 }
-
+/*
 fetch('/posts')
     .then(function(response) {
         return response.json()
@@ -32,3 +32,4 @@ fetch('/posts')
         });
 
     });
+*/

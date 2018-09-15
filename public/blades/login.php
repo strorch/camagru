@@ -27,11 +27,12 @@
         <p>login page</p>
         <div id="create_block"></div>
     </div>
-    <br/>
-    <div id="pictures"></div>
+    <form method="post" action="./login_action">
+        <input name="login" type="text"/>
+        <input name="passwd" type="password"/>
+        <input name="submit" type="submit" value="OK"/>
+    </form>
 
-    <script src="./public/js/setup_db.js"></script>
-    <script src="./public/js/loged.js"></script>
     <script src="./public/js/fill_column.js"></script>
 </body>
 </html>
