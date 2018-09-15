@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3a73832-3494-474a-86fd-542577d0db69" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/serv/php/Router.php" afterPath="$PROJECT_DIR$/serv/php/Router.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -143,7 +142,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -194,6 +192,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -238,12 +237,13 @@
       <workItem from="1535545695239" duration="3727000" />
       <workItem from="1535890407860" duration="1058000" />
       <workItem from="1535904723087" duration="6465000" />
-      <workItem from="1535915927956" duration="337000" />
+      <workItem from="1535915927956" duration="498000" />
+      <workItem from="1537014126571" duration="64000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63947000" />
+    <option name="totallyTimeSpent" value="64172000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1352" height="1336" extended-state="0" />
