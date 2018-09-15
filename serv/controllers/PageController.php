@@ -11,4 +11,9 @@ class PageController extends Controller
     {
         require_once './public/blades/front_page.php';
     }
+
+    public function ErrorPage()
+    {
+        require_once './public/blades/404.php';
+    }
 }

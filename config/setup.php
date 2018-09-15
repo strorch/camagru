@@ -1,54 +1,11 @@
 <?php
 
-//require_once '../serv/php/DB_connection.php';
+require_once 'database.php';
+require_once '../serv/app/DB_connection.php';
 
-class DB_connection
-{
-    private $host;
-    private $database;
-    private $user;
-    private $passwd;
-
-    public $DBH;
-
-    public function __construct($host, $database, $user, $passwd)
-    {
-        $this->host = $host;
-        $this->database = $database;
-        $this->user = $user;
-        $this->passwd = $passwd;
-
-        try {
-
-            $this->DBH = new PDO("mysql:host=".$this->host.";port=3308;dbname=".$this->database, $this->user, $this->passwd);
-        }
-        catch(Exception $exception)
-        {
-            echo $exception->getMessage();
-        }
-    }
-    public function __destruct(){}
+$connection = new DB_connection($DB_DSN, $DB_USER, $DB_PASSWORD);
 
 
-    public  function exec($command)
-    {
-        $this->DBH->exec($command);
-    }
-
-    public function query($command)
-    {
-        return $this->DBH->query($command);
-    }
-
-    public function __toString()
-    {
-        return "1";
-    }
-}
-
-
-$connection = new DB_connection("127.0.0.1", "camagru", "root", "123456");
-//
 //    $to_stikers = "./public/stikers/";
 //    $return = [];
 //    $return[0] = "mem1.jpg";
@@ -72,3 +29,4 @@ $connection = new DB_connection("127.0.0.1", "camagru", "root", "123456");
 //    {
 //        $DB->exec("INSERT INTO `posts` (USER, PICT) VALUES ('kek', '".$to_stikers.$return[$i]."');<br/>");
 //    }
+// $connection->exec("INSERT into users (name, passwd, EMAIL, LOG_STAT) VALUES ('fa', 'erg', 'greegerege', 1);");

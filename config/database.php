@@ -1,7 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mstorcha
- * Date: 9/15/18
- * Time: 3:54 PM
- */
+
+    $DB_HOST = "127.0.0.1";
+    $DB_NAME = "camagru";
+    $DB_USER = "root";
+    $DB_PASSWORD = "123456";
+    $DB_DSN = "mysql:host=$DB_HOST;dbname=$DB_NAME;port=3308";

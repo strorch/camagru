@@ -13,7 +13,9 @@ class Router
         $request_url = $_SERVER['REQUEST_URI'];
 
         if ($url !== $request_url || $_SERVER['REQUEST_METHOD'] !== 'GET')
-            return;
+        {
+            header("Location: /error");
+        }
 
         $res = Router::parse_method($method);
         $class = $res['class'];
@@ -28,7 +30,9 @@ class Router
         $request_url = $_SERVER['REQUEST_URI'];
 
         if ($url !== $request_url || $_SERVER['REQUEST_METHOD'] !== 'POST')
-            return;
+        {
+            header("Location: /error");
+        }
 
         $res = Router::parse_method($method);
         $class = $res['class'];

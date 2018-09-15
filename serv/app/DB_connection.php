@@ -2,22 +2,13 @@
 
 class DB_connection
 {
-    private $host;
-    private $database;
-    private $user;
-    private $passwd;
-
     public $DBH;
 
-    public function __construct($host, $database, $user, $passwd)
+    public function __construct($DB_DSN, $DB_USER, $DB_PASSWORD)
     {
-        $this->host = $host;
-        $this->database = $database;
-        $this->user = $user;
-        $this->passwd = $passwd;
         try
         {
-            $this->DBH = new PDO("mysql:host=$host;dbname=$database", $user, $passwd);
+            $this->DBH = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
         }
         catch (Exception $ex)
         {
