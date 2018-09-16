@@ -12,7 +12,7 @@ class DB_connection
         }
         catch (Exception $ex)
         {
-            echo "crash";
+            echo "DB crash";
         }
     }
     public function __destruct(){}

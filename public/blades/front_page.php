@@ -3,31 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>MEMAGRU</title>
-    <style>
-
-        #head {
-            border: solid 2px black;
-            min-height: inherit;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-
-        .block_post {
-            border: solid 1px red;
-        }
-
-        #create_block {
-        }
-
-    </style>
+    <link rel="stylesheet" href="./public/css/front_page.css">
 </head>
 <body>
 <div id="head">
     <p>front page</p>
-    <div id="create_block"></div>
+    <a href="/login">Sign up</a>
+    <a href="/">MEMAGRU</a>
 </div>
 
-<script src="./public/js/fill_column.js"></script>
+<div class="main">
+    <?php
+        $posts = new Posts();
+        foreach ($posts::$posts as $post)
+        {
+            echo $post['user'].'<br/>';
+            echo '<img src="data:image/jpg;base64,'.$post['pict'].'" height="200px" width="200px"/><br/><br/>';
+        }
+    ?>
+</div>
+
 </body>
 </html>

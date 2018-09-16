@@ -3,36 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>MEMAGRU</title>
-    <style>
-
-        #head {
-            border: solid 2px black;
-            min-height: inherit;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-
-
-        .block_post {
-            border: solid 1px red;
-        }
-
-        #create_block {
-        }
-    </style>
+    <link rel="stylesheet" href="./public/css/login.css">
 </head>
 <body>
     <div id="head">
         <p>login page</p>
         <div id="create_block"></div>
+        <a href="/">MEMAGRU</a>
     </div>
-    <form method="post" action="./login_action">
-        <input name="login" type="text"/>
-        <input name="passwd" type="password"/>
-        <input name="submit" type="submit" value="OK"/>
-    </form>
+    <br/>
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Login')" id='default'>Login</button>
+        <button class="tablinks" onclick="openCity(event, 'Register')">Register</button>
+    </div>
 
-    <script src="./public/js/fill_column.js"></script>
+    <div id="Login" class="tabcontent">
+        <form method="post" action="./login_action">
+            <input name="login" type="text"/>Login
+            <br/>
+            <input name="passwd" type="password"/>Password
+            <br/>
+            <input name="submit" type="submit" value="OK"/>
+        </form>
+    </div>
+
+    <div id="Register" class="tabcontent">
+        <form method="post" action="./register_action">
+            <input name="email" type="email"/>Email
+            <br/>
+            <input name="login" type="text"/>Login
+            <br/>
+            <input name="passwd" type="password"/>Password
+            <br/>
+            <input name="conf_passwd" type="conf_password"/>Confirm
+            <br/>
+            <input name="submit" type="submit" value="OK"/>
+        </form>
+    </div>
+
+    <script src="./public/js/login_tabs.js"></script>
 </body>
 </html>
