@@ -2,6 +2,8 @@
 
 class Router
 {
+    private static $page = false;
+
     private static function parse_method($method)
     {
         $kek = explode("@", $method);
@@ -13,9 +15,7 @@ class Router
         $request_url = $_SERVER['REQUEST_URI'];
 
         if ($url !== $request_url || $_SERVER['REQUEST_METHOD'] !== 'GET')
-        {
-            header("Location: /error");
-        }
+            return;
 
         $res = Router::parse_method($method);
         $class = $res['class'];
@@ -23,6 +23,8 @@ class Router
 
         $tmp = new $class;
         $tmp->$method();
+
+        self::$page = true;
     }
 
     public static function post($url, $method)
@@ -30,9 +32,7 @@ class Router
         $request_url = $_SERVER['REQUEST_URI'];
 
         if ($url !== $request_url || $_SERVER['REQUEST_METHOD'] !== 'POST')
-        {
-            header("Location: /error");
-        }
+            return;
 
         $res = Router::parse_method($method);
         $class = $res['class'];
@@ -40,5 +40,13 @@ class Router
 
         $tmp = new $class;
         $tmp->$method();
+
+        self::$page = true;
+    }
+
+    public static function error_page()
+    {
+        if (self::$page === false)
+            require_once './public/blades/404.php';
     }
 }
