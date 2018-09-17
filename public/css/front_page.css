@@ -1,0 +1,14 @@
+#head {
+    border: solid 2px black;
+    min-height: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.block_post {
+    border: solid 1px red;
+}
+
+#create_block {
+}
