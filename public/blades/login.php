@@ -18,6 +18,12 @@
     </div>
 
     <div id="Login" class="tabcontent">
+        <?php
+            session_start();
+            if(isset($_SESSION['error']) === true)
+                echo "<h1>try again</h1>";
+            session_unset();
+        ?>
         <form method="post" action="./login_action">
             <input name="login" type="text"/>Login
             <br/>

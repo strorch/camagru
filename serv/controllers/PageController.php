@@ -4,6 +4,10 @@ class PageController extends Controller
 {
     public function LoginPage()
     {
+
+        //session_start();
+        if(isset($_SESSION['name']) === true)
+            header('Location: /');
         require_once './public/blades/login.php';
     }
 

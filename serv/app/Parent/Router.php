@@ -21,7 +21,7 @@ class Router
         $class = $res['class'];
         $method = $res['method'];
 
-        $tmp = new $class;
+        $tmp = new $class();
         $tmp->$method();
 
         self::$page = true;
@@ -38,7 +38,7 @@ class Router
         $class = $res['class'];
         $method = $res['method'];
 
-        $tmp = new $class;
+        $tmp = new $class();
         $tmp->$method();
 
         self::$page = true;

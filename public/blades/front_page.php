@@ -8,7 +8,13 @@
 <body>
 <div id="head">
     <p>front page</p>
-    <a href="/login">Sign up</a>
+    <?php
+        session_start();
+        if (isset($_SESSION['name']))
+            echo 'Hello '.$_SESSION['name'];
+        else
+            echo '<a href="/login">Sign up</a>';
+    ?>
     <a href="/">MEMAGRU</a>
 </div>
 
