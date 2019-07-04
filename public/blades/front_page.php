@@ -19,6 +19,7 @@
 </div>
 
 <div class="main">
+    <h1>hello tupa sraka</h1>
     <?php
         $posts = new Posts();
         foreach ($posts::$posts as $post)
