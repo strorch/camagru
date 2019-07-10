@@ -1,35 +1,68 @@
 <?php
 
-class DB_connection
+class DBConnection
 {
     public $DBH;
 
-    public function __construct($DB_DSN, $DB_USER, $DB_PASSWORD)
+    public function __construct()
+    {
+        $params = $this->getConnectionParams();
+        $res = $this->getPDOConnection($params);
+        if ($res['status'] === false) {
+            echo $res['message'];
+            die;
+        }
+    }
+
+    public  function query($command, $params = null)
+    {
+        if (is_null($params))
+        {
+            $res = $this->DBH->query($command);
+            return $res->fetchAll();
+        }
+        $prepared = $this->DBH->prepare($command);
+//        $prepared->execute($params);
+        return $prepared->fetchAll();
+    }
+
+    public  function exec($command, $params = null)
+    {
+        if (is_null($params))
+        {
+            $this->DBH->exec($command);
+        }
+        $prepared = $this->DBH->prepare($command);
+//        $prepared->execute($params);
+//        print_r($this->DBH->errorInfo());
+    }
+    private function getPDOConnection($params)
     {
         try
         {
-            $this->DBH = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+            $this->DBH = new PDO($params['DSN'], $params['user'], $params['passwd']);
+            $this->DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+            return [
+                'status'=> true
+            ];
         }
-        catch (Exception $ex)
+        catch (PDOException $ex)
         {
-            echo "DB crash";
+            return [
+                'status'=> false,
+                'message' => $ex->getMessage()
+            ];
         }
     }
-    public function __destruct(){}
 
-
-    public  function exec($command)
+    private function getConnectionParams()
     {
-        $this->DBH->exec($command);
-    }
+        require ROOTPATH."/config/database.php";
 
-    public function query($command)
-    {
-        return $this->DBH->query($command);
-    }
-
-    public function __toString()
-    {
-        return "1";
+        return [
+            "DSN" => $DB_DSN,
+            "user" => $DB_USER,
+            "passwd" => $DB_PASSWORD
+        ];
     }
 }

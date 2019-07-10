@@ -10,11 +10,10 @@ class LoginController
 {
     public static function LoginCheck()
     {
-        include './config/database.php';
-        $connection = new DB_connection($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $connection = new DBConnection();
         //$res = $connection->query("SELECT * FROM `camagru`.`users` WHERE NAME='".$_POST['login']."'");
         $kek = 'kek';
-        $res = $connection->query("SELECT * FROM `camagru`.`users` WHERE NAME='".$kek."'");
+        $res = $connection->query("SELECT * FROM users WHERE NAME='".$kek."'");
 
         //dd($_SESSION);
         foreach ($res as $val)

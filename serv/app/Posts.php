@@ -12,9 +12,8 @@ class Posts
 
     public function __construct()
     {
-        include './config/database.php';
-        $connection = new DB_connection($DB_DSN, $DB_USER, $DB_PASSWORD);
-        $req_posts = $connection->query("SELECT * FROM `posts`;");
+        $connection = new DBConnection();
+        $req_posts = $connection->query("SELECT * FROM posts;");
         $posts = [];
         foreach ($req_posts as $post)
         {

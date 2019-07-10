@@ -1,6 +1,6 @@
 <?php
 
-class PageController extends Controller
+class PageController
 {
     public function LoginPage()
     {
