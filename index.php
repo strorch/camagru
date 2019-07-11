@@ -1,15 +1,37 @@
 <?php
 
-define('ROOTPATH', __DIR__);
+error_reporting(E_ALL);
 
-require_once "./config/database.php";
-require_once "./serv/app/Parent/Router.php";
-require_once "./serv/app/Parent/Utils.php";
-require_once "./serv/app/DB_connection.php";
-require_once "./serv/app/Posts.php";
-require_once "./serv/controllers/PageController.php";
-require_once "./serv/controllers/Auth/LoginController.php";
-require_once "./serv/controllers/Auth/RegistrationController.php";
+class Autoloader
+{
+    public static function autoload($file, $ext = FALSE, $dir = FALSE)
+    {
+        $file = str_replace('\\', '/', $file);
 
-require_once 'serv/routes/web.php';
+        if($ext === FALSE) {
+            $path = $_SERVER['DOCUMENT_ROOT'] . '/src';
+            $filepath = $_SERVER['DOCUMENT_ROOT'] . '/src/' . $file . '.php';
+            echo $filepath;
+        }
+        else {
+            $path = $_SERVER['DOCUMENT_ROOT'] . (($dir) ? '/' . $dir : '');
+            $filepath = $path . '/' . $file . '.' . $ext;
+        }
+        if($ext === FALSE) {
+            require_once($filepath);
+        }
+        else {
+            return $filepath;
+        }
+    }
+}
+\spl_autoload_register('Autoloader::autoload');
 
+use core\Application;
+
+(function(){
+
+    $config = [];
+
+    (new Application($config))->run();
+})();

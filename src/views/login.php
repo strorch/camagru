@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MEMAGRU</title>
-    <link rel="stylesheet" href="./public/css/login.css">
+    <link rel="stylesheet" href="../../public/css/login.css">
 </head>
 <body>
     <div id="head">
@@ -47,6 +47,6 @@
         </form>
     </div>
 
-    <script src="./public/js/login_tabs.js"></script>
+    <script src="../../public/js/login_tabs.js"></script>
 </body>
 </html>

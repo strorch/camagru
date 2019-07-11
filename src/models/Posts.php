@@ -14,11 +14,13 @@ class Posts
     {
         $connection = new DBConnection();
         $req_posts = $connection->query("SELECT * FROM posts;");
-        $posts = [];
+
         foreach ($req_posts as $post)
         {
-            $tmp = base64_encode(file_get_contents($post['PICT']));
-            array_push($posts, ['user' => $post['USER'], 'pict' => $tmp]);
+            echo "{$post['pict']} {$post['USER']}<br/>";
+
+            $tmp = base64_encode(file_get_contents($post['pict']));
+            $posts[] = ['user' => $post['USER'], 'pict' => $tmp];
         }
         self::$posts = $posts;
     }

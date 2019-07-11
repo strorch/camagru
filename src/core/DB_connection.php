@@ -22,7 +22,7 @@ class DBConnection
             return $res->fetchAll();
         }
         $prepared = $this->DBH->prepare($command);
-//        $prepared->execute($params);
+        $prepared->execute( $params);
         return $prepared->fetchAll();
     }
 
@@ -57,7 +57,7 @@ class DBConnection
 
     private function getConnectionParams()
     {
-        require ROOTPATH."/config/database.php";
+        require ROOTPATH . "/config/database.php";
 
         return [
             "DSN" => $DB_DSN,
