@@ -1,37 +1,14 @@
 <?php
 
+//use core\Application;
+//use core\Config;
+
 error_reporting(E_ALL);
 
-class Autoloader
-{
-    public static function autoload($file, $ext = FALSE, $dir = FALSE)
-    {
-        $file = str_replace('\\', '/', $file);
+define('BASE_DIR', $_SERVER['DOCUMENT_ROOT']);
+define('SRC_DIR', BASE_DIR.'/src');
+define('ASSETS_DIR', BASE_DIR.'/assets');
 
-        if($ext === FALSE) {
-            $path = $_SERVER['DOCUMENT_ROOT'] . '/src';
-            $filepath = $_SERVER['DOCUMENT_ROOT'] . '/src/' . $file . '.php';
-            echo $filepath;
-        }
-        else {
-            $path = $_SERVER['DOCUMENT_ROOT'] . (($dir) ? '/' . $dir : '');
-            $filepath = $path . '/' . $file . '.' . $ext;
-        }
-        if($ext === FALSE) {
-            require_once($filepath);
-        }
-        else {
-            return $filepath;
-        }
-    }
-}
-\spl_autoload_register('Autoloader::autoload');
+$config = Config::get();
 
-use core\Application;
-
-(function(){
-
-    $config = [];
-
-    (new Application($config))->run();
-})();
+(new \core\Application($config))->run();

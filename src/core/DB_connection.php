@@ -1,6 +1,6 @@
 <?php
 
-class DBConnection
+class DB
 {
     public $DBH;
 

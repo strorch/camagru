@@ -1,16 +1,26 @@
 <?php
 
-class Router
+interface AbstractRouter
 {
-    private static $page = false;
+    public static function get(string $url, string $method);
 
-    private static function parse_method($method)
+    public static function post(string $url, string $method);
+}
+
+interface Executable
+{
+//    public static
+}
+
+trait RouterHelper
+{
+    protected static function parse_method($method)
     {
         $kek = explode("@", $method);
         return ['class' => $kek[0], 'method' => $kek[1]];
     }
 
-    private static function parse_url($url)
+    protected static function parse_url($url)
     {
         $kek = explode("?", $url);
         if (count($kek) > 1)
@@ -18,6 +28,14 @@ class Router
         else
             return ['url' => $url];
     }
+}
+
+
+class Router implements AbstractRouter
+{
+    use RouterHelper;
+
+    private static $page = false;
 
     public static function get($url, $method)
     {
@@ -26,7 +44,7 @@ class Router
         if ($url !== $parsed['url'] || $_SERVER['REQUEST_METHOD'] !== 'GET')
             return;
 
-        $res = Router::parse_method($method);
+        $res = self::parse_method($method);
         $class = $res['class'];
         $method = $res['method'];
 
@@ -43,7 +61,7 @@ class Router
         if ($url !== $request_url || $_SERVER['REQUEST_METHOD'] !== 'POST')
             return;
 
-        $res = Router::parse_method($method);
+        $res = self::parse_method($method);
         $class = $res['class'];
         $method = $res['method'];
 
