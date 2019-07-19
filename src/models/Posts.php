@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mstorcha
- * Date: 9/16/18
- * Time: 4:18 PM
- */
 
 class Posts
 {
