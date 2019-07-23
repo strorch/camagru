@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MEMAGRU</title>
-    <link rel="stylesheet" href="../../public/css/front_page.css">
+    <link rel="stylesheet" href="<?=ASSETS_DIR?>/css/front_page.css">
 </head>
 <body>
 <div id="head">
