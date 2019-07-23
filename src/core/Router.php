@@ -1,5 +1,7 @@
 <?php
 
+namespace core;
+
 interface AbstractRouter
 {
     public static function get(string $url, string $method);
@@ -67,7 +69,7 @@ class Router implements AbstractRouter
     public static function error_page()
     {
         if (self::$page === false) {
-            require_once './public/blades/404.php';
+            require_once BLADES_DIR.'/404.php';
         }
     }
 }

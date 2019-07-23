@@ -13,7 +13,7 @@ class Application
 
     public function run(): void
     {
-        require_once SRC_DIR."/views/front_page.php";
+        require_once BLADES_DIR."/front_page.php";
 //        session_start();
 //        echo 'hello';
     }

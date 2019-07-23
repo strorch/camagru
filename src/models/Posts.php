@@ -1,12 +1,16 @@
 <?php
 
+namespace models;
+
+use core\DB;
+
 class Posts
 {
     public static $posts;
 
     public function __construct()
     {
-        $connection = new DBConnection();
+        $connection = new DB();
         $req_posts = $connection->query("SELECT * FROM posts;");
 
         foreach ($req_posts as $post)

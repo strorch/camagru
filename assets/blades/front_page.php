@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MEMAGRU</title>
-    <link rel="stylesheet" href="<?=ASSETS_DIR?>/css/front_page.css">
+    <title>camagru</title>
+    <link rel="stylesheet" href="/assets/css/front_page.css">
 </head>
 <body>
 <div id="head">
@@ -15,7 +15,7 @@
         else
             echo '<a href="/login">Sign up</a>';
     ?>
-    <a href="/">MEMAGRU</a>
+    <a href="/">camagru</a>
 </div>
 
 <div class="main">

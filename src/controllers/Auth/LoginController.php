@@ -1,16 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mstorcha
- * Date: 9/16/18
- * Time: 7:02 PM
- */
+
+namespace controllers\Auth;
+
+use core\DB;
 
 class LoginController
 {
     public static function LoginCheck()
     {
-        $connection = new DBConnection();
+        $connection = new DB();
         //$res = $connection->query("SELECT * FROM `camagru`.`users` WHERE NAME='".$_POST['login']."'");
         $kek = 'kek';
         $res = $connection->query("SELECT * FROM users WHERE NAME='".$kek."'");

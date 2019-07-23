@@ -1,5 +1,6 @@
 <?php
 
+namespace core;
 
 class Utils
 {
@@ -10,6 +11,7 @@ class Utils
         if ($body === FALSE) {
             exit ;
         }
+        //TODO: add ext-json to composer json
         return json_decode($body, true);
     }
 

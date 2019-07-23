@@ -1,5 +1,10 @@
 <?php
 
+namespace core;
+//TODO: add ext-pdo to composer json
+use PDO;
+use PDOException;
+
 class DB
 {
     public $DBH;

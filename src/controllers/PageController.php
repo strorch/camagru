@@ -1,5 +1,7 @@
 <?php
 
+namespace controllers;
+
 class PageController
 {
     public function LoginPage()
