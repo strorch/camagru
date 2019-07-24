@@ -2,24 +2,20 @@
 
 namespace models;
 
-use core\DB;
+use core\Model;
 
-class Posts
+class Posts extends Model
 {
-    public static $posts;
-
-    public function __construct()
+    public function getPosts(): \Iterator
     {
-        $connection = new DB();
-        $req_posts = $connection->query("SELECT * FROM posts;");
+        $req_posts = $this->DB->query("SELECT * FROM posts;");
 
-        foreach ($req_posts as $post)
-        {
-            echo "{$post['pict']} {$post['USER']}<br/>";
-
+        foreach ($req_posts as $post) {
             $tmp = base64_encode(file_get_contents($post['pict']));
-            $posts[] = ['user' => $post['USER'], 'pict' => $tmp];
+            yield [
+                'user' => $post['USER'],
+                'pict' => $tmp
+            ];
         }
-        self::$posts = $posts;
     }
 }

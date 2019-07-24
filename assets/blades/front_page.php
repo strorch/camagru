@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $a string
+ */
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +15,6 @@
 <div id="head">
     <p>front page</p>
     <?php
-        session_start();
         if (isset($_SESSION['name']))
             echo 'Hello '.$_SESSION['name'];
         else
@@ -19,8 +24,8 @@
 </div>
 
 <div class="main">
-    <h1>hello tupa sraka</h1>
     <?php
+        echo $a;
         $posts = new Posts();
         foreach ($posts::$posts as $post)
         {

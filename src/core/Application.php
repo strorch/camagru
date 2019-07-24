@@ -11,9 +11,22 @@ class Application
         $this->config = $config;
     }
 
+    private function getViews()
+    {
+
+    }
+
+//    private function
+
     public function run(): void
     {
-        require_once BLADES_DIR."/front_page.php";
+        try {
+            $a = 'kek';
+            require BLADES_DIR."/front_page.php";
+        }
+        catch (\Throwable $e) {
+
+        }
 //        session_start();
 //        echo 'hello';
     }
