@@ -1,7 +1,7 @@
 <?php
 
 namespace core;
-//TODO: add ext-pdo to composer json
+
 use PDO;
 use PDOException;
 
@@ -14,8 +14,7 @@ class DB
         $params = $this->getConnectionParams();
         $res = $this->getPDOConnection($params);
         if ($res['status'] === false) {
-            echo $res['message'];
-            die;
+            throw new PDOException($res['message']);
         }
     }
 
@@ -60,14 +59,19 @@ class DB
         }
     }
 
-    private function getConnectionParams()
+    private function getDSN(array $params): string
     {
-        require ROOTPATH . "/config/database.php";
+        return "pgsql:host={$params['DB_HOST']};dbname={$params['DB_NAME']};port={$params['DB_PORT']}";
+    }
+
+    private function getConnectionParams(): array
+    {
+        $params = include BASE_DIR . "/config/database.php";
 
         return [
-            "DSN" => $DB_DSN,
-            "user" => $DB_USER,
-            "passwd" => $DB_PASSWORD
+            "DSN" => $this->getDSN($params),
+            "user" => $params['DB_USER'],
+            "passwd" => $params['DB_PASSWORD'],
         ];
     }
 }

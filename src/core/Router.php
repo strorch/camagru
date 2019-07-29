@@ -2,7 +2,9 @@
 
 namespace core;
 
-interface AbstractRouter
+use Exception;
+
+interface RouterInterface
 {
     public static function get(string $url, string $method);
 
@@ -18,13 +20,18 @@ trait RouterHelper
 {
     protected static function parseMethod($method)
     {
-        $kek = explode("@", $method);
-        return ['class' => $kek[0], 'method' => $kek[1]];
+        $statement = explode("@", $method);
+        if (count($statement) !== 2)
+            throw new Exception("wrong routes initializing");
+        return [
+            'class' => $statement[0],
+            'method' => $statement[1]
+        ];
     }
 }
 
 
-class Router implements AbstractRouter
+class Router implements RouterInterface
 {
     use RouterHelper;
 

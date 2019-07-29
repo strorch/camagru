@@ -1,10 +1,10 @@
 <?php
 
-require_once '../serv/app/DB_connection.php';
+require_once '../src/core/DB.php';
 
 define('ROOTPATH', __DIR__.'/..');
 
-$connection = new DBConnection();
+$connection = new DB();
 
 $query_str = file_get_contents('./setup.sql');
 
