@@ -9,7 +9,11 @@ class Autoloader
         try {
             include $filepath;
         } catch (Throwable $e) {
-            echo json_encode($e);
+            echo json_encode([
+                'type' => 'Autoloader error',
+                'error' => $e,
+                'path' => $filepath,
+            ]);
         }
     }
 }

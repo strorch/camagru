@@ -1,13 +1,15 @@
+/*
+
+sudo -u postgres psql
+create database camagru;
+\c camagru
+CREATE USER camagru_user WITH PASSWORD 'root';
+alter role camagru_user with superuser; --etc roles
+\q
+psql -h localhost -d camagru -U camagru_user
+ */
+
 BEGIN TRANSACTION;
-
-
--- Insert into kek (a) values (124);
-
--- CREATE DATABASE `camagru`;
-
--- CREATE TABLE lololol (
---     a int
--- );
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (

@@ -25,7 +25,7 @@ class Application
     public function run(): void
     {
         try {
-            $a = new DB();
+//            $a = new DB();
             $this->getRoutes();
             $a = 'kek';
             require BLADES_DIR."/front_page.php";
