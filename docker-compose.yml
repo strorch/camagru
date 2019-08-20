@@ -1,0 +1,44 @@
+version: '1'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80"
+    links:
+      - php-fpm
+    networks:
+      hiapi-network:
+        aliases:
+          - "${HIAPI_SITE}"
+    volumes:
+      - ./:/app
+      - ./.docker/nginx/etc/nginx/conf.d:/etc/nginx/conf.d
+      - ./.docker/nginx/var/log/nginx:/var/log/nginx
+
+  php-fpm:
+    image: hiqdev/php:7.3-fpm
+    links:
+      - pgsql
+    networks:
+      - local-network
+      - pgsql-network
+    volumes:
+      - ./:/app
+      - ./.docker/php/var/log/php:/var/log/php
+  pgsql:
+    image: postgres:11.0
+    networks:
+      pgsql-network:
+        aliases:
+          - pgsql
+
+networks:
+  local-network:
+    driver: bridge
+  hiapi-network:
+    external:
+      name: "${HIAPI_SITE}"
+  pgsql-network:
+    external:
+      name: "pgsql-${HIAPI_SITE}"

@@ -13,3 +13,11 @@ now is running on apache2 server
 ####```public_html -> /home/maksym/projects/camagru```
 - run `sudo a2ensite camagru.com.conf`
 - run `sudo a2enmod rewrite`
+
+## Docker
+
+- systemctl start&enable docker 
+- restart
+- docker groupadd
+- restart
+- dc up
