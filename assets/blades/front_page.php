@@ -12,6 +12,10 @@
 </div>
 
 <div class="main">
+    <?php
+    echo $var;
+    echo $kek;
+    ?>
 </div>
 
 </body>

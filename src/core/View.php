@@ -6,12 +6,12 @@ namespace core;
 
 class View
 {
-//        foreach ($calculationResult as $name => $value) {
-//            $$name = $value;
-//        }
     public function render(string $viewName, array $data)
     {
-
+        foreach ($data as $name => $value) {
+            $$name = $value;
+        }
+        require_once BLADES_DIR."/$viewName.php";
     }
 
     public function renderError(string $code): void
