@@ -2,7 +2,9 @@
 
 namespace controllers\Auth;
 
-class RegistrationController
+use core\AbstractController;
+
+class RegistrationController extends AbstractController
 {
     public static function RegistrationCheck()
     {

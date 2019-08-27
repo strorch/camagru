@@ -24,7 +24,7 @@ class Application
 
             $this->view = new View();
             $this->model = new Model();
-            $this->controller = new Controller($this->model, $this->view);
+            $this->controller = new ApplicationController($this->model, $this->view);
 
             $this->controller->handleRequest();
         }

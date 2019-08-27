@@ -6,7 +6,10 @@ namespace core;
 
 class View
 {
-    public function render()
+//        foreach ($calculationResult as $name => $value) {
+//            $$name = $value;
+//        }
+    public function render(string $viewName, array $data)
     {
 
     }

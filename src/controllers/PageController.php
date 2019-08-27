@@ -2,7 +2,9 @@
 
 namespace controllers;
 
-class PageController
+use core\AbstractController;
+
+class PageController extends AbstractController
 {
     public function LoginPage()
     {
@@ -13,9 +15,15 @@ class PageController
 //        require_once './public/blades/login.php';
     }
 
-    public function FrontPage()
+    public function FrontPage(): array
     {
-//        echo 1;
+        return [
+            'view' => 'front_page',
+            'data' => [
+                'var' => 12,
+                'kek' => 1,
+            ],
+        ];
 //        require_once './public/blades/front_page.php';
     }
 

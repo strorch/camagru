@@ -2,9 +2,10 @@
 
 namespace controllers\Auth;
 
+use core\AbstractController;
 use core\DB;
 
-class LoginController
+class LoginController extends AbstractController
 {
     public static function LoginCheck()
     {
