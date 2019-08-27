@@ -11,7 +11,7 @@ class View
 
     }
 
-    public function renderError(string $code)
+    public function renderError(string $code): void
     {
         require_once BLADES_DIR."/$code.php";
         die();

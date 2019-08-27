@@ -29,11 +29,8 @@ class Controller
             $this->view->renderError('404');
         }
         $class = $DI['class'];
-        $controllerPath = CONTROLLERS_DIR . "/$class.php";
-//        Utils::print_r([$controllerPath]);
-        include $controllerPath;
-        $method = $DI['method'];
-        $tmp = new $class();
-        $tmp->{$method}();
+        $controllerPath = "controllers\\$class";
+        $controller = new $controllerPath();
+        $controller->{$DI['method']}();
     }
 }

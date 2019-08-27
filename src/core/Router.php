@@ -15,7 +15,7 @@ trait ResultTrait
 {
     private static $DI;
 
-    public static function setDI(array $DI)
+    public static function setDI(array $DI): void
     {
         self::$DI = $DI;
     }
@@ -44,7 +44,7 @@ abstract class AbstractRouter
         ];
     }
 
-    protected static function request(string $url, string $method, string $type)
+    protected static function request(string $url, string $method, string $type): void
     {
         $request_url = $_SERVER['REQUEST_URI'];
         $parsed = parse_url($request_url);

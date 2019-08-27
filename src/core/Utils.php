@@ -22,7 +22,7 @@ class Utils
         die();
     }
 
-    public static function print_r(array $arr)
+    public static function print_r(array $arr): void
     {
         print_r($arr);
         die();
