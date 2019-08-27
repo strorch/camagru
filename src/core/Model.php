@@ -15,7 +15,7 @@ class Model implements ModelInterface
 
     public function __construct()
     {
-        $this->databaseInit();
+//        $this->databaseInit();
     }
 
     public function __call(string $name, array $arguments)

@@ -21,4 +21,10 @@ class Utils
         echo '<br>';
         die();
     }
+
+    public static function print_r(array $arr)
+    {
+        print_r($arr);
+        die();
+    }
 }

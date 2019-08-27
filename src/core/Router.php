@@ -6,77 +6,70 @@ use Exception;
 
 interface RouterInterface
 {
-    public static function get(string $url, string $method);
+    public static function get(string $url, string $method): void;
 
-    public static function post(string $url, string $method);
+    public static function post(string $url, string $method): void;
 }
 
-interface Executable
+trait ResultTrait
 {
-//    public static
+    private static $DI;
+
+    public static function setDI(array $DI)
+    {
+        self::$DI = $DI;
+    }
+    public static function getDI(): array
+    {
+        if (empty(self::$DI)) {
+            return [];
+        }
+        return self::$DI;
+    }
 }
 
-trait RouterHelper
+abstract class AbstractRouter
 {
-    protected static function parseMethod($method)
+    use ResultTrait;
+
+    private static function parseMethod(string $method): array
     {
         $statement = explode("@", $method);
-        if (count($statement) !== 2)
+        if (count($statement) !== 2) {
             throw new Exception("wrong routes initializing");
+        }
         return [
             'class' => $statement[0],
-            'method' => $statement[1]
+            'method' => $statement[1],
         ];
+    }
+
+    protected static function request(string $url, string $method, string $type)
+    {
+        $request_url = $_SERVER['REQUEST_URI'];
+        $parsed = parse_url($request_url);
+
+        if (empty($parsed['path'])) {
+            throw new Exception('Invalid uri in Router.php');
+        }
+        if ($_SERVER['REQUEST_METHOD'] !== $type || $url !== $parsed['path']) {
+            return;
+        }
+        $result = static::parseMethod($method);
+        self::setDI($result);
     }
 }
 
 
-class Router implements RouterInterface
+final class Router extends AbstractRouter implements RouterInterface
 {
-    use RouterHelper;
-
-    private static $page = false;
-
-    public static function get($url, $method)
+    public static function get($url, $method): void
     {
-        $request_url = $_SERVER['REQUEST_URI'];
-        ///TODO: chack parsing with standart method
-        $parsed = parse_url($request_url);
-        if ($url !== $parsed['url'] || $_SERVER['REQUEST_METHOD'] !== 'GET') {
-            return;
-        }
-        $res = self::parseMethod($method);
-        $class = $res['class'];
-        $method = $res['method'];
-
-        $tmp = new $class();
-        $tmp->$method();
-
-        self::$page = true;
+        static::request($url, $method, 'GET');
     }
 
-    public static function post($url, $method)
+    public static function post($url, $method): void
     {
-        $request_url = $_SERVER['REQUEST_URI'];
-
-        if ($url !== $request_url || $_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return;
-        }
-
-        $res = self::parseMethod($method);
-        $class = $res['class'];
-        $method = $res['method'];
-
-        $tmp = new $class();
-        $tmp->$method();
-
-        self::$page = true;
-    }
-
-    public static function error_page()
-    {
-        if (self::$page === false) {
-            require_once BLADES_DIR.'/404.php';
-        }
+        static::request($url, $method, 'POST');
     }
 }
