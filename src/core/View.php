@@ -6,6 +6,9 @@ namespace core;
 
 class View
 {
+    /**
+     * TODO: work with strings - not with files
+     */
     public function render(string $viewName, array $data)
     {
         foreach ($data as $name => $value) {
