@@ -18,7 +18,7 @@ class PageController extends AbstractController
     public function FrontPage(): array
     {
         return [
-            'view' => 'front_page',
+            'view' => 'sceleton',
             'data' => [
                 'var' => 12,
                 'kek' => 1,

@@ -1,3 +1,13 @@
+<?php
+
+use core\View;
+
+/**
+ * @var $this View
+ */
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +25,7 @@
     <?php
     echo $var;
     echo $kek;
+    $this->render('testBlade', []);
     ?>
 </div>
 
