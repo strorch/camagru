@@ -1,9 +1,10 @@
 <?php
 
-use core\View;
+use core\Blade;
 
 /**
- * @var $this View
+ * @var $this Blade
+ * @var $childString
  */
 
 ?>
@@ -16,18 +17,21 @@ use core\View;
     <link rel="stylesheet" href="/assets/css/front_page.css">
 </head>
 <body>
-<div id="head">
-    <p>front page</p>
-    <a href="/">camagru</a>
-</div>
 
 <div class="main">
+    <div id="head">
+        <p><?= 'temp' //TODO: implement child passing to find blades title?></p>
+        <div id="create_block"></div>
+        <a href="/">camagru</a>
+    </div>
+    <br/>
     <?php
-    echo $var;
-    echo $kek;
-    $this->render('testBlade', []);
+    echo $childString;
     ?>
 </div>
 
+<footer>
+    footer
+</footer>
 </body>
 </html>

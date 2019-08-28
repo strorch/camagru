@@ -19,8 +19,12 @@ class ApplicationController
     public function handleRequest(): void
     {
         $calculationResult = $this->callRoutes();
-        if (empty($calculationResult['view']) || empty($calculationResult['data'])) {
+        if (empty($calculationResult['data'])) {
             throw new \Exception('invalid result array');
+        }
+        if (empty($calculationResult['view'])) {
+            echo json_encode($calculationResult['data']);
+            die();
         }
         $viewName = $calculationResult['view'];
         $variables = $calculationResult['data'];
