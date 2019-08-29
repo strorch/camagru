@@ -6,7 +6,7 @@
 
 use core\Blade;
 
-$this->setParent( 'sceleton');
+$this->setParent('header');
 
 ?>
 <div class="tab">
