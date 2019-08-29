@@ -31,6 +31,13 @@ class ApplicationController
         $this->view->render($viewName, $variables);
     }
 
+    private function createCsrfToken(): string
+    {
+        if (empty($_SESSION['_csrf'])) {
+            $_SESSION['_csrf'] = bin2hex(random_bytes(32));
+        }
+    }
+
     private function callRoutes(): array
     {
         include SRC_DIR . '/routes.php';
