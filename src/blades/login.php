@@ -16,6 +16,7 @@ $this->setParent('header');
 
 <div id="Login" class="tabcontent">
     <form method="post" action="../../index.php">
+        <?php $this->includeChild('csrf');?>
         <input name="login" type="text"/>Login
         <br/>
         <input name="passwd" type="password"/>Password

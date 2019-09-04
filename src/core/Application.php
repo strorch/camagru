@@ -20,7 +20,7 @@ class Application
     public function run(): void
     {
         try {
-            //session_start();
+            session_start();
 
             $this->view = new View();
             $this->model = new Model();

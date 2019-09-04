@@ -27,3 +27,16 @@ foreach ($return as $value)
     $connection->exec("INSERT INTO posts (\"USER\", PICT) VALUES ('".$value."', '".$to_stikers.$value."');");
 }
 echo "done";
+
+
+//require_once '../serv/app/Parent/DB_connection.php';
+//
+//define('ROOTPATH', __DIR__ . '/..');
+//
+//$connection = new DBConnection();
+//
+//$query_str = file_get_contents('./setup.sql');
+//
+//$connection->exec($query_str);
+//
+//echo "done";

@@ -26,12 +26,13 @@ class ApplicationController
             echo json_encode($calculationResult['data']);
             die();
         }
+        $this->createCsrfToken();
         $this->view->setViewName($calculationResult['view']);
         $this->view->setData($calculationResult['data']);
         $this->view->render();
     }
 
-    private function createCsrfToken(): string
+    private function createCsrfToken()
     {
         if (empty($_SESSION['_csrf'])) {
             $_SESSION['_csrf'] = bin2hex(random_bytes(32));
