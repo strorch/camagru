@@ -26,9 +26,9 @@ class ApplicationController
             echo json_encode($calculationResult['data']);
             die();
         }
-        $viewName = $calculationResult['view'];
-        $variables = $calculationResult['data'];
-        $this->view->render($viewName, $variables);
+        $this->view->setViewName($calculationResult['view']);
+        $this->view->setData($calculationResult['data']);
+        $this->view->render();
     }
 
     private function createCsrfToken(): string

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @var $this Blade
+ * @var $this View
  */
 
-use core\Blade;
+use core\View;
 
 $this->setParent('header');
 
