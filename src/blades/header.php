@@ -1,9 +1,9 @@
 <?php
 
-use core\Blade;
+use core\View;
 
 /**
- * @var $this Blade
+ * @var $this View
  * @var $childString
  */
 
@@ -25,9 +25,7 @@ use core\Blade;
         <a href="/">camagru</a>
     </div>
     <br/>
-    <?php
-    echo $childString;
-    ?>
+    <?= $childString ?>
 </div>
 
 <footer>

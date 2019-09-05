@@ -3,32 +3,51 @@
 namespace controllers;
 
 use core\AbstractController;
+use models\Posts;
+use models\User;
 
 class PageController extends AbstractController
 {
-    public function LoginPage()
+    public function LoginPage(): array
     {
-
-        //session_start();
-//        if(isset($_SESSION['name']) === true)
-//            header('Location: /');
-//        require_once './public/blades/login.php';
+        $userLogged = User::getUserLoginInfo();
+        if ($userLogged) {
+            header('Location: /');
+        }
+        return [
+            'view' => 'login',
+            'data' => [
+                'userLogged' => $userLogged,
+            ],
+        ];
     }
 
     public function FrontPage(): array
     {
+        $userLogged = User::getUserLoginInfo();
+        //TODO: create posts displaying
+        $posts = Posts::getPosts(0, 5);
+
         return [
-            'view' => 'login',
+            'view' => 'indexPage',
             'data' => [
-                'var' => 12,
-                'kek' => 1,
+                'userLogged' => $userLogged,
+                'posts' => $posts,
             ],
         ];
-//        require_once './public/blades/front_page.php';
     }
 
-    public function ErrorPage()
+    public function UserPage(): array
     {
-//        require_once './public/blades/404.php';
+        $userId = $_GET['user_id'];
+        $userInfo = User::getAccountInfo($userId);
+        $posts = Posts::getPosts(0, 5);
+        return [
+            'view' => 'indexPage',
+            'data' => [
+                'userInfo' => $userInfo,
+                'posts' => $posts,
+            ],
+        ];
     }
 }
