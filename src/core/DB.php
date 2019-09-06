@@ -1,77 +1,78 @@
 <?php
 
-namespace core;
+
+namespace App\Infrastructure\DB;
+
 
 use PDO;
 use PDOException;
 
-class DB
+final class DB
 {
-    public $DBH;
+    private $dbParams;
 
-    public function __construct()
+    private $connection;
+
+    private function __construct(array $dbParams)
     {
-        $params = $this->getConnectionParams();
-        $res = $this->getPDOConnection($params);
-        if ($res['status'] === false) {
-            throw new PDOException($res['message']);
-        }
+        $this->validateParams();
+        $this->dbParams = $dbParams;
     }
 
-    public  function query($command, $params = null)
+    public static function get(array $dbParams): self
     {
-        if (is_null($params))
-        {
-            $res = $this->DBH->query($command);
+        $DB = new static($dbParams);
+
+        $DB->connection = new PDO($DB->getDSN(), $DB->getUser(), $DB->getPassword());
+        $DB->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        return $DB;
+    }
+
+    public function exec($command, $params = null): void
+    {
+        if (empty($params)) {
+            $this->connection->exec($command);
+            return;
+        }
+        $prepared = $this->connection->prepare($command);
+        $prepared->execute($params);
+    }
+
+    public function query($command, $params = null)
+    {
+        if (empty($params)) {
+            $res = $this->connection->query($command);
             return $res->fetchAll();
         }
-        $prepared = $this->DBH->prepare($command);
-        $prepared->execute( $params);
-        return $prepared->fetchAll();
+        $prepared = $this->connection->prepare($command);
+        $res = $prepared->query($params);
+        return $res->fetchAll();
     }
 
-    public  function exec($command, $params = null)
+    private function getDSN(): string
     {
-        if (is_null($params))
-        {
-            $this->DBH->exec($command);
+        $params = $this->dbParams;
+        return "{$params['type']}:host={$params['type']};dbname={$params['dbName']};port={$params['port']}";
+    }
+
+    private function getUser(): string
+    {
+        return $this->dbParams['user'];
+    }
+
+    private function getPassword(): string
+    {
+        return $this->dbParams['password'];
+    }
+
+    private function validateParams(): void
+    {
+        foreach (['type', 'host', 'port', 'dbName', 'user', 'password'] as $value) {
+            if (empty($this->dbParams[$value])) {
+                throw new PDOException("DB param '$value' is empty");
+            }
         }
-        $prepared = $this->DBH->prepare($command);
-//        $prepared->execute($params);
-//        print_r($this->DBH->errorInfo());
-    }
-    private function getPDOConnection($params)
-    {
-        try
-        {
-            $this->DBH = new PDO($params['DSN'], $params['user'], $params['passwd']);
-            $this->DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-            return [
-                'status'=> true
-            ];
-        }
-        catch (PDOException $ex)
-        {
-            return [
-                'status'=> false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
-
-    private function getDSN(array $params): string
-    {
-        return "pgsql:host={$params['DB_HOST']};dbname={$params['DB_NAME']};port={$params['DB_PORT']}";
-    }
-
-    private function getConnectionParams(): array
-    {
-        $params = include BASE_DIR . "/config/database.php";
-
-        return [
-            "DSN" => $this->getDSN($params),
-            "user" => $params['DB_USER'],
-            "passwd" => $params['DB_PASSWORD'],
-        ];
     }
 }
+
