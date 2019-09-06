@@ -7,6 +7,8 @@ use core\View;
  * @var $childString
  */
 
+print_r($_SESSION);
+
 ?>
 
 <!DOCTYPE html>
@@ -14,19 +16,20 @@ use core\View;
 <head>
     <meta charset="UTF-8">
     <title>camagru</title>
-    <link rel="stylesheet" href="/assets/css/front_page.css">
+    <link rel="stylesheet" href="/assets/css/front_page.css?<?=time()?>">
+    <link rel="stylesheet" href="/assets/css/login.css?<?=time()?>">
 </head>
 <body>
 
+<div id="head">
+    <?php $this->includeChild('head') ?>
+</div>
+
 <div class="main">
-    <div id="head">
-        <p><?= 'temp' //TODO: implement child passing to find blades title?></p>
-        <div id="create_block"></div>
-        <a href="/">camagru</a>
-    </div>
-    <br/>
     <?= $childString ?>
 </div>
+
+<script src="/assets/js/login_tabs.js?<?=time()?>"></script>
 
 <footer>
     footer
