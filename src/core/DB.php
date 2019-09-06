@@ -9,16 +9,30 @@ use PDOException;
 
 final class DB
 {
+    /**
+     * @var string[]
+     */
     private $dbParams;
 
+    /**
+     * @var PDO
+     */
     private $connection;
 
+    /**
+     * DB constructor.
+     * @param string[] $dbParams
+     */
     private function __construct(array $dbParams)
     {
         $this->dbParams = $dbParams;
         $this->validateParams();
     }
 
+    /**
+     * @param string[] $dbParams
+     * @return DB
+     */
     public static function get(array $dbParams): self
     {
         $DB = new static($dbParams);
@@ -29,7 +43,11 @@ final class DB
         return $DB;
     }
 
-    public function exec($command, $params = null): void
+    /**
+     * @param string $command
+     * @param string[]|null $params
+     */
+    public function exec(string $command, array $params = null): void
     {
         if (empty($params)) {
             $this->connection->exec($command);
@@ -39,7 +57,12 @@ final class DB
         $prepared->execute($params);
     }
 
-    public function query($command, $params = null) ?array
+    /**
+     * @param string $command
+     * @param array|null $params
+     * @return array|null
+     */
+    public function query(string $command, array $params = null): ?array
     {
         if (empty($params)) {
             $res = $this->connection->query($command);
@@ -50,22 +73,34 @@ final class DB
         return $res->fetchAll();
     }
 
+    /**
+     * @return string
+     */
     private function getDSN(): string
     {
         $params = $this->dbParams;
         return "{$params['type']}:host={$params['host']};dbname={$params['dbName']};port={$params['port']}";
     }
 
+    /**
+     * @return string
+     */
     private function getUser(): string
     {
         return $this->dbParams['user'];
     }
 
+    /**
+     * @return string
+     */
     private function getPassword(): string
     {
         return $this->dbParams['password'];
     }
 
+    /**
+     * Validates the connection params exists
+     */
     private function validateParams(): void
     {
         foreach (['type', 'host', 'port', 'dbName', 'user', 'password'] as $value) {
