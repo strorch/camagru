@@ -39,7 +39,7 @@ final class DB
         $prepared->execute($params);
     }
 
-    public function query($command, $params = null)
+    public function query($command, $params = null) ?array
     {
         if (empty($params)) {
             $res = $this->connection->query($command);
