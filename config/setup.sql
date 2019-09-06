@@ -1,5 +1,6 @@
 /*
 
+sudo apt install php7.*-pgsql
 sudo -u postgres psql
 create database camagru;
 DROP DATABASE IF EXISTS `WEBY_TEST`;
