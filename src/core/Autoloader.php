@@ -2,6 +2,9 @@
 
 class Autoloader
 {
+    /**
+     * @param string $file
+     */
     public static function load(string $file): void
     {
         $file = str_replace('\\', '/', $file);

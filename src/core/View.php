@@ -10,8 +10,14 @@ class View
      */
     private $parent;
 
+    /**
+     * @var string
+     */
     private $viewName;
 
+    /**
+     * @var mixed[]
+     */
     private $data;
 
     /**
@@ -30,11 +36,20 @@ class View
         $this->data = $data;
     }
 
+    /**
+     * @param string $parent
+     */
     public function setParent(string $parent): void
     {
         $this->parent = $parent;
     }
 
+    /**
+     * @param string $viewName
+     * @param array $data
+     * @param string|null $childString
+     * @return string
+     */
     private function getViewStringToRender(string $viewName, array $data, ?string $childString = null): string
     {
         foreach ($data as $name => $value) {
@@ -73,6 +88,9 @@ class View
         die();
     }
 
+    /**
+     * @param string $name
+     */
     public function includeChild(string $name): void
     {
         echo $this->getViewStringToRender($name, $this->data);

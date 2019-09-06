@@ -11,12 +11,20 @@ class Model
      */
     protected $DB;
 
+    /**
+     * Model constructor.
+     */
     private function __construct()
     {
         $config = Application::getConfig();
         $this->DB = DB::get($config['db']);
     }
 
+    /**
+     * @param string $className
+     * @return Model
+     * @throws \Exception
+     */
     public static function getInstance(string $className): Model
     {
         $object = new $className();

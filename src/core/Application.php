@@ -26,6 +26,9 @@ class Application
         return static::$config;
     }
 
+    /**
+     * Main application method
+     */
     public static function run(): void
     {
         try {

@@ -26,6 +26,12 @@ abstract class AbstractRouter
         ];
     }
 
+    /**
+     * @param string $url
+     * @param string $method
+     * @param string $type
+     * @throws Exception
+     */
     protected static function request(string $url, string $method, string $type): void
     {
         $request_url = $_SERVER['REQUEST_URI'];

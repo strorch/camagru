@@ -8,16 +8,30 @@ use core\Router\Router;
 
 class ApplicationController
 {
+    /**
+     * @var Model
+     */
     private $model;
 
+    /**
+     * @var View
+     */
     private $view;
 
+    /**
+     * ApplicationController constructor.
+     * @param Model $model
+     * @param View $view
+     */
     public function __construct(Model $model, View $view)
     {
         $this->model = $model;
         $this->view = $view;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function handleRequest(): void
     {
         $calculationResult = $this->callRoutes();
@@ -34,13 +48,19 @@ class ApplicationController
         $this->view->render();
     }
 
-    private function createCsrfToken()
+    /**
+     * @throws \Exception
+     */
+    private function createCsrfToken(): void
     {
         if (empty($_SESSION['_csrf'])) {
             $_SESSION['_csrf'] = bin2hex(random_bytes(32));
         }
     }
 
+    /**
+     * @return mixed[]
+     */
     private function callRoutes(): array
     {
         include SRC_DIR . '/routes.php';
