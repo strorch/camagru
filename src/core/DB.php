@@ -24,7 +24,7 @@ final class DB
         $DB = new static($dbParams);
 
         $DB->connection = new PDO($DB->getDSN(), $DB->getUser(), $DB->getPassword());
-        $DB->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        $DB->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $DB;
     }
