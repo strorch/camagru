@@ -1,11 +1,11 @@
 <?php
 
-use core\Router;
+use core\Router\Router;
 
 Router::get("/", 'PageController@FrontPage');
 
 Router::get('/login','PageController@LoginPage');
-//
-//Router::post('/login_action','LoginController@LoginCheck');
-//
-//Router::post('/register_action','RegistrationController@RegistrationCheck');
+
+Router::get('/profile','LoginController@LoginCheck');
+
+Router::get('/settings','RegistrationController@RegistrationCheck');

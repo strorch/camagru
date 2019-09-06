@@ -4,29 +4,38 @@ namespace core;
 
 class Application
 {
-    private $config;
+    /**
+     * @var mixed[] $config
+     */
+    private static $config;
 
-    private $view;
-
-    private $controller;
-
-    private $model;
-
+    /**
+     * Application constructor.
+     * @param array $config
+     */
     public function __construct(array $config)
     {
-        $this->config = $config;
+        static::$config = $config;
     }
 
-    public function run(): void
+    /**
+     * @return array
+     */
+    public static function getConfig(): array
+    {
+        return static::$config;
+    }
+
+    public static function run(): void
     {
         try {
             session_start();
 
-            $this->view = new View();
-            $this->model = new Model();
-            $this->controller = new ApplicationController($this->model, $this->view);
+            $view = new View();
+            $model = Model::getInstance(Model::class);
+            $controller = new ApplicationController($model, $view);
 
-            $this->controller->handleRequest();
+            $controller->handleRequest();
         }
         catch (\Throwable $e) {
             echo json_encode($e->getMessage());

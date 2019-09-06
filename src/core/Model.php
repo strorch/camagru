@@ -3,28 +3,26 @@
 
 namespace core;
 
-interface ModelInterface
+
+class Model
 {
-
-}
-
-
-class Model implements ModelInterface
-{
+    /**
+     * @var DB
+     */
     protected $DB;
 
-    public function __construct()
+    private function __construct()
     {
-//        $this->databaseInit();
+        $config = Application::getConfig();
+        $this->DB = DB::get($config['db']);
     }
 
-    public function __call(string $name, array $arguments)
+    public static function getInstance(string $className): Model
     {
-        // TODO: Implement __call() method.
-    }
-
-    private function databaseInit()
-    {
-        $this->DB = new DB();
+        $object = new $className();
+        if (!($object instanceof Model)) {
+            throw new \Exception('invalid model class name');
+        }
+        return $object;
     }
 }

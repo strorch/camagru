@@ -1,37 +1,19 @@
 <?php
 
-namespace core;
+
+namespace core\Router;
 
 use Exception;
 
-interface RouterInterface
-{
-    public static function get(string $url, string $method): void;
-
-    public static function post(string $url, string $method): void;
-}
-
-trait ResultTrait
-{
-    private static $DI;
-
-    public static function setDI(array $DI): void
-    {
-        self::$DI = $DI;
-    }
-    public static function getDI(): array
-    {
-        if (empty(self::$DI)) {
-            return [];
-        }
-        return self::$DI;
-    }
-}
-
 abstract class AbstractRouter
 {
-    use ResultTrait;
+    use RouterResult;
 
+    /**
+     * @param string $method
+     * @return array
+     * @throws Exception
+     */
     private static function parseMethod(string $method): array
     {
         $statement = explode("@", $method);
@@ -57,19 +39,5 @@ abstract class AbstractRouter
         }
         $result = static::parseMethod($method);
         self::setDI($result);
-    }
-}
-
-
-final class Router extends AbstractRouter implements RouterInterface
-{
-    public static function get($url, $method): void
-    {
-        static::request($url, $method, 'GET');
-    }
-
-    public static function post($url, $method): void
-    {
-        static::request($url, $method, 'POST');
     }
 }

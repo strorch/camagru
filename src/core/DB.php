@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Infrastructure\DB;
+namespace core;
 
 
 use PDO;
@@ -31,7 +31,7 @@ final class DB
 
     /**
      * @param string[] $dbParams
-     * @return DB
+     * @return self
      */
     public static function get(array $dbParams): self
     {

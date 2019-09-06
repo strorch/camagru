@@ -4,6 +4,8 @@
 namespace core;
 
 
+use core\Router\Router;
+
 class ApplicationController
 {
     private $model;

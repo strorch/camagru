@@ -3,16 +3,28 @@
 namespace controllers;
 
 use core\AbstractController;
+use core\Model;
 use models\Posts;
 use models\User;
 
-class PageController extends AbstractController
+final class PageController extends AbstractController
 {
+    /**
+     * @var User
+     */
+    private $user;
+
+    public function __construct(Model $model)
+    {
+        parent::__construct($model);
+        $this->user = $model::getInstance(User::class);
+    }
+
     public function LoginPage(): array
     {
-        $userLogged = User::getUserLoginInfo();
+        $userLogged = $this->user->getUserLoginInfo();
         if ($userLogged) {
-            header('Location: /');
+            $this->redirect('/');
         }
         return [
             'view' => 'login',
@@ -24,7 +36,7 @@ class PageController extends AbstractController
 
     public function FrontPage(): array
     {
-        $userLogged = User::getUserLoginInfo();
+        $userLogged = $this->user->getUserLoginInfo();
         //TODO: create posts displaying
         $posts = Posts::getPosts(0, 5);
 
@@ -40,7 +52,7 @@ class PageController extends AbstractController
     public function UserPage(): array
     {
         $userId = $_GET['user_id'];
-        $userInfo = User::getAccountInfo($userId);
+        $userInfo = $this->user->getAccountInfo();
         $posts = Posts::getPosts(0, 5);
         return [
             'view' => 'indexPage',

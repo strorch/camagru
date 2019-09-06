@@ -8,12 +8,12 @@ use core\Model;
 
 class User extends Model
 {
-    public static function getUserLoginInfo(): bool
+    public function getUserLoginInfo(): bool
     {
         return !empty($_SESSION['login']);
     }
 
-    public static function getAccountInfo(string $id): array
+    public function getAccountInfo(string $id): array
     {
 
     }

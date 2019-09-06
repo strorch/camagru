@@ -3,7 +3,6 @@
 namespace controllers\Auth;
 
 use core\AbstractController;
-use core\DB;
 
 class LoginController extends AbstractController
 {

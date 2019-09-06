@@ -2,15 +2,24 @@
 
 namespace core;
 
-interface Configurable
-{
-    public static function get(): array;
-}
 
-abstract class Config implements Configurable
+final class Config
 {
+    /**
+     * @return array'
+     */
     public static function get(): array
     {
-        return [];
+        return [
+            'db' => static::getDBConfig(),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private static function getDBConfig(): array
+    {
+        return include BASE_DIR . '/config/database.php';
     }
 }

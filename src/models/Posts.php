@@ -6,7 +6,7 @@ use core\Model;
 
 class Posts extends Model
 {
-    public static function getPosts(int $startNumber, int $endNumber): \Iterator
+    public function getPosts(int $startNumber, int $endNumber): \Iterator
     {
         yield 1;
 //        $req_posts = $this->DB->query("SELECT * FROM posts;");
