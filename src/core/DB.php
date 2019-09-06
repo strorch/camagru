@@ -66,11 +66,11 @@ final class DB
     {
         if (empty($params)) {
             $res = $this->connection->query($command);
-            return $res->fetchAll();
+            return $res->fetchAll(PDO::FETCH_ASSOC);
         }
         $prepared = $this->connection->prepare($command);
-        $res = $prepared->query($params);
-        return $res->fetchAll();
+        $prepared->execute($params);
+        return $prepared->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
