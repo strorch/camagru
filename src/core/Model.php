@@ -17,6 +17,7 @@ class Model
     private function __construct()
     {
         $config = Application::getConfig();
+//        $this->DB = new \stdClass();
         $this->DB = DB::get($config['db']);
     }
 

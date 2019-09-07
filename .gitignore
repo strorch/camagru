@@ -2,3 +2,4 @@
 vendor
 .DS_Store
 .vs_code
+.docker

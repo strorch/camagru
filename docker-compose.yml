@@ -1,23 +1,13 @@
-version: '1'
+version: '3'
 
 services:
-  nginx:
-    image: nginx:latest
+  web:
+    build: .
     ports:
-      - "80"
-    links:
-      - php-fpm
+      - 80:8100
     volumes:
-      - ./:/app
-      - ./.docker/nginx/etc/nginx/conf.d:/etc/nginx/conf.d
-      - ./.docker/nginx/var/log/nginx:/var/log/nginx
-
-  php-fpm:
-    image: hiqdev/php:7.3-fpm
-    links:
-      - pgsql
-    volumes:
-      - ./:/app
-      - ./.docker/php/var/log/php:/var/log/php
+      - ./:/var/www/html
   pgsql:
     image: postgres:11.0
+    ports:
+      - 5432:5432

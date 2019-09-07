@@ -14,10 +14,32 @@ final class PageController extends AbstractController
      */
     private $user;
 
+    /**
+     * @var Posts
+     */
+    private $posts;
+
     public function __construct(Model $model)
     {
         parent::__construct($model);
         $this->user = $model::getInstance(User::class);
+        $this->posts = $model::getInstance(Posts::class);
+    }
+
+    public function FrontPage(): array
+    {
+        $userLogged = $this->user->getUserLoginInfo();
+        //TODO: create posts displaying
+        $posts = $this->posts->getPosts(0, 5);
+
+        return [
+            'view' => 'indexPage',
+            'data' => [
+                'userLogged' => $userLogged,
+                'posts' => $posts,
+                'kek' => 'hello',
+            ],
+        ];
     }
 
     public function LoginPage(): array
@@ -29,22 +51,7 @@ final class PageController extends AbstractController
         return [
             'view' => 'login',
             'data' => [
-                'userLogged' => $userLogged,
-            ],
-        ];
-    }
-
-    public function FrontPage(): array
-    {
-        $userLogged = $this->user->getUserLoginInfo();
-        //TODO: create posts displaying
-        $posts = Posts::getPosts(0, 5);
-
-        return [
-            'view' => 'indexPage',
-            'data' => [
-                'userLogged' => $userLogged,
-                'posts' => $posts,
+                'userLogged' => $userLogged
             ],
         ];
     }

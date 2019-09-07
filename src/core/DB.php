@@ -26,7 +26,7 @@ final class DB
     private function __construct(array $dbParams)
     {
         $this->dbParams = $dbParams;
-        $this->validateParams();
+//        $this->validateParams();
     }
 
     /**
@@ -37,6 +37,7 @@ final class DB
     {
         $DB = new static($dbParams);
 
+        var_dump($DB->getDSN());
         $DB->connection = new PDO($DB->getDSN(), $DB->getUser(), $DB->getPassword());
         $DB->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

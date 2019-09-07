@@ -15,6 +15,6 @@ class User extends Model
 
     public function getAccountInfo(string $id): array
     {
-
+        return [];
     }
 }
