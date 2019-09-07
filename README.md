@@ -21,3 +21,16 @@ now is running on apache2 server
 - docker groupadd
 - restart
 - dc up
+
+
+## With docker-machine
+
+app will work on machine ip
+
+- docker-machine create dev
+ ###### docker-machine -s ${HOME}/goinfre/docker-machines/ create --driver virtualbox dev
+ ###### docker-machine -s ${HOME}/goinfre/docker-machines/ create machine1
+- docker-machine env dev
+ ###### eval $(docker-machine -s ${HOME}/goinfre/docker-machines/ env machine1)
+- eval $(docker-machine env dev)
+
