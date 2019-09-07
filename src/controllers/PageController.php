@@ -51,7 +51,8 @@ final class PageController extends AbstractController
         return [
             'view' => 'login',
             'data' => [
-                'userLogged' => $userLogged
+                'userLogged' => $userLogged,
+                'kek' => 'hello',
             ],
         ];
     }
