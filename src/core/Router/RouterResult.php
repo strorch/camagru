@@ -3,6 +3,10 @@
 
 namespace core\Router;
 
+/**
+ * Trait RouterResult
+ * @package core\Router
+ */
 trait RouterResult
 {
     /**

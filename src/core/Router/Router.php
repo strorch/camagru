@@ -2,6 +2,10 @@
 
 namespace core\Router;
 
+/**
+ * Class Router
+ * @package core\Router
+ */
 final class Router extends AbstractRouter implements RouterInterface
 {
     /**

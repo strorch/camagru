@@ -6,6 +6,10 @@ namespace core;
 
 use core\Router\Router;
 
+/**
+ * Class ApplicationController
+ * @package core
+ */
 class ApplicationController
 {
     /**

@@ -3,7 +3,10 @@
 
 namespace core;
 
-
+/**
+ * Class AbstractController
+ * @package core
+ */
 abstract class AbstractController
 {
     /**

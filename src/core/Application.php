@@ -2,6 +2,10 @@
 
 namespace core;
 
+/**
+ * Class Application
+ * @package core
+ */
 class Application
 {
     /**

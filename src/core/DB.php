@@ -7,6 +7,10 @@ namespace core;
 use PDO;
 use PDOException;
 
+/**
+ * Class DB
+ * @package core
+ */
 final class DB
 {
     /**
@@ -26,7 +30,7 @@ final class DB
     private function __construct(array $dbParams)
     {
         $this->dbParams = $dbParams;
-//        $this->validateParams();
+        $this->validateParams();
     }
 
     /**

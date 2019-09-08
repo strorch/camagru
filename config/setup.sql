@@ -30,38 +30,39 @@ BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-  ID SERIAL PRIMARY KEY NOT NULL,
-  NAME VARCHAR(16) NOT NULL,
-  PASSWD VARCHAR(25) NOT NULL,
-  EMAIL VARCHAR(25) NOT NULL,
-  LOG_STAT INT DEFAULT 0,
-  CMT VARCHAR(256)
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(16) NOT NULL,
+  password VARCHAR(25) NOT NULL,
+  email VARCHAR(25) NOT NULL,
+  log_stat INT DEFAULT 0,
+  cmt VARCHAR(256)
 );
 
 DROP TABLE IF EXISTS posts;
 CREATE TABLE posts (
-  ID SERIAL PRIMARY KEY NOT NULL,
-  USER_ID INTEGER NOT NULL,
-  PICT VARCHAR(100) NOT NULL,
-  CMT VARCHAR(256)
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER NOT NULL,
+  pict VARCHAR(100) NOT NULL,
+  cmt VARCHAR(256)
 );
 
 DROP TABLE IF EXISTS memes;
 CREATE TABLE memes (
-  ID SERIAL PRIMARY KEY NOT NULL,
-  PICT VARCHAR(100) NOT NULL,
-  CMT varchar(256)
+  id SERIAL PRIMARY KEY NOT NULL,
+  pict VARCHAR(100) NOT NULL,
+  cmt varchar(256)
 );
 
 CREATE OR REPLACE FUNCTION user_id (a_login text) RETURNS integer AS $$
     SELECT id FROM users WHERE name=a_login;
 $$ LANGUAGE sql IMMUTABLE STRICT;
 
-INSERT INTO users (PICT) VALUES
-('test_user', 'random', 'test@test.ua', 1)
-;
+-- CREATE OR REPLACE FUNCTION create_post (a_user_id integer, a_login text) RETURNS integer AS $$
+--     INSERT INTO posts (user_id, pict) VALUES
+--     (SELECT user_id('test_user'), 'picture1.jpg')
+-- $$ LANGUAGE sql IMMUTABLE STRICT;
 
-INSERT INTO memes (PICT) VALUES
+INSERT INTO memes (pict) VALUES
 ('mem1.jpg'),
 ('mem2.jpeg'),
 ('mem3.jpg'),
@@ -71,9 +72,13 @@ INSERT INTO memes (PICT) VALUES
 ('mem7.jpg')
 ;
 
-INSERT INTO posts (USER, PICT) VALUES
-(user_id('test_user'), '')
-(user_id('test_user'), '')
+INSERT INTO users (name, password, email, log_stat) VALUES
+('test_user', 'random', 'test@test.ua', 1)
+;
+
+INSERT INTO posts (user_id, pict) VALUES
+(user_id('test_user'), 'picture1.jpg'),
+(user_id('test_user'), 'picture2.jpeg')
 ;
 
 COMMIT;

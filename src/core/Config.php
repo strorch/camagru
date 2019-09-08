@@ -3,10 +3,14 @@
 namespace core;
 
 
+/**
+ * Class Config
+ * @package core
+ */
 final class Config
 {
     /**
-     * @return array'
+     * @return array
      */
     public static function get(): array
     {

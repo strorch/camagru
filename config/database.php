@@ -10,5 +10,5 @@ return [
 //    'password' => "root",
     'dbName' => "postgres",
     'user' => "postgres",
-    'password' => "",
+    'password' => "postgres",
 ];

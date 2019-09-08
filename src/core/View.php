@@ -3,6 +3,10 @@
 
 namespace core;
 
+/**
+ * Class View
+ * @package core
+ */
 class View
 {
     /**

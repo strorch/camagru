@@ -5,6 +5,10 @@ namespace core\Router;
 
 use Exception;
 
+/**
+ * Class AbstractRouter
+ * @package core\Router
+ */
 abstract class AbstractRouter
 {
     use RouterResult;
