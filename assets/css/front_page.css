@@ -10,5 +10,7 @@
     border: solid 1px red;
 }
 
-#create_block {
+.picture {
+    max-height: 400px;
+    max-width: 500px;
 }

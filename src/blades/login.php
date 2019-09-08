@@ -38,5 +38,3 @@ $this->setParent('header');
         <input name="submit" type="submit" value="OK"/>
     </form>
 </div>
-
-<?php $this->includeChild('testBlade'); ?>

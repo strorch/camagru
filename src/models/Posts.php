@@ -7,9 +7,13 @@ namespace models;
 use core\Model;
 use Iterator;
 
+/**
+ * Class Posts
+ * @package models
+ */
 class Posts extends Model
 {
-    public function getPosts(int $startNumber, int $endNumber): array
+    public function getPosts(int $startNumber, int $endNumber): Iterator
     {
         $req_posts = $this->DB->query("
             select  t1.id as pict_id, 
@@ -27,12 +31,25 @@ class Posts extends Model
         ]);
 
         foreach ($req_posts as $post) {
-            $tmp = base64_encode(file_get_contents($post['pict']));
-            $kek[] = [
-                'user' => $post['USER'],
-                'pict' => $tmp
+            $postPath = $this->getPostPath($post['username'], $post['pict']);
+            $image = base64_encode(file_get_contents($postPath));
+            yield [
+                'user_id' => $post['user_id'],
+                'username' => $post['username'],
+                'email' => $post['email'],
+                'pict_id' => $post['pict_id'],
+                'pict' => $image
             ];
         }
-        return $kek;
+    }
+
+    /**
+     * @param string $username
+     * @param string $postname
+     * @return string
+     */
+    private function getPostPath(string $username, string $postname): string
+    {
+        return BASE_DIR . "/runtime/$username/$postname";
     }
 }

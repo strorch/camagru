@@ -33,7 +33,6 @@ final class PageController extends AbstractController
         $userLogged = $this->user->getUserLoginInfo();
         //TODO: create posts displaying
         $posts = $this->posts->getPosts(0, 5);
-
         return [
             'view' => 'indexPage',
             'data' => [
