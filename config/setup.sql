@@ -43,7 +43,7 @@ CREATE TABLE posts (
   ID SERIAL PRIMARY KEY NOT NULL,
   USER_ID INTEGER NOT NULL,
   PICT VARCHAR(100) NOT NULL,
-  CMT varchar(256)
+  CMT VARCHAR(256)
 );
 
 DROP TABLE IF EXISTS memes;
@@ -58,8 +58,7 @@ CREATE OR REPLACE FUNCTION user_id (a_login text) RETURNS integer AS $$
 $$ LANGUAGE sql IMMUTABLE STRICT;
 
 INSERT INTO users (PICT) VALUES
-('mem1.jpg'),
-('mem2.jpeg'),
+('test_user', 'random', 'test@test.ua', 1)
 ;
 
 INSERT INTO memes (PICT) VALUES
@@ -69,11 +68,12 @@ INSERT INTO memes (PICT) VALUES
 ('mem4.jpg'),
 ('mem5.jpg'),
 ('mem6.jpg'),
-('mem7.jpg'),
+('mem7.jpg')
 ;
 
 INSERT INTO posts (USER, PICT) VALUES
-(USER_ID('test'), '')
+(user_id('test_user'), '')
+(user_id('test_user'), '')
 ;
 
 COMMIT;

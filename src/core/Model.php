@@ -17,7 +17,6 @@ class Model
     private function __construct()
     {
         $config = Application::getConfig();
-//        $this->DB = new \stdClass();
         $this->DB = DB::get($config['db']);
     }
 
@@ -26,7 +25,7 @@ class Model
      * @return Model
      * @throws \Exception
      */
-    public static function getInstance(string $className): Model
+    final public static function getInstance(string $className): Model
     {
         $object = new $className();
         if (!($object instanceof Model)) {
