@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace core;
 
@@ -68,7 +69,7 @@ class View
     /**
      * @param string|null $childString
      */
-    public function render(?string $childString = null)
+    public function render(?string $childString = null): void
     {
         $viewName = $this->viewName;
         $data = $this->data;

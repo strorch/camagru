@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace core;
 
@@ -28,7 +29,7 @@ class Model
      * @return Model
      * @throws \Exception
      */
-    final public static function getInstance(string $className): Model
+    final public static function getInstance(string $className): self
     {
         $object = new $className();
         if (!($object instanceof Model)) {
