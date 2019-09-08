@@ -29,8 +29,6 @@ print_r($_SESSION);
     <?= $childString ?>
 </div>
 
-<script src="/assets/js/login_tabs.js?<?=time()?>"></script>
-
 <footer>
     footer
 </footer>

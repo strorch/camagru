@@ -9,6 +9,10 @@ use core\Model;
 use models\Posts;
 use models\User;
 
+/**
+ * Class PageController
+ * @package controllers
+ */
 final class PageController extends AbstractController
 {
     /**
@@ -21,6 +25,11 @@ final class PageController extends AbstractController
      */
     private $posts;
 
+    /**
+     * PageController constructor.
+     * @param Model $model
+     * @throws \Exception
+     */
     public function __construct(Model $model)
     {
         parent::__construct($model);
@@ -28,10 +37,12 @@ final class PageController extends AbstractController
         $this->posts = $model::getInstance(Posts::class);
     }
 
+    /**
+     * @return array
+     */
     public function FrontPage(): array
     {
         $userLogged = $this->user->getUserLoginInfo();
-        //TODO: create posts displaying
         $posts = $this->posts->getPosts(0, 5);
         return [
             'view' => 'indexPage',
@@ -43,6 +54,9 @@ final class PageController extends AbstractController
         ];
     }
 
+    /**
+     * @return array
+     */
     public function LoginPage(): array
     {
         $userLogged = $this->user->getUserLoginInfo();
@@ -58,10 +72,13 @@ final class PageController extends AbstractController
         ];
     }
 
+    /**
+     * @return array
+     */
     public function UserPage(): array
     {
         $userId = $_GET['user_id'];
-        $userInfo = $this->user->getAccountInfo();
+        $userInfo = $this->user->getAccountInfo($userId);
         $posts = Posts::getPosts(0, 5);
         return [
             'view' => 'indexPage',

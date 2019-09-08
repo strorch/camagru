@@ -1,20 +1,19 @@
-function openCity(evt, cityName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+const tabsClickAction = (event) => {
+    let tabcontent = document.getElementsByClassName("tabcontent");
+    for (let item of tabcontent) {
+        item.style.display = "none";
     }
 
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    let tablinks = document.getElementsByClassName("tablinks");
+    for (let item of tablinks) {
+        item.className = item.className.replace(" active", "");
     }
+    document.getElementById(event.target.dataset.target).style.display = "block";
+    this.className += " active";
+};
 
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
+window.onload = function () {
+    document.getElementById('button-login').onclick = tabsClickAction;
+    document.getElementById('button-register').onclick = tabsClickAction;
+    document.getElementById('button-login').click();
+};

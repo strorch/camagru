@@ -13,6 +13,11 @@ use Iterator;
  */
 class Posts extends Model
 {
+    /**
+     * @param int $startNumber
+     * @param int $endNumber
+     * @return Iterator
+     */
     public function getPosts(int $startNumber, int $endNumber): Iterator
     {
         $req_posts = $this->DB->query("

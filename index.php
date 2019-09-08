@@ -1,7 +1,4 @@
 <?php
-/**
- * Alt+6 - todo list
- */
 
 require_once './src/bootstrap.php';
 

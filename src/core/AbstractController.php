@@ -30,5 +30,6 @@ abstract class AbstractController
     public function redirect(string $to): void
     {
         header('Location: ' . $to);
+        die();
     }
 }

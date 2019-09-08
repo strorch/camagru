@@ -5,33 +5,39 @@ declare(strict_types=1);
 namespace controllers\Auth;
 
 use core\AbstractController;
+use core\Model;
+use models\User;
 
+/**
+ * Class LoginController
+ * @package controllers\Auth
+ */
 class LoginController extends AbstractController
 {
-    public static function LoginCheck()
+    /**
+     * @var User
+     */
+    private $user;
+
+    /**
+     * LoginController constructor.
+     * @param Model $model
+     * @throws \Exception
+     */
+    public function __construct(Model $model)
     {
-//        $connection = new DB();
-//        //$res = $connection->query("SELECT * FROM `camagru`.`users` WHERE NAME='".$_POST['login']."'");
-//        $kek = 'kek';
-//        $res = $connection->query("SELECT * FROM users WHERE NAME='".$kek."'");
-//
-//        //dd($_SESSION);
-//        foreach ($res as $val)
-//        {
-//            session_start();
-//            $_SESSION['name'] = $val['NAME'];
-//            $_SESSION['passwd'] = $val['PASSWD'];
-//            $_SESSION['email'] = $val['EMAIL'];
-//            $_SESSION['log_stat'] = $val['LOG_STAT'];
-//            header('Location: /');
-//        }
-//        if (isset($_SESSION) === false)
-//        {
-//            session_start();
-//            $_SESSION['error'] = 'login error';
-//            header('Location: /login');
-//        }
+        parent::__construct($model);
+        $this->user = $model::getInstance(User::class);
+    }
 
+    public function LoginAction(): void
+    {
+        $user = $this->user->findLoginingUser($_POST['login'], $_POST['password']);
+        if (empty($user)) {
+            $this->redirect('/login?error=1');
+            return;
+        }
 
+        $this->redirect('/');
     }
 }

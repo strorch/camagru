@@ -9,24 +9,28 @@ use core\View;
 $this->setParent('header');
 
 ?>
+
+<script src="/assets/js/login_tabs.js"></script>
+
 <div class="tab">
-    <button class="tablinks" id='default'>Login</button>
-    <button class="tablinks" id='secondary'>Register</button>
+    <button data-target="login" id="button-login" class="tablinks">Login</button>
+    <button data-target="register" id="button-register" class="tablinks">Register</button>
 </div>
 
-<div id="Login" class="tabcontent">
-    <form method="post" action="../../index.php">
+<div id="login" class="tabcontent">
+    <form method="post" action="/login">
         <?php $this->includeChild('csrf');?>
         <input name="login" type="text"/>Login
         <br/>
-        <input name="passwd" type="password"/>Password
+        <input name="password" type="password"/>Password
         <br/>
         <input name="submit" type="submit" value="OK"/>
     </form>
 </div>
 
-<div id="Register" class="tabcontent">
-    <form method="post" action="../../index.php">
+<div id="register" class="tabcontent">
+    <form method="post" action="/register">
+        <?php $this->includeChild('csrf');?>
         <input name="email" type="email"/>Email
         <br/>
         <input name="login" type="text"/>Login
