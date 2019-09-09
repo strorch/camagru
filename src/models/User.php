@@ -25,9 +25,24 @@ class User extends Model
      * @param string $id
      * @return array
      */
-    public function getAccountInfo(string $id): array
+    public function getAccountInfo(int $id): array
     {
-        return [];
+        $userInfo =  $this->DB->query("
+            select  *
+            from    users where id = :id
+        ", [
+            ':id' => $id,
+        ]);
+        $userInfo = reset($userInfo);
+        $usersPosts = $this->DB->query("
+            select  id, pict, cmt
+            from    posts 
+            where   user_id = :user_id
+        ", [
+            ':user_id' => $id,
+        ]);
+        $userInfo['posts'] = $usersPosts;
+        return $userInfo;
     }
 
     /**
@@ -40,7 +55,7 @@ class User extends Model
         return $this->DB->query("
             select  * 
             from    users 
-            where   name = :login
+            where   login = :login
             and     password = :password
         ", [
             ':login' => $login,

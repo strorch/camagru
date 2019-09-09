@@ -45,7 +45,7 @@ final class PageController extends AbstractController
         $userLogged = $this->user->getUserLoginInfo();
         $posts = $this->posts->getPosts(0, 5);
         return [
-            'view' => 'indexPage',
+            'view' => 'index',
             'data' => [
                 'userLogged' => $userLogged,
                 'posts' => $posts,
@@ -75,14 +75,39 @@ final class PageController extends AbstractController
     /**
      * @return array
      */
-    public function UserPage(): array
+    public function ProfilePage(): array
     {
-        $userId = $_GET['user_id'];
-        $userInfo = $this->user->getAccountInfo($userId);
-        $posts = Posts::getPosts(0, 5);
+        $logedInfo = $this->user->getUserLoginInfo();
+        if (!$logedInfo) {
+            $this->redirect('/');
+        }
+        $userInfo = $this->user->getAccountInfo($_SESSION['id']);
+        $posts = $this->posts->getPosts(0, 5, $userInfo['id']);
         return [
-            'view' => 'indexPage',
+            'view' => 'profile',
             'data' => [
+                'userLogged' => $logedInfo,
+                'userInfo' => $userInfo,
+                'posts' => $posts,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function SettingsPage(): array
+    {
+        $logedInfo = $this->user->getUserLoginInfo();
+        if (!$logedInfo) {
+            $this->redirect('/');
+        }
+        $userInfo = $this->user->getAccountInfo($_SESSION['id']);
+        $posts = $this->posts->getPosts(0, 5, $userInfo['id']);
+        return [
+            'view' => 'settings',
+            'data' => [
+                'userLogged' => $logedInfo,
                 'userInfo' => $userInfo,
                 'posts' => $posts,
             ],

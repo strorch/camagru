@@ -14,11 +14,14 @@ use core\View;
         <a href="/login">
             <div>Sign in</div>
         </a>
-    <?php else: ?>
-
     <?php endif ?>
 <?php else: ?>
-<!--    <p>Hello, <span>--><?php //$_SESSION['login'] ?><!--</span></p>-->
+    <a href="/profile">
+        <div>Profile</div>
+    </a>
+    <a href="/settings">
+        <div>Settings</div>
+    </a>
 <?php endif ?>
 
 <div id="create_block"></div>

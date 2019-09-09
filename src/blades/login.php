@@ -35,9 +35,9 @@ $this->setParent('header');
         <br/>
         <input name="login" type="text"/>Login
         <br/>
-        <input name="passwd" type="password"/>Password
+        <input name="password" type="password"/>Password
         <br/>
-        <input name="conf_passwd" type="password"/>Confirm
+        <input name="password_confirm" type="password"/>Confirm
         <br/>
         <input name="submit" type="submit" value="OK"/>
     </form>

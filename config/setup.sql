@@ -31,7 +31,7 @@ BEGIN TRANSACTION;
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(16) NOT NULL,
+  login VARCHAR(16) NOT NULL,
   password VARCHAR(25) NOT NULL,
   email VARCHAR(25) NOT NULL,
   log_stat INT DEFAULT 0,
@@ -72,7 +72,7 @@ INSERT INTO memes (pict) VALUES
 ('mem7.jpg')
 ;
 
-INSERT INTO users (name, password, email, log_stat) VALUES
+INSERT INTO users (login, password, email, log_stat) VALUES
 ('test_user', 'random', 'test@test.ua', 1)
 ;
 

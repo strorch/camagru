@@ -10,6 +10,6 @@ Router::post('/login','Auth\LoginController@LoginAction');
 
 Router::post('/register','Auth\RegistrationController@LoginPage');
 
-Router::get('/profile','LoginController@LoginCheck');
+Router::get('/profile','PageController@ProfilePage');
 
-Router::get('/settings','RegistrationController@RegistrationCheck');
+Router::get('/settings','PageController@SettingsPage');

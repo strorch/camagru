@@ -32,12 +32,16 @@ class LoginController extends AbstractController
 
     public function LoginAction(): void
     {
+        $this->checkCsrf();
         $user = $this->user->findLoginingUser($_POST['login'], $_POST['password']);
         if (empty($user)) {
             $this->redirect('/login?error=1');
             return;
         }
-
+        $user = reset($user);
+        foreach (['id', 'login', 'password', 'log_stat'] as $attr) {
+            $_SESSION[$attr] = $user[$attr];
+        }
         $this->redirect('/');
     }
 }

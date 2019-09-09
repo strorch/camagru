@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace core;
 
+
+use Exception;
+
 /**
  * Class AbstractController
  * @package core
@@ -22,6 +25,16 @@ abstract class AbstractController
     public function __construct(Model $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function checkCsrf(): void
+    {
+        if (empty($_POST['_csrf']) || $_POST['_csrf'] !== $_SESSION['_csrf']) {
+            throw new Exception('page is not available');
+        }
     }
 
     /**
