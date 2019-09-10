@@ -34,7 +34,7 @@ app will work on machine ip
  ###### eval $(docker-machine -s ${HOME}/goinfre/docker-machines/ env machine1)
 - eval $(docker-machine env dev)
 
-## Databe image build (optional)
+## Database image build (optional)
 
 - init.sql
     
