@@ -54,7 +54,7 @@ CREATE TABLE memes (
 );
 
 CREATE OR REPLACE FUNCTION user_id (a_login text) RETURNS integer AS $$
-    SELECT id FROM users WHERE name=a_login;
+    SELECT id FROM users WHERE login=a_login;
 $$ LANGUAGE sql IMMUTABLE STRICT;
 
 -- CREATE OR REPLACE FUNCTION create_post (a_user_id integer, a_login text) RETURNS integer AS $$

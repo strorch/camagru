@@ -22,7 +22,7 @@ class User extends Model
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return array
      */
     public function getAccountInfo(int $id): array
