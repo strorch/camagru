@@ -10,7 +10,7 @@ $this->setParent('header');
 
 ?>
 
-<script src="/assets/js/login_tabs.js"></script>
+<script src="/assets/js/login_tabs.js?<?= time() ?>"></script>
 
 <div class="tab">
     <button data-target="login" id="button-login" class="tablinks">Login</button>

@@ -10,8 +10,32 @@ $this->setParent('header');
 
 ?>
 
-<script src="/assets/js/makePhoto.js"></script>
-<script src="/assets/js/canvas.js"></script>
+<!--<video id="video" width="640" height="480" autoplay></video>-->
+<!--<button id="snap">Snap Photo</button>-->
+<!--<canvas id="canvas" width="640" height="480"></canvas>-->
+<!---->
+<!--<script>-->
+<!--    var video = document.getElementById('video');-->
+<!---->
+<!--    // Get access to the camera!-->
+<!--    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {-->
+<!--        // Not adding `{ audio: true }` since we only want video now-->
+<!--        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {-->
+<!--            //video.src = window.URL.createObjectURL(stream);-->
+<!--            video.srcObject = stream;-->
+<!--            video.play();-->
+<!--        });-->
+<!--    }-->
+<!--    var canvas = document.getElementById('canvas');-->
+<!--    var context = canvas.getContext('2d');-->
+<!---->
+<!--    // Trigger photo take-->
+<!--    document.getElementById("snap").addEventListener("click", function() {-->
+<!--        context.drawImage(video, 0, 0, 640, 480);-->
+<!--    });-->
+<!--</script>-->
+<script src="/assets/js/makePhoto.js?<?= time() ?>"></script>
+<script src="/assets/js/canvas.js?<?= time() ?>"></script>
 
 <h5>Profile</h5>
 

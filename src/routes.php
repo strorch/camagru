@@ -10,7 +10,7 @@ Router::post('/login','Auth\LoginController@LoginAction');
 
 Router::post('/logout','Auth\LoginController@LogoutAction');
 
-Router::post('/register','Auth\RegistrationController@LoginPage');
+Router::post('/register','Auth\RegistrationController@RegistrationAction');
 
 Router::get('/profile','PageController@ProfilePage');
 
