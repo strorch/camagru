@@ -16,12 +16,22 @@ use core\View;
         </a>
     <?php endif ?>
 <?php else: ?>
-    <a href="/profile">
-        <div>Profile</div>
-    </a>
-    <a href="/settings">
-        <div>Settings</div>
-    </a>
+    <div>
+        <a href="/profile">
+            <div>Profile</div>
+        </a>
+    </div>
+    <div>
+        <a href="/settings">
+            <div>Settings</div>
+        </a>
+    </div>
+    <div>
+        <form action="/logout" method="post">
+            <?php $this->includeChild('csrf') ?>
+            <input name="submit" type="submit" value="logout"/>
+        </form>
+    </div>
 <?php endif ?>
 
 <div id="create_block"></div>

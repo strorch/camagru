@@ -73,12 +73,15 @@ INSERT INTO memes (pict) VALUES
 ;
 
 INSERT INTO users (login, password, email, log_stat) VALUES
-('test_user', 'random', 'test@test.ua', 1)
+('test_user', 'random', 'test@test.ua', 1),
+('usrrrrrr', 'random', 'test1@test.ua', 1)
 ;
 
 INSERT INTO posts (user_id, pict) VALUES
 (user_id('test_user'), 'picture1.jpg'),
-(user_id('test_user'), 'picture2.jpeg')
+(user_id('test_user'), 'picture2.jpeg'),
+(user_id('usrrrrrr'), 'pict1.png'),
+(user_id('usrrrrrr'), 'pict2.jpg')
 ;
 
 COMMIT;

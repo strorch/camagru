@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace controllers\Auth;
 
 use core\AbstractController;
+use core\Model;
+use models\User;
 
 /**
  * Class RegistrationController
@@ -12,7 +14,15 @@ use core\AbstractController;
  */
 class RegistrationController extends AbstractController
 {
-    public static function RegistrationCheck()
+    private $user;
+
+    public function __construct(Model $model)
+    {
+        parent::__construct($model);
+        $this->user = $this->model::getInstance(User::class);
+    }
+
+    public function RegistrationCheck()
     {
 
     }

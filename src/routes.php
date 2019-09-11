@@ -8,6 +8,8 @@ Router::get('/login','PageController@LoginPage');
 
 Router::post('/login','Auth\LoginController@LoginAction');
 
+Router::post('/logout','Auth\LoginController@LogoutAction');
+
 Router::post('/register','Auth\RegistrationController@LoginPage');
 
 Router::get('/profile','PageController@ProfilePage');

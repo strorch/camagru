@@ -44,4 +44,11 @@ class LoginController extends AbstractController
         }
         $this->redirect('/');
     }
+
+    public function LogoutAction(): void
+    {
+        $this->checkCsrf();
+        $_SESSION = [];
+        $this->redirect('/');
+    }
 }
