@@ -46,11 +46,11 @@ CREATE TABLE posts (
   cmt VARCHAR(256)
 );
 
-DROP TABLE IF EXISTS memes;
-CREATE TABLE memes (
+DROP TABLE IF EXISTS stickers;
+CREATE TABLE stickers (
   id SERIAL PRIMARY KEY NOT NULL,
   pict VARCHAR(100) NOT NULL,
-  cmt varchar(256)
+  cmt VARCHAR(256)
 );
 
 CREATE OR REPLACE FUNCTION user_id (a_login text) RETURNS integer AS $$
@@ -62,7 +62,7 @@ $$ LANGUAGE sql IMMUTABLE STRICT;
 --     (SELECT user_id('test_user'), 'picture1.jpg')
 -- $$ LANGUAGE sql IMMUTABLE STRICT;
 
-INSERT INTO memes (pict) VALUES
+INSERT INTO stickers (pict) VALUES
 ('mem1.jpg'),
 ('mem2.jpeg'),
 ('mem3.jpg'),

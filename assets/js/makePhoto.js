@@ -25,27 +25,52 @@ const enableNavigator = () => {
     }
 };
 
-
-window.onload = (event) => {
-
+const imgOnLoad = () => {
     let canvas = document.getElementById('canvas');
     let context = canvas.getContext('2d');
-    let video = document.getElementById('video');
+
+    canvas.width = img.width;
+    canvas.height = img.height;
+    context.drawImage(img,0,0);
+};
+
+window.onload = (event) => {
+    // let canvas = document.getElementById('canvas');
+    // let context = canvas.getContext('2d');
+    // let video = document.getElementById('video');
+    // document.getElementById("snap").addEventListener("click", () => {
+    //     context.drawImage(video, 0, 0, 640, 480);
+    // });
 
     let makePhoto = document.getElementById('make-photo');
     let loadPicture = document.getElementById('load-picture');
 
     makePhoto.onclick = () => {
-    //     // `{ audio: true }`
-        enableNavigator();
+        // `{ audio: true }`
+        let photoContainer = document.querySelector('.make-photo-container');
+        photoContainer.innerHTML = '\n' +
+            '<video id="video" width="640" height="480" autoplay></video>\n' +
+            '<button id="snap">Snap Photo</button>\n' +
+            '<canvas id="canvas" width="640" height="480"></canvas>';
+        // enableNavigator();
     };
 
     loadPicture.onclick = () => {
         let body = document.querySelector('.make-photo-container');
-        body.innerHTML += '<input type="file" value="Load file">';
+        body.innerHTML =
+            '<input id="file-input" type="file" value="Load file">' +
+            '<canvas id="canvas" width="640" height="480"></canvas>' +
+            '<button id="snap">Snap Photo</button>';
+        document.getElementById('file-input').onchange = (ev) => {
+            var file = ev.target.files[0];
+            var fr = new FileReader();
+            fr.onload = () => {
+                img = new Image();
+                img.onload = imgOnLoad;
+                img.src = fr.result;
+                // canvas.toDataURL("image/png");  // get the data URL
+            };
+            fr.readAsDataURL(file);
+        };
     };
-
-    document.getElementById("snap").addEventListener("click", () => {
-        context.drawImage(video, 0, 0, 640, 480);
-    });
 };
