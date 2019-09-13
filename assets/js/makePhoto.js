@@ -25,23 +25,7 @@ const enableNavigator = () => {
     }
 };
 
-const imgOnLoad = () => {
-    let canvas = document.getElementById('canvas');
-    let context = canvas.getContext('2d');
-
-    canvas.width = img.width;
-    canvas.height = img.height;
-    context.drawImage(img,0,0);
-};
-
 window.onload = (event) => {
-    // let canvas = document.getElementById('canvas');
-    // let context = canvas.getContext('2d');
-    // let video = document.getElementById('video');
-    // document.getElementById("snap").addEventListener("click", () => {
-    //     context.drawImage(video, 0, 0, 640, 480);
-    // });
-
     let makePhoto = document.getElementById('make-photo');
     let loadPicture = document.getElementById('load-picture');
 
@@ -52,21 +36,35 @@ window.onload = (event) => {
             '<video id="video" width="640" height="480" autoplay></video>\n' +
             '<button id="snap">Snap Photo</button>\n' +
             '<canvas id="canvas" width="640" height="480"></canvas>';
-        // enableNavigator();
+        enableNavigator();
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
+        let video = document.getElementById('video');
+        document.getElementById("snap").addEventListener("click", () => {
+            context.drawImage(video, 0, 0, 640, 480);
+        });
     };
 
     loadPicture.onclick = () => {
         let body = document.querySelector('.make-photo-container');
         body.innerHTML =
             '<input id="file-input" type="file" value="Load file">' +
-            '<canvas id="canvas" width="640" height="480"></canvas>' +
+            // '<canvas id="canvas" width="640" height="480"></canvas>' +
+            '<canvas id="c1" width="200" height="200"></canvas>' +
+            '<canvas id="c2" width="200" height="200"></canvas>' +
             '<button id="snap">Snap Photo</button>';
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
         document.getElementById('file-input').onchange = (ev) => {
             var file = ev.target.files[0];
             var fr = new FileReader();
             fr.onload = () => {
                 img = new Image();
-                img.onload = imgOnLoad;
+                img.onload = () => {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    context.drawImage(img,0,0);
+                };
                 img.src = fr.result;
                 // canvas.toDataURL("image/png");  // get the data URL
             };
