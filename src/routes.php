@@ -15,3 +15,5 @@ Router::post('/register','Auth\RegistrationController@RegistrationAction');
 Router::get('/profile','PageController@ProfilePage');
 
 Router::get('/settings','PageController@SettingsPage');
+
+Router::get('/getStickers', 'StickerController@getStickers');

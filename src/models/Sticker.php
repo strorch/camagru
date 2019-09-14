@@ -14,9 +14,14 @@ class Sticker extends Model
 {
     public function getAvailableStickers(): array
     {
-        return $this->DB->query("
-            select  * 
+        $stickerNames =  $this->DB->query("
+            select  id,
+                    pict
             from    stickers
         ");
+        foreach ($stickerNames as $stickerName) {
+            $stickers[] = base64_encode(file_get_contents(STICKERS_DIR . $stickerName));
+        }
+
     }
 }
