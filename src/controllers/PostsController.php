@@ -58,7 +58,7 @@ class PostsController extends AbstractController
         $sticker = $this->sticker->getStickerById($requestedSticker['id']);
 
 //        $sticker = imagecreatefromstring(base64_decode(explode(';base64,', $layer['source'])[1]));
-//        imagecopyresampled($photo, $sticker, $layer['left'], $layer['top'], 0, 0, $layer['width'], $layer['height'], imagesx($sticker), imagesy($sticker));
+//        imagecopyresampled($userImg, $sticker, 200, 200, 0, 0, $layer['width'], $layer['height'], imagesx($sticker), imagesy($sticker));
 //        imagejpeg($photo, getRoot() . 'public/' . $url, 100);
 
         return [
@@ -67,4 +67,19 @@ class PostsController extends AbstractController
             ],
         ];
     }
+
+    /**
+    $image = imagecreatefromjpeg("captcha/$captcha-$num.jpg");
+
+    // Add some filters
+    imagefilter($image, IMG_FILTER_PIXELATE, 1, true);
+    imagefilter($image, IMG_FILTER_MEAN_REMOVAL);
+
+    ob_start(); // Let's start output buffering.
+    imagejpeg($image); //This will normally output the image, but because of ob_start(), it won't.
+    $contents = ob_get_contents(); //Instead, output above is saved to $contents
+    ob_end_clean(); //End the output buffer.
+
+    $dataUri = "data:image/jpeg;base64," . base64_encode($contents);
+     */
 }
