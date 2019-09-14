@@ -11,14 +11,14 @@ namespace core;
 class Utils
 {
     /**
-     * @return array
+     * @return array|null
      */
-    public static function fetchParse(): array
+    public static function fetchParse(): ?array
     {
         $body = file_get_contents('php://input');
 
         if ($body === FALSE) {
-            exit ;
+            return null;
         }
         return json_decode($body, true);
     }

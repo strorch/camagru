@@ -11,6 +11,6 @@ services:
       - pgsql
 
   pgsql:
-    image: postgres:11.0
+    image: postgres:10.0
     ports:
       - 5432:5432

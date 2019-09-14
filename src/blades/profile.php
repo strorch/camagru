@@ -17,7 +17,9 @@ $this->setParent('header');
 <button id="make-photo">Make photo</button>
 <button id="load-picture">Load picture</button>
 
-<div class="make-photo-container">
+<div class="actions-container">
+    <div class="make-photo-container"></div>
+    <div id="sticker-container"></div>
 </div>
 
 <div>

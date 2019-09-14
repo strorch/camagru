@@ -64,12 +64,9 @@ $$ LANGUAGE sql IMMUTABLE STRICT;
 
 INSERT INTO stickers (pict) VALUES
 ('mem1.jpg'),
-('mem2.jpeg'),
+('mem2.jpg'),
 ('mem3.jpg'),
-('mem4.jpg'),
-('mem5.jpg'),
-('mem6.jpg'),
-('mem7.jpg')
+('mem4.jpg')
 ;
 
 INSERT INTO users (login, password, email, log_stat) VALUES

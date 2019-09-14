@@ -6,14 +6,16 @@ Router::get("/", 'PageController@FrontPage');
 
 Router::get('/login','PageController@LoginPage');
 
-Router::post('/login','Auth\LoginController@LoginAction');
+Router::post('/login','AuthController@LoginAction');
 
-Router::post('/logout','Auth\LoginController@LogoutAction');
+Router::post('/logout','AuthController@LogoutAction');
 
-Router::post('/register','Auth\RegistrationController@RegistrationAction');
+Router::post('/register','AuthController@RegistrationAction');
 
 Router::get('/profile','PageController@ProfilePage');
 
 Router::get('/settings','PageController@SettingsPage');
 
 Router::get('/getStickers', 'StickerController@getStickers');
+
+Router::post('/savePhoto', 'PostsController@savePost');

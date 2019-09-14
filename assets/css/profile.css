@@ -1,0 +1,30 @@
+.actions-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#sticker-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sticker-div {
+
+}
+
+.sticker {
+    max-height: 200px;
+    max-width: 200px;
+}
+
+#selected-sticker {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+}
+
+.canvas-container {
+    position: relative;
+}

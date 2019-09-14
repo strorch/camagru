@@ -35,16 +35,82 @@ const getStickers = () => {
     };
     fetch('/getStickers', propObj)
         .then(e => {
-            return e.json();
+            return e.text();
         })
         .then(e => {
             let container = document.getElementById('sticker-container');
-            debugger
-            // container.innerHTML =
+            container.innerHTML = e;
+        })
+        .then(e => {
+            stickerSelect();
         })
         .catch(e => {
             console.log(e);
         });
+};
+
+const stickerSelect = (event) => {
+    let stickerDivs = Array.from(document.getElementsByClassName('sticker-div'));
+    stickerDivs.map((el) => {
+        el.onclick = (ev) => {
+            let tmpSticker = document.getElementById('selected-sticker');
+            // debugger
+            if (tmpSticker !== null && tmpSticker !== undefined) {
+                tmpSticker.remove();
+            }
+            let domImage = ev.currentTarget.children[0];
+
+            let selectedSticker = document.createElement('img');
+            selectedSticker.id = 'selected-sticker';
+            selectedSticker.src = domImage.src;
+            selectedSticker.dataset.id = ev.currentTarget.dataset.id;
+
+            let canvasContainer = document.getElementById('canvas-container');
+            canvasContainer.appendChild(selectedSticker);
+            // let img = new Image();
+            // img.onload = () => {
+            //     context.drawImage(img,0,0);
+            // };
+            // img.src = domImage.src;
+        };
+    });
+};
+
+const snapInit = () => {
+    const snapClick = () => {
+        let sticker = document.getElementById('selected-sticker');
+        const stikerAttributes = {
+            "id" : sticker.dataset.id,
+            "position": {
+                "x": sticker.x,
+                "y": sticker.y,
+            }
+        };
+        let canvas = document.getElementById('canvas');
+        let image = canvas.toDataURL("image/png");
+        const imageObject = {
+            userImg: image,
+            stickerAttrs: stikerAttributes
+        };
+        let propObj = {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(imageObject)
+        };
+        fetch('/savePhoto', propObj)
+            .then(e => {
+                return e.json();
+            })
+            .then(e => {
+                //TODO: file saved message
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
+    let snap = document.getElementById('snap');
+    snap.onclick = snapClick;
 };
 
 window.onload = (event) => {
@@ -52,13 +118,11 @@ window.onload = (event) => {
     let loadPicture = document.getElementById('load-picture');
 
     makePhoto.onclick = () => {
-        // `{ audio: true }`
         let photoContainer = document.querySelector('.make-photo-container');
         photoContainer.innerHTML = '\n' +
             '<video id="video" width="640" height="480" autoplay></video>\n' +
             '<button id="snap">Snap Photo</button>\n' +
-            '<canvas id="canvas" width="640" height="480"></canvas>\n' +
-            '<div class="sticker-container"></div>';
+            '<div id="canvas-container"><canvas id="canvas" width="640" height="480"></canvas></div>\n';
         enableNavigator();
         let canvas = document.getElementById('canvas');
         let context = canvas.getContext('2d');
@@ -67,22 +131,22 @@ window.onload = (event) => {
             context.drawImage(video, 0, 0, 640, 480);
         });
         getStickers();
+        snapInit();
     };
 
     loadPicture.onclick = () => {
         let body = document.querySelector('.make-photo-container');
         body.innerHTML =
             '<input id="file-input" type="file" value="Load file">' +
-            '<canvas id="canvas" width="640" height="480"></canvas>' +
-            '<button id="snap">Snap Photo</button>' +
-            '<div class="sticker-container"></div>';
+            '<div id="canvas-container"><canvas id="canvas" width="640" height="480"></canvas></div>' +
+            '<button id="snap">Snap Photo</button>';
         let canvas = document.getElementById('canvas');
         let context = canvas.getContext('2d');
         document.getElementById('file-input').onchange = (ev) => {
-            var file = ev.target.files[0];
-            var fr = new FileReader();
+            let file = ev.target.files[0];
+            let fr = new FileReader();
             fr.onload = () => {
-                img = new Image();
+                let img = new Image();
                 img.onload = () => {
                     canvas.width = img.width;
                     canvas.height = img.height;
@@ -94,5 +158,6 @@ window.onload = (event) => {
             fr.readAsDataURL(file);
         };
         getStickers();
+        snapInit();
     };
 };

@@ -16,6 +16,7 @@ print_r($_SESSION);
 <head>
     <meta charset="UTF-8">
     <title>camagru</title>
+    <link rel="stylesheet" href="/assets/css/profile.css?<?=time()?>">
     <link rel="stylesheet" href="/assets/css/front_page.css?<?=time()?>">
     <link rel="stylesheet" href="/assets/css/login.css?<?=time()?>">
 </head>
