@@ -57,10 +57,13 @@ CREATE OR REPLACE FUNCTION user_id (a_login text) RETURNS integer AS $$
     SELECT id FROM users WHERE login=a_login;
 $$ LANGUAGE sql IMMUTABLE STRICT;
 
--- CREATE OR REPLACE FUNCTION create_post (a_user_id integer, a_login text) RETURNS integer AS $$
---     INSERT INTO posts (user_id, pict) VALUES
---     (SELECT user_id('test_user'), 'picture1.jpg')
--- $$ LANGUAGE sql IMMUTABLE STRICT;
+CREATE OR REPLACE FUNCTION create_post (a_user_id integer, a_pict_name text) RETURNS VOID AS
+$$
+BEGIN
+    INSERT INTO posts (user_id, pict) VALUES (a_user_id, a_pict_name);
+END
+$$
+    LANGUAGE 'plpgsql';
 
 INSERT INTO stickers (pict) VALUES
 ('mem1.jpg'),
@@ -74,11 +77,10 @@ INSERT INTO users (login, password, email, log_stat) VALUES
 ('usrrrrrr', 'random', 'test1@test.ua', 1)
 ;
 
-INSERT INTO posts (user_id, pict) VALUES
-(user_id('test_user'), 'picture1.jpg'),
-(user_id('test_user'), 'picture2.jpeg'),
-(user_id('usrrrrrr'), 'pict1.png'),
-(user_id('usrrrrrr'), 'pict2.jpg')
-;
+
+SELECT create_post(user_id('test_user'), 'picture1.jpg');
+SELECT create_post(user_id('test_user'), 'picture2.jpeg');
+SELECT create_post(user_id('usrrrrrr'), 'pict1.png');
+SELECT create_post(user_id('usrrrrrr'), 'pict2.jpg');
 
 COMMIT;

@@ -89,8 +89,10 @@ class View
      */
     public function renderError(string $code): void
     {
-        require_once BLADES_DIR."/$code.php";
-        die();
+        $this->viewName = $code;
+        $this->data = [];
+        $this->parent = 'header';
+        $this->render();
     }
 
     /**

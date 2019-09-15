@@ -65,4 +65,31 @@ class Posts extends Model
     {
         return BASE_DIR . "/runtime/$username/$postname";
     }
+
+    /**
+     * @param int $userId
+     * @param string $pictName
+     * @return bool
+     */
+    public function savePost(int $userId, string $pictName): void
+    {
+        $this->DB->exec("
+            SELECT create_post(:user_id, :pict_name)
+        ", [":user_id" => $userId, ":pict_name" => $pictName]);
+    }
+
+    /**
+     * @param int $userId
+     * @return int
+     */
+    public function lastInsertUserPhoto(int $userId): int
+    {
+        $tmp = $this->DB->query("
+            select  count(*) as cnt
+            from    posts
+            where   user_id=:user_id
+        ", ['user_id' => $userId]);
+        return reset($tmp)['cnt'];
+    }
+
 }

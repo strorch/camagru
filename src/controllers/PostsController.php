@@ -54,16 +54,35 @@ class PostsController extends AbstractController
         }
         $userImg = $body['userImg'];
         $requestedSticker = $body['stickerAttrs'];
-        $sticker = reset($this->sticker->getStickerById($requestedSticker['id']));
+        $sticker = $this->sticker->getStickerById($requestedSticker['id']);
+        $sticker = reset($sticker);
         $stickerImgResource = $this->getStickerImgResource($sticker['pict']);
         $userImgResource = $this->getUserImgResource($userImg);
 
-        imagecopyresampled($userImg, $sticker, 200, 200, 0, 0, $layer['width'], $layer['height'], imagesx($sticker), imagesy($sticker));
-//        imagejpeg($photo, getRoot() . 'public/' . $url, 100);
+        imagecopyresampled(
+            $userImgResource,
+            $stickerImgResource,
+            imagesx($stickerImgResource),
+            imagesy($stickerImgResource),
+            0,
+            0,
+            200,
+            200,
+            imagesx($stickerImgResource),
+            imagesy($stickerImgResource)
+        );
+        $photoNum = $this->posts->lastInsertUserPhoto($_SESSION['id']);
+        $dirToSave = BASE_DIR . "/runtime/{$_SESSION['login']}/";
+        $fileToSave = "pict$photoNum.jpg";
+        mkdir($dirToSave, 0777, true);
+        imagejpeg($userImgResource, $dirToSave . $fileToSave);
+        imagedestroy($userImgResource);
+        imagedestroy($stickerImgResource);
+        $this->posts->savePost($_SESSION['id'], $fileToSave);
 
         return [
             'data' => [
-
+                'res' => 'success',
             ],
         ];
     }
@@ -106,19 +125,4 @@ class PostsController extends AbstractController
         imagefilter($img, IMG_FILTER_MEAN_REMOVAL);
         return $img;
     }
-
-    /**
-    $image = imagecreatefromjpeg("captcha/$captcha-$num.jpg");
-
-    // Add some filters
-    imagefilter($image, IMG_FILTER_PIXELATE, 1, true);
-    imagefilter($image, IMG_FILTER_MEAN_REMOVAL);
-
-    ob_start(); // Let's start output buffering.
-    imagejpeg($image); //This will normally output the image, but because of ob_start(), it won't.
-    $contents = ob_get_contents(); //Instead, output above is saved to $contents
-    ob_end_clean(); //End the output buffer.
-
-    $dataUri = "data:image/jpeg;base64," . base64_encode($contents);
-     */
 }
