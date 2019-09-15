@@ -64,7 +64,7 @@ $$ LANGUAGE sql IMMUTABLE STRICT;
 
 INSERT INTO stickers (pict) VALUES
 ('mem1.jpg'),
-('mem2.jpg'),
+('mem2.png'),
 ('mem3.jpg'),
 ('mem4.jpg')
 ;

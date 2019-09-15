@@ -8,7 +8,6 @@ namespace controllers;
 use core\AbstractController;
 use core\Model;
 use core\Utils;
-use http\Message\Body;
 use models\Posts;
 use models\Sticker;
 
@@ -55,10 +54,11 @@ class PostsController extends AbstractController
         }
         $userImg = $body['userImg'];
         $requestedSticker = $body['stickerAttrs'];
-        $sticker = $this->sticker->getStickerById($requestedSticker['id']);
+        $sticker = reset($this->sticker->getStickerById($requestedSticker['id']));
+        $stickerImgResource = $this->getStickerImgResource($sticker['pict']);
+        $userImgResource = $this->getUserImgResource($userImg);
 
-//        $sticker = imagecreatefromstring(base64_decode(explode(';base64,', $layer['source'])[1]));
-//        imagecopyresampled($userImg, $sticker, 200, 200, 0, 0, $layer['width'], $layer['height'], imagesx($sticker), imagesy($sticker));
+        imagecopyresampled($userImg, $sticker, 200, 200, 0, 0, $layer['width'], $layer['height'], imagesx($sticker), imagesy($sticker));
 //        imagejpeg($photo, getRoot() . 'public/' . $url, 100);
 
         return [
@@ -66,6 +66,45 @@ class PostsController extends AbstractController
 
             ],
         ];
+    }
+
+    /**
+     * @param string $stickerName
+     * @return false|resource
+     */
+    private function getStickerImgResource(string $stickerName)
+    {
+        return $this->imageCreateFromFile(STICKERS_DIR . $stickerName);
+    }
+
+    /**
+     * @param string $base64
+     * @return false|resource
+     */
+    private function getUserImgResource(string $base64)
+    {
+        $baseString = explode(',', $base64)[1];
+        return imagecreatefromstring(base64_decode($baseString));
+    }
+
+    /**
+     * @param string $filename
+     * @return false|resource
+     */
+    private function imageCreateFromFile(string $filename)
+    {
+        switch (strtolower(pathinfo($filename,PATHINFO_EXTENSION))) {
+            case 'jpeg':
+            case 'jpg':
+                $img = imagecreatefromjpeg($filename);
+                break;
+            case 'png':
+                $img = imagecreatefrompng($filename);
+                break;
+        }
+        imagefilter($img, IMG_FILTER_PIXELATE, 1, true);
+        imagefilter($img, IMG_FILTER_MEAN_REMOVAL);
+        return $img;
     }
 
     /**
