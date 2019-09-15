@@ -81,6 +81,5 @@ INSERT INTO users (login, password, email, log_stat) VALUES
 SELECT create_post(user_id('test_user'), 'picture1.jpg');
 SELECT create_post(user_id('test_user'), 'picture2.jpeg');
 SELECT create_post(user_id('usrrrrrr'), 'pict1.png');
-SELECT create_post(user_id('usrrrrrr'), 'pict2.jpg');
 
 COMMIT;

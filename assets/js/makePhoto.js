@@ -113,6 +113,33 @@ const snapInit = () => {
     snap.onclick = snapClick;
 };
 
+const delButtonsInit = () => {
+    let buttons = Array.from(document.getElementsByClassName('delete-picture'));
+    buttons.forEach(el => {
+        el.onclick = event => {
+            let pictureId = event.target.id;
+            let propObj = {
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({
+                    'postId': pictureId
+                })
+            };
+            fetch('/deletePhoto', propObj)
+                .then(e => {
+                    return e.json();
+                })
+                .then(e => {
+                    let el = document.querySelector(`.image-container[id='${pictureId}'`);
+                    el.remove();
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        };
+    });
+};
+
 window.onload = (event) => {
     let makePhoto = document.getElementById('make-photo');
     let loadPicture = document.getElementById('load-picture');
@@ -160,4 +187,6 @@ window.onload = (event) => {
         getStickers();
         snapInit();
     };
+
+    delButtonsInit();
 };

@@ -30,7 +30,8 @@ $this->setParent('header');
         <?php foreach ($posts as $post): ?>
             <div id="<?= $post['pict_id'] ?>" class="image-container">
                 <div class="picture-div">
-                    <img class="picture" src="data:image/png;base64, <?= $post['pict'] ?>" alt="picture of <?= $post['login'] ?> user" />
+                    <img class="picture" src="<?= $post['pict'] ?>" alt="picture of <?= $post['login'] ?> user" />
+                    <button id="<?= $post['pict_id'] ?>" class="delete-picture">Del</button>
                 </div>
             </div>
         <?php endforeach ?>

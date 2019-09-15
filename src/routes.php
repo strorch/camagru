@@ -19,3 +19,5 @@ Router::get('/settings','PageController@SettingsPage');
 Router::get('/getStickers', 'StickerController@getStickers');
 
 Router::post('/savePhoto', 'PostsController@savePost');
+
+Router::post('/deletePhoto', 'PostsController@deletePost');

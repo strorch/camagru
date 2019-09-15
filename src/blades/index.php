@@ -15,7 +15,7 @@ $this->setParent('header');
                 <span><?= $post['login'] ?></span>
             </div>
             <div class="picture-div">
-                <img class="picture" src="data:image/png;base64, <?= $post['pict'] ?>" alt="picture of <?= $post['login'] ?> user" />
+                <img class="picture" src="<?= $post['pict'] ?>" alt="picture of <?= $post['login'] ?> user" />
             </div>
         </div>
     <?php endforeach ?>

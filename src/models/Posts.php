@@ -22,36 +22,30 @@ class Posts extends Model
     public function getPosts(int $startNumber, int $endNumber, ?int $user_id = null): Iterator
     {
         $userCondition = '';
-        $params = [
-            ':start_number' => $startNumber,
-            ':end_number' => $endNumber,
-        ];
+        $params = [];
         if (!empty($user_id)) {
             $userCondition = 'and   t2.id = :user_id';
             $params[':user_id'] = $user_id;
         }
         $req_posts = $this->DB->query("
-            select  t1.id as pict_id, 
+            select  distinct
+                    t1.id as pict_id, 
                     t1.pict, 
                     t1.user_id, 
                     t2.login, 
-                    t2.email 
+                    t2.email
             from    posts t1
             join    users t2 on     t1.user_id=t2.id
-                             and    t1.id >= :start_number
-                             and    t1.id <= :end_number
                              $userCondition
         ", $params);
 
         foreach ($req_posts as $post) {
-            $postPath = $this->getPostPath($post['login'], $post['pict']);
-            $image = base64_encode(file_get_contents($postPath));
             yield [
                 'user_id' => $post['user_id'],
                 'login' => $post['login'],
                 'email' => $post['email'],
                 'pict_id' => $post['pict_id'],
-                'pict' => $image
+                'pict' => $this->getPostPath($post['login'], $post['pict']),
             ];
         }
     }
@@ -63,7 +57,7 @@ class Posts extends Model
      */
     private function getPostPath(string $username, string $postname): string
     {
-        return BASE_DIR . "/runtime/$username/$postname";
+        return "/runtime/$username/$postname";
     }
 
     /**
@@ -92,4 +86,13 @@ class Posts extends Model
         return reset($tmp)['cnt'];
     }
 
+    /**
+     * @param int $postId
+     */
+    public function deletePost(int $postId): void
+    {
+        $this->DB->exec("
+            delete from posts where id=:id
+        ", [':id' => $postId]);
+    }
 }

@@ -48,7 +48,7 @@ class PostsController extends AbstractController
         if (empty($body)) {
             return [
                 'data' => [
-                    'error' => 'empty input',
+                    'res' => 'error',
                 ],
             ];
         }
@@ -76,8 +76,6 @@ class PostsController extends AbstractController
         $fileToSave = "pict$photoNum.jpg";
         mkdir($dirToSave, 0777, true);
         imagejpeg($userImgResource, $dirToSave . $fileToSave);
-        imagedestroy($userImgResource);
-        imagedestroy($stickerImgResource);
         $this->posts->savePost($_SESSION['id'], $fileToSave);
 
         return [
@@ -124,5 +122,29 @@ class PostsController extends AbstractController
         imagefilter($img, IMG_FILTER_PIXELATE, 1, true);
         imagefilter($img, IMG_FILTER_MEAN_REMOVAL);
         return $img;
+    }
+
+    /**
+     * @return array
+     */
+    public function deletePost(): array
+    {
+        $body = Utils::fetchParse();
+        if (empty($body)) {
+            return [
+                'data' => [
+                    'res' => 'error',
+                ],
+            ];
+        }
+        $this->posts->deletePost((int)$body['postId']);
+        $dir = BASE_DIR . "/runtime/{$_SESSION['login']}/";
+        $fileToDel = "pict{$body['postId']}.jpg";
+        unlink($dir . $fileToDel);
+        return [
+            'data' => [
+                'res' => 'success',
+            ],
+        ];
     }
 }

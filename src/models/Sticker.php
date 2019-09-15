@@ -22,7 +22,7 @@ class Sticker extends Model
             from    stickers
         ");
         foreach ($stickerNames as $stickerName) {
-            $sticker['pict'] = base64_encode(file_get_contents(STICKERS_DIR . $stickerName['pict']));
+            $sticker['pict'] = 'data:image/png;base64, ' . base64_encode(file_get_contents(STICKERS_DIR . $stickerName['pict']));
             $sticker['id'] = $stickerName['id'];
             yield $sticker;
         }
