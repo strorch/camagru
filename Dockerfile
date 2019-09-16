@@ -2,9 +2,6 @@ FROM php:7.2-apache
 
 WORKDIR /app
 
-#install pdo extention
-RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql
-
 #install and configure xdebug extention
 RUN apt-get update &&\
     apt-get install --no-install-recommends --assume-yes --quiet ca-certificates curl git &&\
@@ -22,11 +19,19 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd
 
 #install smtp client
-#TODO: config mailing mail('homiak.max@gmail.com', 'Subject', 'Body');
-#RUN apt-get update && apt-get install msmtp -y && \
-#    rm -rf /var/lib/apt/lists/*
-#COPY config/msmtprc /etc/msmtprc
-#RUN echo "sendmail_path = /usr/bin/msmtp -t -i" >> /usr/local/etc/php/php.ini
+#test message echo -e "test message" | /usr/bin/msmtp --debug -t -a gmail -i homiak.max@gmail.com
+RUN apt-get update && \
+      apt-get install -y msmtp
+COPY config/msmtprc /etc/msmtprc
+COPY config/msmtprc /root/.msmtprc
+RUN chmod 600 /etc/msmtprc && chmod 600 /root/.msmtprc
+RUN  chown www-data:www-data /etc/msmtprc && \
+      touch /var/log/msmtp.log && \
+      chown www-data:www-data /var/log/msmtp.log
+RUN echo 'sendmail_path = "/usr/bin/msmtp -C /etc/msmtprc --logfile /var/log/msmtp.log -a gmail -t"' >> /usr/local/etc/php/php.ini
+
+#install pdo extention
+RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql
 
 #apache config
 RUN rm /etc/apache2/sites-available/000-default.conf

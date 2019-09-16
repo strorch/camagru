@@ -71,11 +71,10 @@ class PostsController extends AbstractController
             imagesx($stickerImgResource),
             imagesy($stickerImgResource)
         );
-        $photoNum = $this->posts->lastInsertUserPhoto($_SESSION['id']);
         $dirToSave = BASE_DIR . "/runtime/{$_SESSION['login']}/";
-        $fileToSave = "pict$photoNum.jpg";
-        mkdir($dirToSave, 0777, true);
-        imagejpeg($userImgResource, $dirToSave . $fileToSave);
+        $fileToSave =  $this->generateRandomName() . '.jpg';
+        @mkdir($dirToSave, 0777, true);
+        $res = imagejpeg($userImgResource, $dirToSave . $fileToSave);
         $this->posts->savePost($_SESSION['id'], $fileToSave);
 
         return [
@@ -83,6 +82,16 @@ class PostsController extends AbstractController
                 'res' => 'success',
             ],
         ];
+    }
+
+    /**
+     * @return string
+     */
+    private function generateRandomName(): string
+    {
+        $num1 = (string)rand(0, 50);
+        $num2 = (string)rand(50, 10);
+        return md5($num1 . $num2);
     }
 
     /**
@@ -137,14 +146,24 @@ class PostsController extends AbstractController
                 ],
             ];
         }
-        $this->posts->deletePost((int)$body['postId']);
+//        $this->posts->deletePost((int)$body['postId']);
         $dir = BASE_DIR . "/runtime/{$_SESSION['login']}/";
-        $fileToDel = "pict{$body['postId']}.jpg";
-        unlink($dir . $fileToDel);
+//        $fileToDel = "pict{$body['postId']}.jpg";
+//        unlink($dir . $fileToDel);
         return [
             'data' => [
                 'res' => 'success',
             ],
+        ];
+    }
+
+    public function test()
+    {
+        $res = mail('homiak.max@gmail.com', 'Subjectgregrergrege', 'Bodygergergegrege');
+        return [
+            'data' => [
+                'res' => $res,
+            ]
         ];
     }
 }

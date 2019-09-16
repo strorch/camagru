@@ -61,7 +61,7 @@ class View
             $$name = $value;
         }
         ob_start();
-        require_once BLADES_DIR."/$viewName.php";
+        require BLADES_DIR."/$viewName.php";
         $renderedBlade = ob_get_clean();
         return $renderedBlade;
     }
