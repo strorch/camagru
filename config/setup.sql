@@ -34,6 +34,7 @@ CREATE TABLE users (
   login VARCHAR(16) NOT NULL,
   password VARCHAR(25) NOT NULL,
   email VARCHAR(25) NOT NULL,
+  salt VARCHAR(25) NOT NULL,
   log_stat INT DEFAULT 0,
   cmt VARCHAR(256)
 );
@@ -72,9 +73,9 @@ INSERT INTO stickers (pict) VALUES
 ('mem4.jpg')
 ;
 
-INSERT INTO users (login, password, email, log_stat) VALUES
-('test_user', 'random', 'test@test.ua', 1),
-('usrrrrrr', 'random', 'test1@test.ua', 1)
+INSERT INTO users (login, password, email, salt, log_stat) VALUES
+('test_user', 'random', 'test@test.ua', '1111', 1),
+('usrrrrrr', 'random', 'test1@test.ua', '1010', 1)
 ;
 
 

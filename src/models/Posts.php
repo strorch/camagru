@@ -16,7 +16,7 @@ class Posts extends Model
     /**
      * @param int $startNumber
      * @param int $endNumber
-     * @param string|null $user_id
+     * @param int|null $user_id
      * @return Iterator
      */
     public function getPosts(int $startNumber, int $endNumber, ?int $user_id = null): Iterator
@@ -63,7 +63,7 @@ class Posts extends Model
     /**
      * @param int $userId
      * @param string $pictName
-     * @return bool
+     * @return void
      */
     public function savePost(int $userId, string $pictName): void
     {

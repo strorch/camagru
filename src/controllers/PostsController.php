@@ -146,6 +146,7 @@ class PostsController extends AbstractController
                 ],
             ];
         }
+        $this->posts->
 //        $this->posts->deletePost((int)$body['postId']);
         $dir = BASE_DIR . "/runtime/{$_SESSION['login']}/";
 //        $fileToDel = "pict{$body['postId']}.jpg";
