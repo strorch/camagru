@@ -15,6 +15,7 @@ $this->setParent('header');
 <div class="tab">
     <button data-target="login" id="button-login" class="tablinks">Login</button>
     <button data-target="register" id="button-register" class="tablinks">Register</button>
+    <button data-target="forget-password" id="button-forget-password" class="tablinks">Forget password?</button>
 </div>
 
 <div id="login" class="tabcontent">
@@ -38,6 +39,15 @@ $this->setParent('header');
         <input name="password" type="password"/>Password
         <br/>
         <input name="password_confirm" type="password"/>Confirm
+        <br/>
+        <input name="submit" type="submit" value="OK"/>
+    </form>
+</div>
+
+<div id="forget-password" class="tabcontent">
+    <form method="post" action="/forgetPassword">
+        <?php $this->includeChild('csrf'); //TODO: forget password?>
+        <input name="login" type="text"/>Login
         <br/>
         <input name="submit" type="submit" value="OK"/>
     </form>

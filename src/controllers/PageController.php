@@ -78,7 +78,7 @@ final class PageController extends AbstractController
     public function ProfilePage(): array
     {
         $logedInfo = $this->user->getUserLoginInfo();
-        if (!$logedInfo) {
+        if (!$logedInfo || $_SESSION['log_stat'] === 0) {
             $this->redirect('/');
         }
         $userInfo = $this->user->getAccountInfo($_SESSION['id']);

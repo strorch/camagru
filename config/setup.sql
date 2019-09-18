@@ -31,27 +31,24 @@ BEGIN TRANSACTION;
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  login VARCHAR(16) NOT NULL,
-  password VARCHAR(25) NOT NULL,
-  email VARCHAR(25) NOT NULL,
-  salt VARCHAR(25) NOT NULL,
-  log_stat INT DEFAULT 0,
-  cmt VARCHAR(256)
+  login text NOT NULL,
+  password text NOT NULL,
+  email text NOT NULL,
+  salt text NOT NULL,
+  log_stat INT DEFAULT 0
 );
 
 DROP TABLE IF EXISTS posts;
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER NOT NULL,
-  pict VARCHAR(100) NOT NULL,
-  cmt VARCHAR(256)
+  pict text NOT NULL
 );
 
 DROP TABLE IF EXISTS stickers;
 CREATE TABLE stickers (
   id SERIAL PRIMARY KEY NOT NULL,
-  pict VARCHAR(100) NOT NULL,
-  cmt VARCHAR(256)
+  pict text NOT NULL
 );
 
 CREATE OR REPLACE FUNCTION user_id (a_login text) RETURNS integer AS $$
@@ -64,6 +61,13 @@ BEGIN
 END
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION create_user (a_login text, a_password text, a_email text, a_salt text, a_log_stat integer) RETURNS VOID AS $$
+BEGIN
+    INSERT INTO users (login, password, email, salt, log_stat) VALUES
+    (a_login, a_password, a_email, a_salt, a_log_stat);
+END
+$$ LANGUAGE 'plpgsql';
+
 INSERT INTO stickers (pict) VALUES
 ('mem1.jpg'),
 ('mem2.png'),
@@ -71,10 +75,8 @@ INSERT INTO stickers (pict) VALUES
 ('mem4.jpg')
 ;
 
-INSERT INTO users (login, password, email, salt, log_stat) VALUES
-('test_user', 'random', 'test@test.ua', '1111', 1),
-('usrrrrrr', 'random', 'test1@test.ua', '1010', 1)
-;
+SELECT create_user('test_user', 'random', 'test@test.ua', '1111', 1);
+SELECT create_user('usrrrrrr', 'random', 'test1@test.ua', '1010', 1);
 
 
 SELECT create_post(user_id('test_user'), 'picture1.jpg');

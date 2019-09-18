@@ -8,6 +8,7 @@ namespace controllers;
 use core\AbstractController;
 use core\Model;
 use core\Utils;
+use helpers\SaltGenerator;
 use models\Posts;
 use models\Sticker;
 
@@ -72,7 +73,7 @@ class PostsController extends AbstractController
             imagesy($stickerImgResource)
         );
         $dirToSave = BASE_DIR . "/runtime/{$_SESSION['login']}/";
-        $fileToSave =  $this->generateRandomName() . '.jpg';
+        $fileToSave =  SaltGenerator::generateRandomName(true) . '.jpg';
         @mkdir($dirToSave, 0777, true);
         $res = imagejpeg($userImgResource, $dirToSave . $fileToSave);
         $this->posts->savePost($_SESSION['id'], $fileToSave);
@@ -82,16 +83,6 @@ class PostsController extends AbstractController
                 'res' => 'success',
             ],
         ];
-    }
-
-    /**
-     * @return string
-     */
-    private function generateRandomName(): string
-    {
-        $num1 = (string)rand(0, 50);
-        $num2 = (string)rand(50, 10);
-        return md5($num1 . $num2);
     }
 
     /**

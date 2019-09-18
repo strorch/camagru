@@ -16,11 +16,18 @@ use core\View;
         </a>
     <?php endif ?>
 <?php else: ?>
-    <div>
-        <a href="/profile">
-            <div>Profile</div>
-        </a>
-    </div>
+
+    <?php if ($_SESSION['log_stat'] === 0): ?>
+        <div>
+            <h5>You should to confirm your email to make photos!</h5>
+        </div>
+    <?php else: ?>
+        <div>
+            <a href="/profile">
+                <div>Profile</div>
+            </a>
+        </div>
+    <?php endif ?>
     <div>
         <a href="/settings">
             <div>Settings</div>

@@ -22,4 +22,8 @@ Router::post('/savePhoto', 'PostsController@savePost');
 
 Router::post('/deletePhoto', 'PostsController@deletePost');
 
+Router::get('/emailConfirm', 'AuthController@emailConfirm');
+
+
+
 Router::get('/test', 'PostsController@test');

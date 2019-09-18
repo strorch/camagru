@@ -5,7 +5,8 @@
  */
 
 $this->setParent('header');
-
+//TODO: paginate page
+//TODO: leave comment and like
 ?>
 
 <div class="images-container">

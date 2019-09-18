@@ -18,6 +18,10 @@ final class Config
     {
         return [
             'db' => static::getDBConfig(),
+            'url' => [
+                'cert' => 'http',
+                'uri' => 'localhost',
+            ],
         ];
     }
 

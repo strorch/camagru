@@ -7,6 +7,7 @@ namespace controllers;
 use core\AbstractController;
 use core\Model;
 use Exception;
+use models\Mail;
 use models\User;
 
 /**
@@ -21,6 +22,11 @@ class AuthController extends AbstractController
     private $user;
 
     /**
+     * @var Mail
+     */
+    private $mail;
+
+    /**
      * AuthController constructor.
      * @param Model $model
      * @throws Exception
@@ -29,6 +35,7 @@ class AuthController extends AbstractController
     {
         parent::__construct($model);
         $this->user = $model::getInstance(User::class);
+        $this->mail = $model::getInstance(Mail::class);
     }
 
     /**
@@ -40,12 +47,8 @@ class AuthController extends AbstractController
         $user = $this->user->findLoginingUser($_POST['login'], $_POST['password']);
         if (empty($user)) {
             $this->redirect('/login?error=1');
-            return;
         }
-        $user = reset($user);
-        foreach (['id', 'login', 'password', 'log_stat'] as $attr) {
-            $_SESSION[$attr] = $user[$attr];
-        }
+        $this->registerSession($user);
         $this->redirect('/');
     }
 
@@ -65,15 +68,39 @@ class AuthController extends AbstractController
     public function RegistrationAction()
     {
         $this->checkCsrf();
-//        $user = $this->user->findLoginingUser($_POST['login'], $_POST['password']);
-//        if (empty($user)) {
-//            $this->redirect('/login?error=1');
-//            return;
-//        }
-//        $user = reset($user);
-//        foreach (['id', 'login', 'password', 'log_stat'] as $attr) {
-//            $_SESSION[$attr] = $user[$attr];
-//        }
+
+        try {
+            $this->user->checkUserRow($_POST);
+        } catch (Exception $e) {
+            $this->redirect('/login?error=2');
+        }
+        $user = $this->user->saveUser($_POST);
+        $this->registerSession($user);
+        if (!$this->mail->sendConfirmEmail($user)) {
+            $this->redirect('/?error=3');
+        }
+        $this->redirect('/');
+    }
+
+    /**
+     * @param array $user
+     */
+    private function registerSession(array $user): void
+    {
+        foreach (['id', 'login', 'password', 'log_stat'] as $attr) {
+            $_SESSION[$attr] = $user[$attr];
+        }
+    }
+
+    public function emailConfirm()
+    {
+        try {
+            $this->mail->validateConfirmParams($_GET, $this->user);
+        } catch (Exception $e) {
+            $this->redirect('/?error=4');
+        }
+        $this->user->confirmEmail($_GET['id']);
+        $_SESSION['log_stat'] = 1;
         $this->redirect('/');
     }
 }

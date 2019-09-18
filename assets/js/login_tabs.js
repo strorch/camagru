@@ -15,5 +15,6 @@ const tabsClickAction = (event) => {
 window.onload = function () {
     document.getElementById('button-login').onclick = tabsClickAction;
     document.getElementById('button-register').onclick = tabsClickAction;
+    document.getElementById('button-forget-password').onclick = tabsClickAction;
     document.getElementById('button-login').click();
 };
