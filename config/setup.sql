@@ -58,13 +58,11 @@ CREATE OR REPLACE FUNCTION user_id (a_login text) RETURNS integer AS $$
     SELECT id FROM users WHERE login=a_login;
 $$ LANGUAGE sql IMMUTABLE STRICT;
 
-CREATE OR REPLACE FUNCTION create_post (a_user_id integer, a_pict_name text) RETURNS VOID AS
-$$
+CREATE OR REPLACE FUNCTION create_post (a_user_id integer, a_pict_name text) RETURNS VOID AS $$
 BEGIN
     INSERT INTO posts (user_id, pict) VALUES (a_user_id, a_pict_name);
 END
-$$
-    LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
 
 INSERT INTO stickers (pict) VALUES
 ('mem1.jpg'),

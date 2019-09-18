@@ -28,8 +28,7 @@ class Posts extends Model
             $params[':user_id'] = $user_id;
         }
         $req_posts = $this->DB->query("
-            select  distinct
-                    t1.id as pict_id, 
+            select  t1.id as pict_id, 
                     t1.pict, 
                     t1.user_id, 
                     t2.login, 
@@ -48,6 +47,21 @@ class Posts extends Model
                 'pict' => $this->getPostPath($post['login'], $post['pict']),
             ];
         }
+    }
+
+    /**
+     * @param string $id
+     * @return array
+     */
+    public function findPost(string $id): array
+    {
+        $res = $this->DB->query("
+            select  t1.id, 
+                    t1.pict
+            from    posts t1
+            where   t1.id = :id
+        ", [':id' => $id]);
+        return reset($res);
     }
 
     /**
@@ -70,20 +84,6 @@ class Posts extends Model
         $this->DB->exec("
             SELECT create_post(:user_id, :pict_name)
         ", [":user_id" => $userId, ":pict_name" => $pictName]);
-    }
-
-    /**
-     * @param int $userId
-     * @return int
-     */
-    public function lastInsertUserPhoto(int $userId): int
-    {
-        $tmp = $this->DB->query("
-            select  count(*) as cnt
-            from    posts
-            where   user_id=:user_id
-        ", ['user_id' => $userId]);
-        return reset($tmp)['cnt'];
     }
 
     /**

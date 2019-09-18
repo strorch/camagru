@@ -146,11 +146,11 @@ class PostsController extends AbstractController
                 ],
             ];
         }
-        $this->posts->
-//        $this->posts->deletePost((int)$body['postId']);
+        $toDel = $this->posts->findPost($body['postId']);
+        $this->posts->deletePost($toDel['id']);
         $dir = BASE_DIR . "/runtime/{$_SESSION['login']}/";
-//        $fileToDel = "pict{$body['postId']}.jpg";
-//        unlink($dir . $fileToDel);
+        $fileToDel = $toDel['pict'];
+        unlink($dir . $fileToDel);
         return [
             'data' => [
                 'res' => 'success',
