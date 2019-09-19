@@ -6,10 +6,9 @@
 
 $this->setParent('header');
 //TODO: paginate page
-//TODO: leave comment and like
 ?>
 
-<script src="/assets/js/pictureActions.js"></script>
+<script src="/assets/js/pictureActions.js?<?= time() ?>"></script>
 
 <div class="images-container">
     <?php foreach ($posts as $post): ?>
@@ -24,10 +23,21 @@ $this->setParent('header');
                 <div class="picture-actions-block">`
                     <div class="like-field">
                         <button id="<?= $post['pict_id'] ?>" class="send-like">Like</button>
+                        <div style="<?php if ($post['is_liked']) : ?>color: red <?php endif ?>">
+                            <?= $post['cnt_likes'] ?>
+                        </div>
                     </div>
                     <div class="comment-field">
                         <input id="<?= $post['pict_id'] ?>" type="text" class="comment" />
                         <button id="<?= $post['pict_id'] ?>" class="send-comment">Comment</button>
+                    </div>
+                    <div class="comments-block">
+                        <?php foreach ($post['comments'] as $comment): ?>
+                            <div class="comment-div" id="<?= $comment['comment_id'] ?>">
+                                <div><?= $comment['login'] ?></div>
+                                <div><?= $comment['comment'] ?></div>
+                            </div>
+                        <?php endforeach ?>
                     </div>
                 </div>
             <?php endif ?>

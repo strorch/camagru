@@ -39,15 +39,15 @@ class Posts extends Model
         ", $params);
 
         foreach ($req_posts as $post) {
-            $likes = $this->getLikes($post['pict_id'], $post['user_id']);
             yield [
                 'user_id' => $post['user_id'],
                 'login' => $post['login'],
                 'email' => $post['email'],
                 'pict_id' => $post['pict_id'],
                 'pict' => $this->getPostPath($post['login'], $post['pict']),
-//                'cnt_likes' => $likes['cnt_likes'],
-//                'is_liked' => $likes['is_liked'],
+                'cnt_likes' => $this->getLikes($post['pict_id']),
+                'is_liked' => $this->isUserLiked($post['pict_id'], $_SESSION['id'] ?? $post['user_id']),
+                'comments' => $this->getComments($post['pict_id']),
             ];
         }
     }
@@ -102,14 +102,24 @@ class Posts extends Model
     public function setLike(int $userId, int $postId): void
     {
         $this->DB->exec("
-            select set_like(:posr_id, :user_id)
+            select set_like(:user_id, :post_id)
         ", [
             ':post_id' => $postId,
             ':user_id' => $userId,
         ]);
     }
 
-    public function isUserLicked(int $postId, int $userId): bool
+    public function removeLike(int $postId, int $userId): void
+    {
+        $this->DB->exec("
+            delete from likes where user_id=:user_id and post_id=:post_id
+        ", [
+            ':post_id' => $postId,
+            ':user_id' => $userId,
+        ]);
+    }
+
+    public function isUserLiked(int $postId, int $userId): bool
     {
         $res = $this->DB->query("
             select  count(*) as cnt
@@ -124,7 +134,7 @@ class Posts extends Model
         return $res['cnt'] > 0;
     }
 
-    public function getLikes(int $postId, int $userId): int
+    public function getLikes(int $postId): int
     {
         $res = $this->DB->query("
             select  count(distinct id) as cnt
@@ -134,5 +144,28 @@ class Posts extends Model
             ':post_id' => $postId,
         ]);
         return reset($res)['cnt'];
+    }
+
+    public function getComments(int $postId): array
+    {
+        return $this->DB->query("
+            select  t1.id as comment_id,
+                    t2.login,
+                    t1.comment
+            from    comments    t1
+            join    users       t2  on  t2.id = t1.user_id
+                                    and t1.post_id = :post_id
+        ", [':post_id' => $postId]);
+    }
+
+    public function addComment(int $postId, int $userId, string $comment): void
+    {
+        $this->DB->exec("
+            select set_comment(:post_id, :user_id, :comment)
+        ", [
+            ':post_id' => $postId,
+            ':user_id' => $userId,
+            ':comment' => $comment,
+        ]);
     }
 }

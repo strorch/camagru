@@ -159,10 +159,16 @@ class PostsController extends AbstractController
                 ],
             ];
         }
-        $this->posts->setLike($body['post_id'], $_SESSION['id']);
+        if ($this->posts->isUserLiked((int)$body['post_id'], $_SESSION['id'])) {
+            $this->posts->removeLike((int)$body['post_id'], $_SESSION['id']);
+        } else {
+            $this->posts->setLike((int)$body['post_id'], $_SESSION['id']);
+        }
+        $likes = $this->posts->getLikes((int)$body['post_id']);
         return [
             'data' => [
-                'res' => 'success'
+                'res' => 'success',
+                'likes' => $likes,
             ]
         ];
     }
@@ -170,6 +176,18 @@ class PostsController extends AbstractController
     public function commentPost(): array
     {
         $body = Utils::fetchParse();
-        $kek = 1;
+        if (empty($_SESSION['login']) || empty($body)) {
+            return [
+                'data' => [
+                    'res' => 'error'
+                ],
+            ];
+        }
+        $this->posts->addComment((int)$body['post_id'], $_SESSION['id'], $body['comment']);
+        return [
+            'data' => [
+                'res' => 'success',
+            ]
+        ];
     }
 }

@@ -12,7 +12,6 @@ const sendCommentInit = () => {
                     'comment': comment
                 })
             };
-            debugger
             fetch('/sendComment', propObj)
                 .then(e => {
                     return e.json();

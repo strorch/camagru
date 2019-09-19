@@ -82,6 +82,21 @@ BEGIN
 END
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION set_comment (a_post_id integer, a_user_id integer, a_comment text) RETURNS VOID AS $$
+BEGIN
+    INSERT INTO comments (user_id, post_id, comment) VALUES (a_user_id, a_post_id, a_comment);
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION remove_comment (a_user_id integer, a_comment_id integer) RETURNS VOID AS $$
+BEGIN
+    DELETE
+    FROM    likes
+    where   id=a_comment_id
+    and     user_id=a_user_id;
+END
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION remove_like (a_post_id integer, a_user_id integer) RETURNS VOID AS $$
 BEGIN
     DELETE
