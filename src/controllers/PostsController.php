@@ -149,13 +149,13 @@ class PostsController extends AbstractController
         ];
     }
 
-    public function test()
+    public function likePost(): array
     {
-        $res = mail('homiak.max@gmail.com', 'Subjectgregrergrege', 'Bodygergergegrege');
-        return [
-            'data' => [
-                'res' => $res,
-            ]
-        ];
+
+    }
+
+    public function commentPost(): array
+    {
+
     }
 }

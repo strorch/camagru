@@ -45,6 +45,21 @@ CREATE TABLE posts (
   pict text NOT NULL
 );
 
+DROP TABLE IF EXISTS likes;
+CREATE TABLE likes (
+    id SERIAL PRIMARY KEY NOT NULL,
+    user_id INTEGER NOT NULL,
+    post_id INTEGER NOT NULL
+);
+
+DROP TABLE IF EXISTS comments;
+CREATE TABLE comments (
+   id SERIAL PRIMARY KEY NOT NULL,
+   user_id INTEGER NOT NULL,
+   post_id INTEGER NOT NULL,
+   comment TEXT NOT NULL
+);
+
 DROP TABLE IF EXISTS stickers;
 CREATE TABLE stickers (
   id SERIAL PRIMARY KEY NOT NULL,
