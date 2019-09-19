@@ -39,12 +39,15 @@ class Posts extends Model
         ", $params);
 
         foreach ($req_posts as $post) {
+            $likes = $this->getLikes($post['pict_id'], $post['user_id']);
             yield [
                 'user_id' => $post['user_id'],
                 'login' => $post['login'],
                 'email' => $post['email'],
                 'pict_id' => $post['pict_id'],
                 'pict' => $this->getPostPath($post['login'], $post['pict']),
+//                'cnt_likes' => $likes['cnt_likes'],
+//                'is_liked' => $likes['is_liked'],
             ];
         }
     }
@@ -94,5 +97,42 @@ class Posts extends Model
         $this->DB->exec("
             delete from posts where id=:id
         ", [':id' => $postId]);
+    }
+
+    public function setLike(int $userId, int $postId): void
+    {
+        $this->DB->exec("
+            select set_like(:posr_id, :user_id)
+        ", [
+            ':post_id' => $postId,
+            ':user_id' => $userId,
+        ]);
+    }
+
+    public function isUserLicked(int $postId, int $userId): bool
+    {
+        $res = $this->DB->query("
+            select  count(*) as cnt
+            from    likes
+            where   post_id=:post_id
+            and     user_id=:user_id 
+        ", [
+            ':post_id' => $postId,
+            ':user_id' => $userId,
+        ]);
+        $res = reset($res);
+        return $res['cnt'] > 0;
+    }
+
+    public function getLikes(int $postId, int $userId): int
+    {
+        $res = $this->DB->query("
+            select  count(distinct id) as cnt
+            from    likes
+            where   post_id=:post_id
+        ", [
+            ':post_id' => $postId,
+        ]);
+        return reset($res)['cnt'];
     }
 }

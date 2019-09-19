@@ -1,16 +1,19 @@
 const sendCommentInit = () => {
-    let commentButtons = Array.of(document.getElementsByClassName('send-comment'));
+    let commentButtons = Array.from(document.getElementsByClassName('send-comment'));
     commentButtons.forEach(el => {
         el.onclick = event => {
             let post_id = event.target.id;
+            let comment = document.querySelector(`input[id='${post_id}']`).value;
             let propObj = {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify({
-                    'post_id': post_id
+                    'post_id': post_id,
+                    'comment': comment
                 })
             };
-            fetch('/sandLike', propObj)
+            debugger
+            fetch('/sendComment', propObj)
                 .then(e => {
                     return e.json();
                 })
@@ -25,20 +28,18 @@ const sendCommentInit = () => {
 };
 
 const sendLikeInit = () => {
-    let likeButtons = Array.of(document.getElementsByClassName('send-like'));
-    likeButtons.forEach(el => {
+    let likeButtons = Array.from(document.getElementsByClassName('send-like'));
+    likeButtons.map(el => {
         el.onclick = event => {
             let post_id = event.target.id;
-            let comment = document.querySelector(`input[id=${post_id}]`).text;
             let propObj = {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify({
-                    'post_id': post_id,
-                    'comment': comment
+                    'post_id': post_id
                 })
             };
-            fetch('/sandComment', propObj)
+            fetch('/sendLike', propObj)
                 .then(e => {
                     return e.json();
                 })

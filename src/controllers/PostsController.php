@@ -151,11 +151,25 @@ class PostsController extends AbstractController
 
     public function likePost(): array
     {
-
+        $body = Utils::fetchParse();
+        if (empty($_SESSION['login'])) {
+            return [
+                'data' => [
+                    'res' => 'error'
+                ],
+            ];
+        }
+        $this->posts->setLike($body['post_id'], $_SESSION['id']);
+        return [
+            'data' => [
+                'res' => 'success'
+            ]
+        ];
     }
 
     public function commentPost(): array
     {
-
+        $body = Utils::fetchParse();
+        $kek = 1;
     }
 }

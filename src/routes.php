@@ -24,6 +24,6 @@ Router::post('/deletePhoto', 'PostsController@deletePost');
 
 Router::get('/emailConfirm', 'AuthController@emailConfirm');
 
-Router::post('/sandComment', 'PostsController@commentPost');
+Router::post('/sendComment', 'PostsController@commentPost');
 
-Router::post('/sandLike', 'PostsController@likePost');
+Router::post('/sendLike', 'PostsController@likePost');
