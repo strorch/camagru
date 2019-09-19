@@ -103,4 +103,18 @@ class AuthController extends AbstractController
         $_SESSION['log_stat'] = 1;
         $this->redirect('/');
     }
+
+    public function sendNewPassword(): void
+    {
+        $this->checkCsrf();
+
+        $user = $this->user->getUserByLogin($_POST['login']);
+        if (empty($user)) {
+            $this->redirect('/error=5');
+        }
+        $newPassword = 'passwd1';
+        $this->mail->sendPasswordEmail($user, $newPassword);
+        $this->user->passwordUpdate($user['id'], $newPassword);
+        $this->redirect('/');
+    }
 }

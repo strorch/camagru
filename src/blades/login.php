@@ -46,7 +46,7 @@ $this->setParent('header');
 
 <div id="forget-password" class="tabcontent">
     <form method="post" action="/forgetPassword">
-        <?php $this->includeChild('csrf'); //TODO: forget password?>
+        <?php $this->includeChild('csrf');?>
         <input name="login" type="text"/>Login
         <br/>
         <input name="submit" type="submit" value="OK"/>

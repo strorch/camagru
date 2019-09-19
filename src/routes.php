@@ -27,3 +27,5 @@ Router::get('/emailConfirm', 'AuthController@emailConfirm');
 Router::post('/sendComment', 'PostsController@commentPost');
 
 Router::post('/sendLike', 'PostsController@likePost');
+
+Router::post('/forgetPassword', 'AuthController@sendNewPassword');

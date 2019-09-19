@@ -18,6 +18,12 @@ class Mail extends Model
         return $res;
     }
 
+    public function sendPasswordEmail(array $user, string $password): bool
+    {
+        $res = mail($user['email'], 'Camagru', "Your new temporary password: $password\nChange it in settings page");
+        return $res;
+    }
+
     private function createMailUrl(string $action, array $user): string
     {
         $url = Application::getConfig()['url'];

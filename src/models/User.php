@@ -69,6 +69,16 @@ class User extends Model
         return reset($res);
     }
 
+    public function getUserByLogin(string $login): array
+    {
+        $res = $this->DB->query("
+            select  * 
+            from    users
+            where   login = :login
+        ", [':login' => $login]);
+        return reset($res);
+    }
+
     /**
      * @param array $data
      * @return void
@@ -128,6 +138,18 @@ class User extends Model
             throw new \Exception('Cant find registered user');
         }
         return $res;
+    }
+
+    public function passwordUpdate(int $user_id, string $newPassword): void
+    {
+        $this->DB->exec("
+            update  users 
+            set     password=:password
+            where   id = :user_id
+        ", [
+            ':user_id' => $user_id,
+            ':password' => $newPassword,
+        ]);
     }
 
     public function confirmEmail(string $id): void
