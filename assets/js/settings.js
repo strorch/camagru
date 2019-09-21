@@ -2,12 +2,14 @@ const changeRoutine = (value, action) => {
     const btn = document.getElementById(value + '-button');
     btn.onclick = (e) => {
         const input = document.getElementById(value + '-input');
+        let _csrf = document.querySelector("meta[name='csrf-token']").content;
 
         let propObj = {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify({
-                'newValue': input.value
+                'newValue': input.value,
+                '_csrf': _csrf
             })
         };
         fetch(action, propObj)
@@ -25,6 +27,7 @@ const changeRoutine = (value, action) => {
 
 const emailNotification = () => {
     let check = document.getElementById('notifications-click');
+    let _csrf = document.querySelector("meta[name='csrf-token']").content;
     check.onclick = (e) => {
         let checked = e.target.checked;
 
@@ -32,7 +35,8 @@ const emailNotification = () => {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify({
-                'checked': checked
+                'checked': checked,
+                '_csrf': _csrf
             })
         };
         fetch('/enableNotifications', propObj)

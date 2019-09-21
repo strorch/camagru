@@ -4,12 +4,14 @@ const sendCommentInit = () => {
         el.onclick = event => {
             let post_id = event.target.id;
             let comment = document.querySelector(`input[id='${post_id}']`).value;
+            let _csrf = document.querySelector("meta[name='csrf-token']").content;
             let propObj = {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify({
                     'post_id': post_id,
-                    'comment': comment
+                    'comment': comment,
+                    _csrf: _csrf
                 })
             };
             fetch('/sendComment', propObj)
@@ -31,11 +33,13 @@ const sendLikeInit = () => {
     likeButtons.map(el => {
         el.onclick = event => {
             let post_id = event.target.id;
+            let _csrf = document.querySelector("meta[name='csrf-token']").content;
             let propObj = {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify({
-                    'post_id': post_id
+                    'post_id': post_id,
+                    _csrf: _csrf
                 })
             };
             fetch('/sendLike', propObj)

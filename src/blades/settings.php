@@ -38,6 +38,6 @@ $this->setParent('header');
 </div>
 
 <div>
-    Disable email after comment
-    <input id="notifications-click" type="checkbox" >
+    Notifications by email after comment
+    <input id="notifications-click" type="checkbox" <?php if ($_SESSION['notifications']): ?> checked <?php endif ?>>
 </div>

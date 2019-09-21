@@ -20,7 +20,7 @@ final class Config
             'db' => static::getDBConfig(),
             'url' => [
                 'cert' => 'http',
-                'uri' => 'localhost',
+                'uri' => 'localhost:8000',
             ],
         ];
     }

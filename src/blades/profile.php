@@ -10,7 +10,6 @@ $this->setParent('header');
 
 ?>
 <script src="/assets/js/makePhoto.js?<?= time() ?>"></script>
-<script src="/assets/js/canvas.js?<?= time() ?>"></script>
 
 <h5>Profile</h5>
 

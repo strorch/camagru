@@ -2,7 +2,7 @@
 
 use core\Router\Router;
 
-Router::get("/", 'PageController@FrontPage');
+Router::get('/', 'PageController@FrontPage');
 
 Router::get('/login','PageController@LoginPage');
 
@@ -22,10 +22,18 @@ Router::post('/savePhoto', 'PostsController@savePost');
 
 Router::post('/deletePhoto', 'PostsController@deletePost');
 
-Router::get('/emailConfirm', 'AuthController@emailConfirm');
+Router::get('/emailConfirm', 'UserController@emailConfirm');
 
 Router::post('/sendComment', 'PostsController@commentPost');
 
 Router::post('/sendLike', 'PostsController@likePost');
 
-Router::post('/forgetPassword', 'AuthController@sendNewPassword');
+Router::post('/forgetPassword', 'UserController@sendNewPassword');
+
+Router::post('/changeUsername', 'UserController@changeUsername');
+
+Router::post('/changeEmail', 'UserController@changeEmail');
+
+Router::post('/changePassword', 'UserController@changePassword');
+
+Router::post('/enableNotifications', 'UserController@enableNotifications');

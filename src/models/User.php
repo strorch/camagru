@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace models;
 
 
+use Closure;
 use core\Model;
 use helpers\SaltGenerator;
 use Exception;
@@ -157,18 +158,6 @@ class User extends Model
         return $res;
     }
 
-    public function passwordUpdate(int $user_id, string $newPassword): void
-    {
-        $this->DB->exec("
-            update  users 
-            set     password=:password
-            where   id = :user_id
-        ", [
-            ':user_id' => $user_id,
-            ':password' => $newPassword,
-        ]);
-    }
-
     public function confirmEmail(string $id): void
     {
         $salt = SaltGenerator::generateRandomName();
@@ -181,5 +170,21 @@ class User extends Model
             ':salt' => $salt,
             ':id' => $id,
         ]);
+    }
+
+    public function changeRoutine(int $user_id, string $attribute, string $newValue, Closure $callback = null): bool
+    {
+        $this->DB->exec("
+            update  users 
+            set     $attribute=:newValue
+            where   id = :user_id
+        ", [
+            ':user_id' => $user_id,
+            ':newValue' => $newValue,
+        ]);
+        if (!empty($callback)) {
+            return $callback();
+        }
+        return true;
     }
 }

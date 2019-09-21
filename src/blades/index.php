@@ -24,7 +24,7 @@ $this->setParent('header');
                 <img class="picture" src="<?= $post['pict'] ?>" alt="picture of <?= $post['login'] ?> user" />
             </div>
             <?php if (!empty($_SESSION['login'])): ?>
-                <div class="picture-actions-block">`
+                <div class="picture-actions-block">
                     <div class="like-field">
                         <button id="<?= $post['pict_id'] ?>" class="send-like">Like</button>
                         <div style="<?php if ($post['is_liked']) : ?>color: red <?php endif ?>">

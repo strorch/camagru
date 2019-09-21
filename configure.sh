@@ -8,4 +8,4 @@ docker-compose exec pgsql apt-get install -y vim
 docker-compose exec web ./config/setup.php
 
 # Run up in localhost:9000
-VBoxManage controlvm ddd natpf1 rule1,tcp,,9000,,80
+# VBoxManage controlvm ddd natpf1 rule1,tcp,,8000,,80

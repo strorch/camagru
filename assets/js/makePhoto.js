@@ -67,11 +67,6 @@ const stickerSelect = (event) => {
 
             let canvasContainer = document.getElementById('canvas-container');
             canvasContainer.appendChild(selectedSticker);
-            // let img = new Image();
-            // img.onload = () => {
-            //     context.drawImage(img,0,0);
-            // };
-            // img.src = domImage.src;
         };
     });
 };
@@ -88,9 +83,11 @@ const snapInit = () => {
         };
         let canvas = document.getElementById('canvas');
         let image = canvas.toDataURL("image/png");
+        let _csrf = document.querySelector("meta[name='csrf-token']").content;
         const imageObject = {
             userImg: image,
-            stickerAttrs: stikerAttributes
+            stickerAttrs: stikerAttributes,
+            _csrf: _csrf
         };
         let propObj = {
             method: 'POST',
@@ -115,6 +112,7 @@ const snapInit = () => {
 
 const delButtonsInit = () => {
     let buttons = Array.from(document.getElementsByClassName('delete-picture'));
+    let _csrf = document.querySelector("meta[name='csrf-token']").content;
     buttons.forEach(el => {
         el.onclick = event => {
             let pictureId = event.target.id;
@@ -122,7 +120,8 @@ const delButtonsInit = () => {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify({
-                    'postId': pictureId
+                    'postId': pictureId,
+                    _csrf: _csrf
                 })
             };
             fetch('/deletePhoto', propObj)
@@ -180,7 +179,6 @@ window.onload = (event) => {
                     context.drawImage(img,0,0);
                 };
                 img.src = fr.result;
-                // canvas.toDataURL("image/png");  // get the data URL
             };
             fr.readAsDataURL(file);
         };

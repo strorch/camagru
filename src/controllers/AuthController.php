@@ -91,30 +91,4 @@ class AuthController extends AbstractController
             $_SESSION[$attr] = $user[$attr];
         }
     }
-
-    public function emailConfirm()
-    {
-        try {
-            $this->mail->validateConfirmParams($_GET, $this->user);
-        } catch (Exception $e) {
-            $this->redirect('/?error=4');
-        }
-        $this->user->confirmEmail($_GET['id']);
-        $_SESSION['log_stat'] = 1;
-        $this->redirect('/');
-    }
-
-    public function sendNewPassword(): void
-    {
-        $this->checkCsrf();
-
-        $user = $this->user->getUserByLogin($_POST['login']);
-        if (empty($user)) {
-            $this->redirect('/error=5');
-        }
-        $newPassword = 'passwd1';
-        $this->mail->sendPasswordEmail($user, $newPassword);
-        $this->user->passwordUpdate($user['id'], $newPassword);
-        $this->redirect('/');
-    }
 }

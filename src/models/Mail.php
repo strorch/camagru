@@ -38,7 +38,7 @@ class Mail extends Model
                 throw new Exception('Email confirm error');
             }
         }
-        $account = $user->getAccountInfo($params['id']);
+        $account = $user->getAccountInfo((int)($params['id']));
         if (empty($account)) {
             throw new Exception('Email confirm error');
         }
