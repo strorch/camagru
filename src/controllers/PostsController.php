@@ -9,6 +9,7 @@ use core\AbstractController;
 use core\Model;
 use core\Utils;
 use helpers\SaltGenerator;
+use models\Mail;
 use models\Posts;
 use models\Sticker;
 use models\User;
@@ -35,6 +36,11 @@ class PostsController extends AbstractController
     private $users;
 
     /**
+     * @var Mail
+     */
+    private $mail;
+
+    /**
      * PostsController constructor.
      * @param Model $model
      * @throws \Exception
@@ -45,6 +51,7 @@ class PostsController extends AbstractController
         $this->posts = $model::getInstance(Posts::class);
         $this->sticker = $model::getInstance(Sticker::class);
         $this->users = $model::getInstance(User::class);
+        $this->mail = $model::getInstance(Mail::class);
     }
 
     /**
@@ -191,7 +198,16 @@ class PostsController extends AbstractController
             ];
         }
         $this->posts->addComment((int)$body['post_id'], $_SESSION['id'], $body['comment']);
-        $this->users->getInfoByPostId();
+        $userInfo = $this->users->getInfoByPostId((int)$body['post_id']);
+        if ($userInfo['notifications']) {
+            if (!$this->mail->sendCommentNotification($userInfo['email'], strval($_SESSION['login']), $body['comment'])) {
+                return [
+                    'data' => [
+                        'res' => 'error',
+                    ]
+                ];
+            }
+        }
 
         return [
             'data' => [

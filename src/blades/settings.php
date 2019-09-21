@@ -7,7 +7,6 @@
 use core\View;
 
 $this->setParent('header');
-// TODO: settings page
 ?>
 
 <script src="/assets/js/settings.js?<?= time() ?>"></script>
@@ -16,32 +15,29 @@ $this->setParent('header');
 
 <div>
     modify username
-    <form method="post" action="/changeUsername">
-        <?php $this->includeChild('csrf');?>
-        <input type="text"  /> New username
-        <input type="submit" value="OK"/>
-    </form>
+    <div>
+        <input id="username-input" type="text" /> New username
+        <input id="username-button" type="submit" value="OK"/>
+    </div>
 </div>
 
 <div>
     modify email
-    <form method="post" action="/changeEmail">
-        <?php $this->includeChild('csrf');?>
-        <input type="text"  /> New email
-        <input type="submit" value="OK"/>
-    </form>
+    <div>
+        <input id="email-input" type="text"  /> New email
+        <input id="email-button" type="submit" value="OK"/>
+    </div>
 </div>
 
 <div>
     modify password
-    <form method="post" action="/changePassword">
-        <?php $this->includeChild('csrf');?>
-        <input type="text"  /> New password
-        <input type="submit" value="OK"/>
-    </form>
+    <div>
+        <input id="password-input" type="text"  /> New email
+        <input id="password-button" type="submit" value="OK"/>
+    </div>
 </div>
 
 <div>
     Disable email after comment
-    <input type="checkbox" >
+    <input id="notifications-click" type="checkbox" >
 </div>
