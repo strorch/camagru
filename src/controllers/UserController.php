@@ -9,6 +9,7 @@ use core\AbstractController;
 use core\Model;
 use core\Utils;
 use Exception;
+use helpers\UserValidator;
 use models\Mail;
 use models\User;
 
@@ -68,6 +69,15 @@ class UserController extends AbstractController
                 ],
             ];
         }
+        try {
+            UserValidator::username($body['newValue']);
+        } catch (Exception $e) {
+            return [
+                'data' => [
+                    'res' => 'error',
+                ],
+            ];
+        }
         $accountInfo = $this->user->getAccountInfo($_SESSION['id']);
 
         $this->user->changeRoutine($accountInfo['id'], 'login', $body['newValue']);
@@ -85,6 +95,15 @@ class UserController extends AbstractController
         $body = Utils::fetchParse();
         $this->checkCsrf($body);
         if (empty($body['newValue'])) {
+            return [
+                'data' => [
+                    'res' => 'error',
+                ],
+            ];
+        }
+        try {
+            UserValidator::email($body['newValue']);
+        } catch (Exception $e) {
             return [
                 'data' => [
                     'res' => 'error',
@@ -120,6 +139,16 @@ class UserController extends AbstractController
         $body = Utils::fetchParse();
         $this->checkCsrf($body);
         if (empty($body['newValue'])) {
+            return [
+                'data' => [
+                    'res' => 'error',
+                ],
+            ];
+        }
+
+        try {
+            UserValidator::password($body['newValue']);
+        } catch (Exception $e) {
             return [
                 'data' => [
                     'res' => 'error',

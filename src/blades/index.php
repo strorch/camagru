@@ -21,7 +21,7 @@ $this->setParent('header');
                 <span><?= $post['login'] ?></span>
             </div>
             <div class="picture-div">
-                <img class="picture" src="<?= $post['pict'] ?>" alt="picture of <?= $post['login'] ?> user" />
+                <img class="picture" src="<?= $post['pict'] ?>" alt="picture of <?= htmlspecialchars($post['login']) ?> user" />
             </div>
             <?php if (!empty($_SESSION['login'])): ?>
                 <div class="picture-actions-block">
@@ -38,8 +38,8 @@ $this->setParent('header');
                     <div class="comments-block">
                         <?php foreach ($post['comments'] as $comment): ?>
                             <div class="comment-div" id="<?= $comment['comment_id'] ?>">
-                                <div><?= $comment['login'] ?></div>
-                                <div><?= $comment['comment'] ?></div>
+                                <div><?= htmlspecialchars($comment['login']) ?></div>
+                                <div><?= htmlspecialchars($comment['comment']) ?></div>
                             </div>
                         <?php endforeach ?>
                     </div>

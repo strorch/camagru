@@ -9,6 +9,7 @@ use Closure;
 use core\Model;
 use helpers\SaltGenerator;
 use Exception;
+use helpers\UserValidator;
 
 /**
  * Class User
@@ -102,7 +103,7 @@ class User extends Model
      * @return void
      * @throws Exception
      */
-    public function checkUserRow(array $data): void
+    public function checkUserRow(array &$data): void
     {
         foreach (['submit', 'email', 'login', 'password', 'password_confirm'] as $attr) {
             if (empty($data[$attr])) {
@@ -112,15 +113,9 @@ class User extends Model
         if ($data['password'] !== $data['password_confirm']) {
             throw new Exception("Wrong password confirmation");
         }
-        if (strlen($data['login']) < 6 || empty(preg_match("/^[a-zA-Z ]*$/", $data['login']))) {
-            throw new Exception("Wrong login! Only letters and white space allowed");
-        }
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            throw new Exception("Wrong login! Invalid email format");
-        }
-        if (strlen($data['password']) < 6 || empty(preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $data['password']))) {
-            throw new Exception("Weak password!");
-        }
+        UserValidator::email($data['email']);
+        UserValidator::username($data['login']);
+        UserValidator::password($data['password']);
         $res = $this->DB->query("
             select  *
             from    users

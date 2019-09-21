@@ -31,9 +31,10 @@ class Mail extends Model
         return "{$url['cert']}://{$url['uri']}/$action?id={$user['id']}&secret=$salt";
     }
 
-    public function validateConfirmParams(array $params, User $user): void
+    public function validateConfirmParams(array &$params, User $user): void
     {
         foreach (['id', 'secret'] as $key) {
+            $params[$key] = strip_tags($params[$key]);
             if (empty($params[$key])) {
                 throw new Exception('Email confirm error');
             }
