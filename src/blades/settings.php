@@ -8,8 +8,9 @@ use core\View;
 
 $this->setParent('header');
 // TODO: settings page
-// TODO: checkbox set
 ?>
+
+<script src="/assets/js/settings.js?<?= time() ?>"></script>
 
 <h5>Settings</h5>
 

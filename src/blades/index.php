@@ -1,11 +1,15 @@
 <?php
 
+use core\View;
+
 /**
+ * @var $this View
  * @var $posts array
  */
 
 $this->setParent('header');
 //TODO: paginate page
+
 ?>
 
 <script src="/assets/js/pictureActions.js?<?= time() ?>"></script>

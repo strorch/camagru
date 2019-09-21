@@ -11,6 +11,7 @@ use core\Utils;
 use helpers\SaltGenerator;
 use models\Posts;
 use models\Sticker;
+use models\User;
 
 /**
  * Class PostsController
@@ -29,6 +30,11 @@ class PostsController extends AbstractController
     private $posts;
 
     /**
+     * @var User
+     */
+    private $users;
+
+    /**
      * PostsController constructor.
      * @param Model $model
      * @throws \Exception
@@ -38,6 +44,7 @@ class PostsController extends AbstractController
         parent::__construct($model);
         $this->posts = $model::getInstance(Posts::class);
         $this->sticker = $model::getInstance(Sticker::class);
+        $this->users = $model::getInstance(User::class);
     }
 
     /**
@@ -184,6 +191,8 @@ class PostsController extends AbstractController
             ];
         }
         $this->posts->addComment((int)$body['post_id'], $_SESSION['id'], $body['comment']);
+        $this->users->getInfoByPostId();
+
         return [
             'data' => [
                 'res' => 'success',

@@ -31,7 +31,8 @@ class User extends Model
     {
         $userInfo =  $this->DB->query("
             select  *
-            from    users where id = :id
+            from    users
+            where   id = :id
         ", [
             ':id' => $id,
         ]);
@@ -45,6 +46,22 @@ class User extends Model
         ]);
         $userInfo['posts'] = $usersPosts;
         return $userInfo;
+    }
+
+    public function getInfoByPostId(int $postId): array
+    {
+        $userId =  $this->DB->query("
+            select  user_id
+            from    posts 
+            where   id = :id
+        ", [
+            ':id' => $postId,
+        ]);
+        if (empty($userId)) {
+            return [];
+        }
+        $userId = reset($userId)['user_id'];
+        return $this->getAccountInfo($userId);
     }
 
     /**

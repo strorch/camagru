@@ -35,6 +35,7 @@ CREATE TABLE users (
   password text NOT NULL,
   email text NOT NULL,
   salt text NOT NULL,
+  notifications INT NOT NULL,
   log_stat INT DEFAULT 0
 );
 
@@ -108,8 +109,8 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION create_user (a_login text, a_password text, a_email text, a_salt text, a_log_stat integer) RETURNS VOID AS $$
 BEGIN
-    INSERT INTO users (login, password, email, salt, log_stat) VALUES
-    (a_login, a_password, a_email, a_salt, a_log_stat);
+    INSERT INTO users (login, password, email, salt, notifications, log_stat) VALUES
+    (a_login, a_password, a_email, a_salt, 1, a_log_stat);
 END
 $$ LANGUAGE 'plpgsql';
 

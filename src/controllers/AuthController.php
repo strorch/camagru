@@ -87,7 +87,7 @@ class AuthController extends AbstractController
      */
     private function registerSession(array $user): void
     {
-        foreach (['id', 'login', 'password', 'log_stat'] as $attr) {
+        foreach (['id', 'login', 'password', 'log_stat', 'notifications'] as $attr) {
             $_SESSION[$attr] = $user[$attr];
         }
     }
