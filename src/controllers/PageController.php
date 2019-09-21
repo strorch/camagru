@@ -49,7 +49,7 @@ final class PageController extends AbstractController
             'data' => [
                 'userLogged' => $userLogged,
                 'posts' => $posts,
-                'kek' => 'hello',
+
             ],
         ];
     }

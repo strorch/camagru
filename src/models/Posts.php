@@ -21,21 +21,28 @@ class Posts extends Model
      */
     public function getPosts(int $startNumber, int $endNumber, ?int $user_id = null): Iterator
     {
-        $userCondition = '';
-        $params = [];
         if (!empty($user_id)) {
-            $userCondition = 'and   t2.id = :user_id';
+            $condition = 'tt.user_id = :user_id';
             $params[':user_id'] = $user_id;
+        } else {
+            $condition = 'tt.num >= :start_num and tt.num <= :end_num';
+            $params[':start_num'] = $startNumber;
+            $params[':end_num'] = $endNumber;
         }
         $req_posts = $this->DB->query("
-            select  t1.id as pict_id, 
-                    t1.pict, 
-                    t1.user_id, 
-                    t2.login, 
-                    t2.email
-            from    posts t1
-            join    users t2 on     t1.user_id=t2.id
-                             $userCondition
+            select  *
+            from    (
+                        select  t1.id as pict_id,
+                                t1.pict,
+                                t1.user_id,
+                                t2.login,
+                                t2.email,
+                                row_number() over (order by t1.id desc)  as num
+                        from    posts t1
+                        join    users t2 on     t1.user_id=t2.id
+                        order   by t1.id desc
+                    ) tt
+            where   $condition
         ", $params);
 
         foreach ($req_posts as $post) {
