@@ -121,12 +121,12 @@ INSERT INTO stickers (pict) VALUES
 ('mem4.jpg')
 ;
 
-SELECT create_user('test_user', 'random', 'test@test.ua', '1111', 1);
-SELECT create_user('usrrrrrr', 'random', 'test1@test.ua', '1010', 1);
+SELECT create_user('testuser', 'random', 'homiak.max@gmail.com', '1111', 1);
+SELECT create_user('usrrrrrr', 'random', 'homiak.max@gmail.com', '1010', 1);
 
 
-SELECT create_post(user_id('test_user'), 'picture1.jpg');
-SELECT create_post(user_id('test_user'), 'picture2.jpeg');
+SELECT create_post(user_id('testuser'), 'picture1.jpg');
+SELECT create_post(user_id('testuser'), 'picture2.jpeg');
 SELECT create_post(user_id('usrrrrrr'), 'pict1.png');
 
 COMMIT;
