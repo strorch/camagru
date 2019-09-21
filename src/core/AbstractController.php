@@ -28,11 +28,16 @@ abstract class AbstractController
     }
 
     /**
+     * @param array|null $body
      * @throws Exception
      */
-    public function checkCsrf(): void
+    public function checkCsrf(array $body = null): void
     {
-        if (empty($_POST['_csrf']) || $_POST['_csrf'] !== $_SESSION['_csrf']) {
+        $_check = $_POST;
+        if (!empty($body)) {
+            $_check = $body;
+        }
+        if (empty($_check['_csrf']) || $_check['_csrf'] !== $_SESSION['_csrf']) {
             throw new Exception('page is not available');
         }
     }

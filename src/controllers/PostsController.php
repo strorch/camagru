@@ -56,10 +56,12 @@ class PostsController extends AbstractController
 
     /**
      * @return array
+     * @throws \Exception
      */
     public function savePost()
     {
         $body = Utils::fetchParse();
+        $this->checkCsrf($body);
         if (empty($body)) {
             return [
                 'data' => [
@@ -140,10 +142,12 @@ class PostsController extends AbstractController
 
     /**
      * @return array
+     * @throws \Exception
      */
     public function deletePost(): array
     {
         $body = Utils::fetchParse();
+        $this->checkCsrf($body);
         if (empty($body)) {
             return [
                 'data' => [
@@ -166,6 +170,7 @@ class PostsController extends AbstractController
     public function likePost(): array
     {
         $body = Utils::fetchParse();
+        $this->checkCsrf($body);
         if (empty($_SESSION['login'])) {
             return [
                 'data' => [
@@ -190,6 +195,7 @@ class PostsController extends AbstractController
     public function commentPost(): array
     {
         $body = Utils::fetchParse();
+        $this->checkCsrf($body);
         if (empty($_SESSION['login']) || empty($body)) {
             return [
                 'data' => [

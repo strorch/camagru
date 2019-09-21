@@ -28,12 +28,12 @@ Router::post('/sendComment', 'PostsController@commentPost');
 
 Router::post('/sendLike', 'PostsController@likePost');
 
-Router::post('/forgetPassword', 'UserController@sendNewPassword');
-
-Router::post('/changeUsername', 'UserController@changeUsername');
-
-Router::post('/changeEmail', 'UserController@changeEmail');
-
-Router::post('/changePassword', 'UserController@changePassword');
-
-Router::post('/enableNotifications', 'UserController@enableNotifications');
+//Router::post('/forgetPassword', 'UserController@sendNewPassword');
+//
+//Router::post('/changeUsername', 'UserController@changeUsername');
+//
+//Router::post('/changeEmail', 'UserController@changeEmail');
+//
+//Router::post('/changePassword', 'UserController@changePassword');
+//
+//Router::post('/enableNotifications', 'UserController@enableNotifications');

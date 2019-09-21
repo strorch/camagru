@@ -60,6 +60,7 @@ class UserController extends AbstractController
     public function changeUsername(): array
     {
         $body = Utils::fetchParse();
+        $this->checkCsrf($body);
         if (empty($body['newValue'])) {
             return [
                 'data' => [
@@ -82,6 +83,7 @@ class UserController extends AbstractController
     public function changeEmail(): array
     {
         $body = Utils::fetchParse();
+        $this->checkCsrf($body);
         if (empty($body['newValue'])) {
             return [
                 'data' => [
@@ -116,6 +118,7 @@ class UserController extends AbstractController
     public function changePassword(): array
     {
         $body = Utils::fetchParse();
+        $this->checkCsrf($body);
         if (empty($body['newValue'])) {
             return [
                 'data' => [
@@ -143,6 +146,7 @@ class UserController extends AbstractController
     public function enableNotifications(): array
     {
         $body = Utils::fetchParse();
+        $this->checkCsrf($body);
         if (empty($body)) {
             return [
                 'data' => [
