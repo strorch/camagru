@@ -19,7 +19,11 @@ const sendCommentInit = () => {
                     return e.json();
                 })
                 .then(e => {
-                    //TODO: like push animation
+                    if (e.res === 'error') {
+                        return ;
+                    }
+
+                    document.getElementById('comments-block').innerHTML = e.comments;
                 })
                 .catch(e => {
                     console.log(e);
@@ -32,6 +36,7 @@ const sendLikeInit = () => {
     let likeButtons = Array.from(document.getElementsByClassName('send-like'));
     likeButtons.map(el => {
         el.onclick = event => {
+            let target = event.target;
             let post_id = event.target.id;
             let _csrf = document.querySelector("meta[name='csrf-token']").content;
             let propObj = {
@@ -47,7 +52,15 @@ const sendLikeInit = () => {
                     return e.json();
                 })
                 .then(e => {
-                    //TODO: like push animation
+                    if (e.res === 'error') {
+                        return;
+                    }
+                    if (e.is_like) {
+                        target.className = "send-like fa fa-2x fa-heart";
+                    } else {
+                        target.className = "send-like fa fa-2x fa-heart-o";
+                    }
+                    document.querySelector(`div[id='${post_id}'][class*='count-likes']`).innerHTML = e.likes;
                 })
                 .catch(e => {
                     console.log(e);

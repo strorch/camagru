@@ -33,10 +33,9 @@ $this->setParent('header');
                         <div class="like-field col s2 offset-s2">
                             <div class="row">
                                 <div class="col s6">
-                                    <i class="fa fa-2x fa-heart<?php if (!$post['is_liked']) : ?>-o<?php endif ?>" aria-hidden="true"></i>
-                                    <button id="<?= $post['pict_id'] ?>" class="send-like">Like</button>
+                                    <i id="<?= $post['pict_id'] ?>" class="send-like fa fa-2x fa-heart<?php if (!$post['is_liked']) : ?>-o<?php endif ?>" aria-hidden="true"></i>
                                 </div>
-                                <div class="col s6">
+                                <div id="<?= $post['pict_id'] ?>" class="col s6 count-likes">
                                     <?= $post['cnt_likes'] ?>
                                 </div>
                             </div>
@@ -53,7 +52,7 @@ $this->setParent('header');
                             </div>
                         </div>
                     </div>
-                    <div class="comments-block row">
+                    <div id="comments-block" class="comments-block row">
                         <?php foreach ($post['comments'] as $comment): ?>
                             <div class="comment-div col s8 offset-s4 " id="<?= $comment['comment_id'] ?>">
                                 <b><?= htmlspecialchars($comment['login']) ?>:</b>  <?= htmlspecialchars($comment['comment']) ?>

@@ -178,7 +178,9 @@ class PostsController extends AbstractController
                 ],
             ];
         }
+        $like = true;
         if ($this->posts->isUserLiked((int)$body['post_id'], $_SESSION['id'])) {
+            $like = false;
             $this->posts->removeLike((int)$body['post_id'], $_SESSION['id']);
         } else {
             $this->posts->setLike((int)$body['post_id'], $_SESSION['id']);
@@ -188,6 +190,7 @@ class PostsController extends AbstractController
             'data' => [
                 'res' => 'success',
                 'likes' => $likes,
+                'is_like' => $like,
             ]
         ];
     }
@@ -214,10 +217,19 @@ class PostsController extends AbstractController
                 ];
             }
         }
-
+        $tmp = '';
+        $comments = $this->posts->getComments((int)$body['post_id']);
+        foreach ($comments as $comment) {
+            $tmp .= "
+                <div class=\"comment-div col s8 offset-s4 \" id=\"{$comment['comment_id']}\">
+                    <b>{$comment['login']}:</b>  {$comment['comment']}
+                </div>
+            ";
+        }
         return [
             'data' => [
                 'res' => 'success',
+                'comments' => $tmp,
             ]
         ];
     }

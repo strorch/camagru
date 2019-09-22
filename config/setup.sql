@@ -128,8 +128,5 @@ SELECT create_user('usrrrrrr', 'random', 'homiak.max@gmail.com', '1010', 1);
 SELECT create_post(user_id('testuser'), 'picture1.jpg');
 SELECT create_post(user_id('testuser'), 'picture2.jpeg');
 SELECT create_post(user_id('usrrrrrr'), 'pict1.png');
-SELECT create_post(user_id('usrrrrrr'), 'pict1.png');
-SELECT create_post(user_id('usrrrrrr'), 'pict1.png');
-SELECT create_post(user_id('usrrrrrr'), 'pict1.png');
 
 COMMIT;
