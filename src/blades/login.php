@@ -7,7 +7,7 @@
 use core\View;
 
 $this->setParent('header');
-
+//TODO: style buttons
 ?>
 
 <script src="/assets/js/login_tabs.js?<?= time() ?>"></script>
