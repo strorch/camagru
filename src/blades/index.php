@@ -9,38 +9,54 @@ use core\View;
  */
 
 $this->setParent('header');
-//TODO: paginate page
 
 ?>
 
 <script src="/assets/js/pictureActions.js?<?= time() ?>"></script>
 
-<div class="images-container">
+<div class="images-container col s12">
     <?php foreach ($posts as $post): ?>
-        <div id="<?= $post['pict_id'] ?>" class="image-container">
+        <div id="<?= $post['pict_id'] ?>" class="image-container col s12 z-depth-2">
             <div class="picture-tittle">
                 <span><?= $post['login'] ?></span>
             </div>
-            <div class="picture-div">
-                <img class="picture" src="<?= $post['pict'] ?>" alt="picture of <?= htmlspecialchars($post['login']) ?> user" />
+            <hr/>
+            <div class="container">
+                <div class="picture-div">
+                    <img class="picture" src="<?= $post['pict'] ?>" alt="picture of <?= htmlspecialchars($post['login']) ?> user" />
+                </div>
             </div>
+            <hr/>
             <?php if (!empty($_SESSION['login'])): ?>
-                <div class="picture-actions-block">
-                    <div class="like-field">
-                        <button id="<?= $post['pict_id'] ?>" class="send-like">Like</button>
-                        <div style="<?php if ($post['is_liked']) : ?>color: red <?php endif ?>">
-                            <?= $post['cnt_likes'] ?>
+                <div class="picture-actions-block container">
+                    <div class="row">
+                        <div class="like-field col s2 offset-s2">
+                            <div class="row">
+                                <div class="col s6">
+                                    <i class="fa fa-2x fa-heart<?php if (!$post['is_liked']) : ?>-o<?php endif ?>" aria-hidden="true"></i>
+                                    <button id="<?= $post['pict_id'] ?>" class="send-like">Like</button>
+                                </div>
+                                <div class="col s6">
+                                    <?= $post['cnt_likes'] ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-field col s6">
+                            <div class="row">
+                                <div class="col s10">
+                                    <input id="<?= $post['pict_id'] ?>" type="text" class="comment" />
+                                    <label for="<?= $post['pict_id'] ?>">Leave comment</label>
+                                </div>
+                                <div class="col s2">
+                                    <button id="<?= $post['pict_id'] ?>" class="send-comment waves-effect waves-light btn">Comment</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="comment-field">
-                        <input id="<?= $post['pict_id'] ?>" type="text" class="comment" />
-                        <button id="<?= $post['pict_id'] ?>" class="send-comment">Comment</button>
-                    </div>
-                    <div class="comments-block">
+                    <div class="comments-block row">
                         <?php foreach ($post['comments'] as $comment): ?>
-                            <div class="comment-div" id="<?= $comment['comment_id'] ?>">
-                                <div><?= htmlspecialchars($comment['login']) ?></div>
-                                <div><?= htmlspecialchars($comment['comment']) ?></div>
+                            <div class="comment-div col s8 offset-s4 " id="<?= $comment['comment_id'] ?>">
+                                <b><?= htmlspecialchars($comment['login']) ?>:</b>  <?= htmlspecialchars($comment['comment']) ?>
                             </div>
                         <?php endforeach ?>
                     </div>
@@ -50,8 +66,12 @@ $this->setParent('header');
     <?php endforeach ?>
 </div>
 
-<div class="pagination">
-    <?php foreach ($paginations as $key => $pagination): ?>
-        <a href="<?= $pagination ?>"><?= $key ?></a>
-    <?php endforeach ?>
+<div id="pagination" class="container">
+    <div class="pagination row">
+        <?php foreach ($paginations as $key => $pagination): ?>
+            <div class="pagination-item col s1">
+                <a href="<?= $pagination ?>"><b><?= $key ?></b></a>
+            </div>
+        <?php endforeach ?>
+    </div>
 </div>

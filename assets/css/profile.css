@@ -28,3 +28,21 @@
 .canvas-container {
     position: relative;
 }
+
+.delete-picture {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+}
+
+.picture-div {
+    position: relative;
+}
+
+.center-settings {
+    background-color: white;
+    padding-top: 1vw;
+    margin-top: 2vw;
+    padding-bottom: 2vw;
+    margin-bottom: 2vw;
+}

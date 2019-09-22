@@ -7,8 +7,6 @@ use core\View;
  * @var $childString
  */
 
-print_r($_SESSION);
-
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +15,7 @@ print_r($_SESSION);
     <meta charset="UTF-8">
     <meta name="csrf-token" content="<?= $_SESSION['_csrf'] ?>">
     <title>camagru</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/materialize.min.css">
     <link rel="stylesheet" href="/assets/css/profile.css?<?=time()?>">
     <link rel="stylesheet" href="/assets/css/front_page.css?<?=time()?>">
@@ -27,13 +26,20 @@ print_r($_SESSION);
 <div id="head">
     <?php $this->includeChild('head') ?>
 </div>
-
-<div class="main">
-    <?= $childString ?>
+<div class="container">
+    <div class="main">
+        <?= $childString ?>
+    </div>
 </div>
 
-<footer>
-    footer
+<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container">
+            © 2019 mstorcha
+            <span class="grey-text text-lighten-4 right">smy980807@ukr.net</span>
+        </div>
+    </div>
 </footer>
+
 </body>
 </html>
