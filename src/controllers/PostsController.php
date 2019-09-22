@@ -94,9 +94,23 @@ class PostsController extends AbstractController
         $res = imagejpeg($userImgResource, $dirToSave . $fileToSave);
         $this->posts->savePost($_SESSION['id'], $fileToSave);
 
+        $posts = $this->posts->getPosts(0, 100, $_SESSION['id']);
+        $tmp = '';
+        foreach ($posts as $post) {
+            $tmp .= "
+            <div id=\"{$post['pict_id']}\" class=\"image-container col s8 z-depth-2\">
+                <div class=\"picture-div\">
+                    <img class=\"picture\" src=\"{$post['pict']}\" alt=\"picture of {$post['login']} user\" />
+                    <button id=\"{$post['pict_id']}\" class=\"delete-picture waves-effect waves-light btn-small red\">Delete</button>
+                </div>
+            </div>
+        ";
+        }
+
         return [
             'data' => [
                 'res' => 'success',
+                'posts' => $tmp,
             ],
         ];
     }

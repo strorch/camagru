@@ -67,6 +67,8 @@ const stickerSelect = (event) => {
 
             let canvasContainer = document.getElementById('canvas-container');
             canvasContainer.appendChild(selectedSticker);
+
+            document.querySelector('button[id="snap"]').style.display = 'block';
         };
     });
 };
@@ -99,7 +101,12 @@ const snapInit = () => {
                 return e.json();
             })
             .then(e => {
-                //TODO: file saved message
+                if (e.res === 'error') {
+                    return;
+                }
+                document.getElementById('make-photo-container').innerHTML = '';
+                document.getElementById('sticker-container').innerHTML = '';
+                document.getElementById('images-container').innerHTML = e.posts;
             })
             .catch(e => {
                 console.log(e);
@@ -147,8 +154,8 @@ window.onload = (event) => {
         let photoContainer = document.querySelector('.make-photo-container');
         photoContainer.innerHTML = '\n' +
             '<video id="video" width="640" height="480" autoplay></video>\n' +
-            '<button id="snap">Snap Photo</button>\n' +
-            '<div id="canvas-container"><canvas id="canvas" width="640" height="480"></canvas></div>\n';
+            '<button style="display: none" id="snap" class="waves-effect waves-light btn">Snap Photo</button>\n' +
+            '<div id="canvas-container"><canvas style="display: none" id="canvas" width="640" height="480"></canvas></div>\n';
         enableNavigator();
         let canvas = document.getElementById('canvas');
         let context = canvas.getContext('2d');
@@ -165,7 +172,7 @@ window.onload = (event) => {
         body.innerHTML =
             '<input id="file-input" type="file" value="Load file">' +
             '<div id="canvas-container"><canvas id="canvas" width="640" height="480"></canvas></div>' +
-            '<button id="snap">Snap Photo</button>';
+            '<button style="display: none" id="snap" class="waves-effect waves-light btn">Snap Photo</button>';
         let canvas = document.getElementById('canvas');
         let context = canvas.getContext('2d');
         document.getElementById('file-input').onchange = (ev) => {
