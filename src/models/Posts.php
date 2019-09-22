@@ -25,7 +25,7 @@ class Posts extends Model
             $condition = 'tt.user_id = :user_id';
             $params[':user_id'] = $user_id;
         } else {
-            $condition = 'tt.num >= :start_num and tt.num <= :end_num';
+            $condition = 'tt.num > :start_num and tt.num <= :end_num';
             $params[':start_num'] = $startNumber;
             $params[':end_num'] = $endNumber;
         }
@@ -57,6 +57,22 @@ class Posts extends Model
                 'comments' => $this->getComments($post['pict_id']),
             ];
         }
+    }
+
+    public function getPagination(): ?array
+    {
+        $count_posts = $this->DB->query("
+            select  count(*) as cnt
+            from    posts
+        ");
+        $count_posts = reset($count_posts)['cnt'];
+        $countOnPage = 5;
+        foreach (range(0, $count_posts / $countOnPage) as $number) {
+            $min = $number *  $countOnPage;
+            $max = $min + $countOnPage;
+            $res[$number + 1] = "/?startNum=$min&endNum=$max";
+        }
+        return $res;
     }
 
     /**

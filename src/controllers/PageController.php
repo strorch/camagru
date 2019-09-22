@@ -6,6 +6,7 @@ namespace controllers;
 
 use core\AbstractController;
 use core\Model;
+use Exception;
 use models\Posts;
 use models\User;
 
@@ -28,7 +29,7 @@ final class PageController extends AbstractController
     /**
      * PageController constructor.
      * @param Model $model
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct(Model $model)
     {
@@ -42,14 +43,21 @@ final class PageController extends AbstractController
      */
     public function FrontPage(): array
     {
+        $startNum = 0;
+        $endNum = 5;
+        if (!empty($_GET['startNum']) && !empty($_GET['endNum'])) {
+            $startNum = (int)$_GET['startNum'];
+            $endNum = (int)$_GET['endNum'];
+        }
         $userLogged = $this->user->getUserLoginInfo();
-        $posts = $this->posts->getPosts(0, 5);
+        $posts = $this->posts->getPosts($startNum, $endNum);
+        $pagination = $this->posts->getPagination();
         return [
             'view' => 'index',
             'data' => [
                 'userLogged' => $userLogged,
                 'posts' => $posts,
-
+                'paginations' => $pagination,
             ],
         ];
     }
@@ -82,7 +90,7 @@ final class PageController extends AbstractController
             $this->redirect('/');
         }
         $userInfo = $this->user->getAccountInfo($_SESSION['id']);
-        $posts = $this->posts->getPosts(0, 5, $userInfo['id']);
+        $posts = $this->posts->getPosts(0, 100, $userInfo['id']);
         return [
             'view' => 'profile',
             'data' => [

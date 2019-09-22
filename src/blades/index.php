@@ -5,6 +5,7 @@ use core\View;
 /**
  * @var $this View
  * @var $posts array
+ * @var $paginations array
  */
 
 $this->setParent('header');
@@ -46,5 +47,11 @@ $this->setParent('header');
                 </div>
             <?php endif ?>
         </div>
+    <?php endforeach ?>
+</div>
+
+<div class="pagination">
+    <?php foreach ($paginations as $key => $pagination): ?>
+        <a href="<?= $pagination ?>"><?= $key ?></a>
     <?php endforeach ?>
 </div>
