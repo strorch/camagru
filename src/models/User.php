@@ -22,6 +22,9 @@ class User extends Model
      */
     public function getUserLoginInfo(): bool
     {
+        if (!empty($_SESSION['login'])) {
+            UserValidator::registerSession($this->getAccountInfo($_SESSION['id']));
+        }
         return !empty($_SESSION['login']);
     }
 

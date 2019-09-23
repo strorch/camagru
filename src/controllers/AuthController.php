@@ -7,6 +7,7 @@ namespace controllers;
 use core\AbstractController;
 use core\Model;
 use Exception;
+use helpers\UserValidator;
 use models\Mail;
 use models\User;
 
@@ -48,7 +49,7 @@ class AuthController extends AbstractController
         if (empty($user)) {
             $this->redirect('/login?error=1');
         }
-        $this->registerSession($user);
+        UserValidator::registerSession($user);
         $this->redirect('/');
     }
 
@@ -75,20 +76,10 @@ class AuthController extends AbstractController
             $this->redirect('/login?error=2');
         }
         $user = $this->user->saveUser($_POST);
-        $this->registerSession($user);
+        UserValidator::registerSession($user);
         if (!$this->mail->sendConfirmEmail($user)) {
             $this->redirect('/?error=3');
         }
         $this->redirect('/');
-    }
-
-    /**
-     * @param array $user
-     */
-    private function registerSession(array $user): void
-    {
-        foreach (['id', 'login', 'password', 'log_stat', 'notifications'] as $attr) {
-            $_SESSION[$attr] = $user[$attr];
-        }
     }
 }

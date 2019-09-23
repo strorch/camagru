@@ -91,8 +91,14 @@ class PostsController extends AbstractController
         );
         $dirToSave = BASE_DIR . "/runtime/{$_SESSION['login']}/";
         $fileToSave =  SaltGenerator::generateRandomName(true) . '.jpg';
-        @mkdir($dirToSave, 0777, true);
-        $res = imagejpeg($userImgResource, $dirToSave . $fileToSave);
+        @mkdir($dirToSave, 0777);
+        if (!imagejpeg($userImgResource, $dirToSave . $fileToSave)) {
+            return [
+                'data' => [
+                    'res' => 'error',
+                ],
+            ];
+        }
         $this->posts->savePost($_SESSION['id'], $fileToSave);
 
         $posts = $this->posts->getPosts(0, 100, $_SESSION['id']);

@@ -26,11 +26,13 @@ use core\View;
 <div id="head">
     <?php $this->includeChild('head') ?>
 </div>
-<div class="container">
-    <div class="main">
-        <?= $childString ?>
+<main>
+    <div class="container">
+        <div class="main">
+            <?= $childString ?>
+        </div>
     </div>
-</div>
+</main>
 
 <footer class="page-footer">
     <div class="footer-copyright">

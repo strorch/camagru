@@ -23,7 +23,7 @@ const sendCommentInit = () => {
                         return ;
                     }
 
-                    document.getElementById('comments-block').innerHTML = e.comments;
+                    document.querySelector(`div.comments-block[id="${post_id}"]`).innerHTML = e.comments;
                 })
                 .catch(e => {
                     console.log(e);

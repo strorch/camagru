@@ -8,6 +8,17 @@ use Exception;
 
 class UserValidator
 {
+
+    /**
+     * @param array $user
+     */
+    public static function registerSession(array $user): void
+    {
+        foreach (['id', 'login', 'password', 'log_stat', 'notifications'] as $attr) {
+            $_SESSION[$attr] = $user[$attr];
+        }
+    }
+
     public static function username(string $login)
     {
         if (strlen($login) < 6 || empty(preg_match("/^[a-zA-Z ]*$/", $login))) {

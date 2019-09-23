@@ -52,7 +52,7 @@ $this->setParent('header');
                             </div>
                         </div>
                     </div>
-                    <div id="comments-block" class="comments-block row">
+                    <div id="<?= $post['pict_id'] ?>" class="comments-block row">
                         <?php foreach ($post['comments'] as $comment): ?>
                             <div class="comment-div col s8 offset-s4 " id="<?= $comment['comment_id'] ?>">
                                 <b><?= htmlspecialchars($comment['login']) ?>:</b>  <?= htmlspecialchars($comment['comment']) ?>
