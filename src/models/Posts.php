@@ -67,7 +67,8 @@ class Posts extends Model
         ");
         $count_posts = reset($count_posts)['cnt'];
         $countOnPage = 5;
-        foreach (range(0, $count_posts / $countOnPage) as $number) {
+        $range = range(0, ($count_posts / $countOnPage) > 1 ?: 0);
+        foreach ($range as $number) {
             $min = $number *  $countOnPage;
             $max = $min + $countOnPage;
             $res[$number + 1] = "/?startNum=$min&endNum=$max";

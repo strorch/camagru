@@ -7,7 +7,6 @@
 use core\View;
 
 $this->setParent('header');
-//TODO: style buttons
 ?>
 
 <script src="/assets/js/login_tabs.js?<?= time() ?>"></script>
@@ -21,34 +20,41 @@ $this->setParent('header');
 <div id="login" class="tabcontent">
     <form method="post" action="/login">
         <?php $this->includeChild('csrf');?>
-        <input name="login" type="text"/>Login
+        <input id="login_login" name="login" type="text"/>
+        <label for="login_login">Login</label>
         <br/>
-        <input name="password" type="password"/>Password
+        <input id="login_password" name="password" type="password"/>
+        <label for="login_password">Password</label>
         <br/>
-        <input name="submit" type="submit" value="OK"/>
+        <input class="waves-effect waves-light btn" name="submit" type="submit" value="OK"/>
     </form>
 </div>
 
 <div id="register" class="tabcontent">
     <form method="post" action="/register">
         <?php $this->includeChild('csrf');?>
-        <input name="email" type="email"/>Email
+        <input id="register_email" name="email" type="email"/>
+        <label for="register_email">Email</label>
         <br/>
-        <input name="login" type="text"/>Login
+        <input id="register_login" name="login" type="text"/>
+        <label for="register_login">Login</label>
         <br/>
-        <input name="password" type="password"/>Password
+        <input id="register_password" name="password" type="password"/>
+        <label for="register_password">Password</label>
         <br/>
-        <input name="password_confirm" type="password"/>Confirm
+        <input id="register_confirm" name="password_confirm" type="password"/>
+        <label for="register_confirm">Confirm</label>
         <br/>
-        <input name="submit" type="submit" value="OK"/>
+        <input class="waves-effect waves-light btn" name="submit" type="submit" value="OK"/>
     </form>
 </div>
 
 <div id="forget-password" class="tabcontent">
     <form method="post" action="/forgetPassword">
         <?php $this->includeChild('csrf');?>
-        <input name="login" type="text"/>Login
+        <input id="forget_login" name="login" type="text"/>
+        <label for="forget_login">Login</label>
         <br/>
-        <input name="submit" type="submit" value="OK"/>
+        <input class="waves-effect waves-light btn" name="submit" type="submit" value="OK"/>
     </form>
 </div>

@@ -1,22 +1,11 @@
 /*
 
-sudo apt install php7.*-pgsql
-sudo -u postgres psql
-create database camagru;
-DROP DATABASE IF EXISTS `WEBY_TEST`;
-CREATE DATABASE `WEBY_TEST
-\c camagru
 CREATE USER camagru_user WITH PASSWORD 'root';
 alter role camagru_user with superuser; --etc roles
-\q
-psql -h localhost -d camagru -U camagru_user
-
-
-CREATE OR REPLACE VIEW zclient AS
+CREATE OR REPLACE VIEW client AS
     SELECT      c.*
     FROM        client      c
 ;
-
 ALTER TABLE ONLY zorder             ADD CONSTRAINT zorder_obj_id_pkey                   PRIMARY KEY (obj_id);
 ALTER TABLE ONLY coupon             ADD CONSTRAINT coupon_coupon_uniq                   UNIQUE (coupon);
 ALTER TABLE ONLY coupon             ADD CONSTRAINT coupon_serie_id_fkey                 FOREIGN KEY (serie_id)      REFERENCES coupon_serie (obj_id)
@@ -93,8 +82,8 @@ CREATE OR REPLACE FUNCTION remove_comment (a_user_id integer, a_comment_id integ
 BEGIN
     DELETE
     FROM    likes
-    where   id=a_comment_id
-    and     user_id=a_user_id;
+    WHERE   id=a_comment_id
+    AND     user_id=a_user_id;
 END
 $$ LANGUAGE 'plpgsql';
 
@@ -102,8 +91,8 @@ CREATE OR REPLACE FUNCTION remove_like (a_post_id integer, a_user_id integer) RE
 BEGIN
     DELETE
     FROM    likes
-    where   post_id=a_post_id
-    and     user_id=a_user_id;
+    WHERE   post_id=a_post_id
+    AND     user_id=a_user_id;
 END
 $$ LANGUAGE 'plpgsql';
 

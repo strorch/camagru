@@ -1,3 +1,11 @@
+const notifyUser = (e) => {
+    if (e.res === 'error') {
+        console.log('error');
+        return;
+    }
+    console.log('success');
+};
+
 const changeRoutine = (value, action) => {
     const btn = document.getElementById(value + '-button');
     btn.onclick = (e) => {
@@ -17,7 +25,7 @@ const changeRoutine = (value, action) => {
                 return e.json();
             })
             .then(e => {
-                //TODO: like push animation
+                notifyUser(e);
             })
             .catch(e => {
                 console.log(e);
@@ -44,7 +52,7 @@ const emailNotification = () => {
                 return e.json();
             })
             .then(e => {
-                //TODO: like push animation
+                notifyUser(e);
             })
             .catch(e => {
                 console.log(e);
