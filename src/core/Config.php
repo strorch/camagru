@@ -18,10 +18,7 @@ final class Config
     {
         return [
             'db' => static::getDBConfig(),
-            'url' => [
-                'cert' => 'http',
-                'uri' => 'localhost:8000',
-            ],
+            'url' => static::getHttpConfig(),
         ];
     }
 
@@ -31,5 +28,13 @@ final class Config
     private static function getDBConfig(): array
     {
         return include BASE_DIR . '/config/database.php';
+    }
+
+    /**
+     * @return array
+     */
+    private static function getHttpConfig(): array
+    {
+        return include BASE_DIR . '/config/http.php';
     }
 }
