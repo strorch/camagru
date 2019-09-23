@@ -137,6 +137,7 @@ class User extends Model
      */
     public function saveUser(array $row): array
     {
+        //TODO: add password hash
         $salt = SaltGenerator::generateRandomName();
         $this->DB->exec("
             select create_user(:login, :password, :email, :salt, 0)

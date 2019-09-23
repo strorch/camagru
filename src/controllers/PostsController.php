@@ -76,6 +76,7 @@ class PostsController extends AbstractController
         $stickerImgResource = $this->getStickerImgResource($sticker['pict']);
         $userImgResource = $this->getUserImgResource($userImg);
 
+        //TODO normalize sticker position
         imagecopyresampled(
             $userImgResource,
             $stickerImgResource,

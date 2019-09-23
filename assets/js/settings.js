@@ -3,6 +3,7 @@ const notifyUser = (e) => {
         console.log('error');
         return;
     }
+    //TODO: implement function
     console.log('success');
 };
 
