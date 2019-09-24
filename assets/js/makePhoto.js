@@ -106,6 +106,7 @@ const snapInit = () => {
                 document.getElementById('make-photo-container').innerHTML = '';
                 document.getElementById('sticker-container').innerHTML = '';
                 document.getElementById('images-container').innerHTML = e.posts;
+                window.onload();
             })
             .catch(e => {
                 console.log(e);

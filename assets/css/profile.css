@@ -10,10 +10,6 @@
     justify-content: space-between;
 }
 
-.sticker-div {
-
-}
-
 .sticker {
     max-height: 200px;
     max-width: 200px;
@@ -45,8 +41,4 @@
     margin-top: 2vw;
     padding-bottom: 2vw;
     margin-bottom: 2vw;
-}
-
-#canvas-container {
-
 }

@@ -17,7 +17,22 @@ const changeRoutine = (value, action) => {
                 return e.json();
             })
             .then(e => {
-                notifyUser(e, 'Param successfully changed');
+                if (e.res === 'error') {
+                    const popup = `<div id="card-panel" class="card-panel"><span class="red-text text-darken-2">Wrong input</span></div>`;
+                    Array.from(document.getElementsByTagName('main'))[0].innerHTML += popup;
+                    setTimeout(e => {
+                        document.getElementById('card-panel').remove();
+                    }, 2000);
+                } else {
+                    const popup = `<div id="card-panel" class="card-panel"><span class="blue-text text-darken-2">Param successfully changed</span></div>`;
+                    Array.from(document.getElementsByTagName('main'))[0].innerHTML += popup;
+                    setTimeout(e => {
+                        document.getElementById('card-panel').remove();
+                    }, 2000);
+                }
+                changeRoutine('username', '/changeUsername');
+                changeRoutine('email', '/changeEmail');
+                changeRoutine('password', '/changePassword');
             })
             .catch(e => {
                 notifyUser(e, 'Error, try later');
