@@ -49,7 +49,6 @@ const getStickers = () => {
 };
 
 const stickerSelect = (event) => {
-    //TODO normalize sticker position
     let stickerDivs = Array.from(document.getElementsByClassName('sticker-div'));
     stickerDivs.map((el) => {
         el.onclick = (ev) => {
