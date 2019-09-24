@@ -20,6 +20,7 @@ use core\View;
     <link rel="stylesheet" href="/assets/css/profile.css?<?=time()?>">
     <link rel="stylesheet" href="/assets/css/front_page.css?<?=time()?>">
     <link rel="stylesheet" href="/assets/css/login.css?<?=time()?>">
+    <script src="/assets/js/notify.js?<?=time()?>"></script>
 </head>
 <body>
 

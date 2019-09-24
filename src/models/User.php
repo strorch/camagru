@@ -80,15 +80,18 @@ class User extends Model
             select  * 
             from    users 
             where   login = :login
-            and     password = :password
         ", [
             ':login' => $login,
-            ':password' => $password,
         ]);
         if (empty($res)) {
             return [];
         }
-        return reset($res);
+        $res = reset($res);
+        $hashed = SaltGenerator::passwordHash($password, $res['salt']);
+        if ($res['password'] !== $hashed) {
+            return [];
+        }
+        return $res;
     }
 
     public function getUserByLogin(string $login): array
@@ -140,13 +143,13 @@ class User extends Model
      */
     public function saveUser(array $row): array
     {
-        //TODO: add password hash
         $salt = SaltGenerator::generateRandomName();
+        $password = SaltGenerator::passwordHash($row['password'], $salt);
         $this->DB->exec("
             select create_user(:login, :password, :email, :salt, 0)
         ", [
             ':login' => $row['login'],
-            ':password' => $row['password'],
+            ':password' => $password,
             ':email' => $row['email'],
             ':salt' => $salt,
         ]);
@@ -159,26 +162,26 @@ class User extends Model
 
     public function confirmEmail(string $id): void
     {
-        $salt = SaltGenerator::generateRandomName();
         $this->DB->exec("
             update  users 
-            set     salt=:salt,
-                    log_stat = 1
+            set     log_stat = 1
             where   id=:id
         ", [
-            ':salt' => $salt,
             ':id' => $id,
         ]);
     }
 
-    public function changeRoutine(int $user_id, string $attribute, string $newValue, Closure $callback = null): bool
+    public function changeRoutine(array $user, string $attribute, string $newValue, Closure $callback = null): bool
     {
+        if ($attribute === 'password') {
+            $newValue = SaltGenerator::passwordHash($newValue, $user['salt']);
+        }
         $this->DB->exec("
             update  users 
             set     $attribute=:newValue
             where   id = :user_id
         ", [
-            ':user_id' => $user_id,
+            ':user_id' => $user['id'],
             ':newValue' => $newValue,
         ]);
         if (!empty($callback)) {

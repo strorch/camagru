@@ -69,3 +69,14 @@ body {
 main {
     flex: 1 0 auto;
 }
+
+#main {
+    position: relative;
+}
+
+.card-panel {
+    position: absolute;
+    right: 1vw;
+    top: 9vw;
+    z-index: 100;
+}

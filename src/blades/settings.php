@@ -61,7 +61,7 @@ $this->setParent('header');
                 <div class="row s12">
                     <div class="row">
                         <div class="col s6">
-                            <input id="password-input" type="text" />
+                            <input id="password-input" type="password" />
                             <label for="password-input">New password</label>
                         </div>
                         <div class="col s2">

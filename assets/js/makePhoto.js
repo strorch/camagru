@@ -2,7 +2,6 @@ const enableNavigator = () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function(stream) {
-                //video.src = window.URL.createObjectURL(stream);
                 video.srcObject = stream;
                 video.play();
             });
@@ -55,7 +54,7 @@ const stickerSelect = (event) => {
     stickerDivs.map((el) => {
         el.onclick = (ev) => {
             let tmpSticker = document.getElementById('selected-sticker');
-            // debugger
+
             if (tmpSticker !== null && tmpSticker !== undefined) {
                 tmpSticker.remove();
             }

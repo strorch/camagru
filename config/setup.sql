@@ -110,8 +110,8 @@ INSERT INTO stickers (pict) VALUES
 ('mem4.jpg')
 ;
 
-SELECT create_user('testuser', 'random', 'homiak.max@gmail.com', '1111', 1);
-SELECT create_user('usrrrrrr', 'random', 'homiak.max@gmail.com', '1010', 1);
+SELECT create_user('testuser', 'random', 'test@email.com', '1111', 1);
+SELECT create_user('usrrrrrr', 'random', 'test@email.com', '1010', 1);
 
 
 SELECT create_post(user_id('testuser'), 'picture1.jpg');

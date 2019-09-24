@@ -22,4 +22,9 @@ class SaltGenerator
     {
         return md5($str);
     }
+
+    public static function passwordHash(string $password, string $salt): string
+    {
+        return static::hashName(static::hashName($password) . $salt);
+    }
 }

@@ -1,12 +1,3 @@
-const notifyUser = (e) => {
-    if (e.res === 'error') {
-        console.log('error');
-        return;
-    }
-    //TODO: implement function
-    console.log('success');
-};
-
 const changeRoutine = (value, action) => {
     const btn = document.getElementById(value + '-button');
     btn.onclick = (e) => {
@@ -26,10 +17,10 @@ const changeRoutine = (value, action) => {
                 return e.json();
             })
             .then(e => {
-                notifyUser(e);
+                notifyUser(e, 'Param successfully changed');
             })
             .catch(e => {
-                console.log(e);
+                notifyUser(e, 'Error, try later');
             });
     }
 };
@@ -53,7 +44,6 @@ const emailNotification = () => {
                 return e.json();
             })
             .then(e => {
-                notifyUser(e);
             })
             .catch(e => {
                 console.log(e);

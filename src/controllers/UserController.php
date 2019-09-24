@@ -54,7 +54,7 @@ class UserController extends AbstractController
         }
         $newPassword = 'passwd1';
         $this->mail->sendPasswordEmail($user, $newPassword);
-        $this->user->changeRoutine($user['id'], 'password', $newPassword);
+        $this->user->changeRoutine($user, 'password', $newPassword);
         $this->redirect('/');
     }
 
@@ -80,8 +80,10 @@ class UserController extends AbstractController
         }
         $accountInfo = $this->user->getAccountInfo($_SESSION['id']);
 
-        $this->user->changeRoutine($accountInfo['id'], 'login', $body['newValue']);
-        rename(BASE_DIR . "/runtime/{$accountInfo['login']}", BASE_DIR . "/runtime/{$body['newValue']}");
+        $this->user->changeRoutine($accountInfo, 'login', $body['newValue']);
+        if (!empty($accountInfo['posts'])) {
+            rename(BASE_DIR . "/runtime/{$accountInfo['login']}", BASE_DIR . "/runtime/{$body['newValue']}");
+        }
         $_SESSION['login'] = $body['newValue'];
         return [
             'data' => [
@@ -114,13 +116,13 @@ class UserController extends AbstractController
         $accountInfo = $this->user->getAccountInfo($_SESSION['id']);
 
         $emailActions = function () use ($accountInfo) {
-            $this->user->changeRoutine($accountInfo['id'], 'log_stat', '0');
+            $this->user->changeRoutine($accountInfo, 'log_stat', '0');
             $_SESSION['log_stat'] = 0;
             return $this->mail->sendConfirmEmail($accountInfo);
         };
         $emailActions->bindTo($this);
 
-        if (!$this->user->changeRoutine($accountInfo['id'], 'email', $body['newValue'], $emailActions)) {
+        if (!$this->user->changeRoutine($accountInfo, 'email', $body['newValue'], $emailActions)) {
             return [
                 'data' => [
                     'res' => 'error',
@@ -157,7 +159,7 @@ class UserController extends AbstractController
         }
         $accountInfo = $this->user->getAccountInfo($_SESSION['id']);
 
-        if (!$this->user->changeRoutine($accountInfo['id'], 'password', $body['newValue'])) {
+        if (!$this->user->changeRoutine($accountInfo, 'password', $body['newValue'])) {
             return [
                 'data' => [
                     'res' => 'error',
@@ -185,7 +187,7 @@ class UserController extends AbstractController
         }
         $accountInfo = $this->user->getAccountInfo($_SESSION['id']);
         $value = strval((int)$body['checked']);
-        $this->user->changeRoutine($accountInfo['id'], 'notifications', $value);
+        $this->user->changeRoutine($accountInfo, 'notifications', $value);
         $_SESSION['notifications'] = $value;
         return [
             'data' => [
