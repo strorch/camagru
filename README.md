@@ -26,3 +26,5 @@ Just run ``docker-compose up -d --build``
 
 
 # Examples
+
+![example image](./runtime/example.jpeg)
