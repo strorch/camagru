@@ -4,7 +4,7 @@ use core\View;
 
 /**
  * @var $this View
- * @var $childString
+ * @var $childString string
  */
 
 ?>

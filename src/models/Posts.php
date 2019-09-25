@@ -59,6 +59,9 @@ class Posts extends Model
         }
     }
 
+    /**
+     * @return array|null
+     */
     public function getPagination(): ?array
     {
         $count_posts = $this->DB->query("
@@ -123,6 +126,10 @@ class Posts extends Model
         ", [':id' => $postId]);
     }
 
+    /**
+     * @param int $userId
+     * @param int $postId
+     */
     public function setLike(int $userId, int $postId): void
     {
         $this->DB->exec("
@@ -133,6 +140,10 @@ class Posts extends Model
         ]);
     }
 
+    /**
+     * @param int $postId
+     * @param int $userId
+     */
     public function removeLike(int $postId, int $userId): void
     {
         $this->DB->exec("
@@ -143,6 +154,11 @@ class Posts extends Model
         ]);
     }
 
+    /**
+     * @param int $postId
+     * @param int $userId
+     * @return bool
+     */
     public function isUserLiked(int $postId, int $userId): bool
     {
         $res = $this->DB->query("
@@ -158,6 +174,10 @@ class Posts extends Model
         return $res['cnt'] > 0;
     }
 
+    /**
+     * @param int $postId
+     * @return int
+     */
     public function getLikes(int $postId): int
     {
         $res = $this->DB->query("
@@ -170,6 +190,10 @@ class Posts extends Model
         return reset($res)['cnt'];
     }
 
+    /**
+     * @param int $postId
+     * @return array
+     */
     public function getComments(int $postId): array
     {
         return $this->DB->query("
@@ -182,6 +206,11 @@ class Posts extends Model
         ", [':post_id' => $postId]);
     }
 
+    /**
+     * @param int $postId
+     * @param int $userId
+     * @param string $comment
+     */
     public function addComment(int $postId, int $userId, string $comment): void
     {
         $this->DB->exec("

@@ -2,6 +2,10 @@
 
 namespace helpers;
 
+/**
+ * Class SaltGenerator
+ * @package helpers
+ */
 class SaltGenerator
 {
     /**
@@ -18,11 +22,20 @@ class SaltGenerator
         return $num1 . $num2;
     }
 
+    /**
+     * @param string $str
+     * @return string
+     */
     public static function hashName(string $str): string
     {
         return md5($str);
     }
 
+    /**
+     * @param string $password
+     * @param string $salt
+     * @return string
+     */
     public static function passwordHash(string $password, string $salt): string
     {
         return static::hashName(static::hashName($password) . $salt);

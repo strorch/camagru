@@ -53,6 +53,10 @@ class User extends Model
         return $userInfo;
     }
 
+    /**
+     * @param int $postId
+     * @return array
+     */
     public function getInfoByPostId(int $postId): array
     {
         $userId =  $this->DB->query("
@@ -94,6 +98,10 @@ class User extends Model
         return $res;
     }
 
+    /**
+     * @param string $login
+     * @return array
+     */
     public function getUserByLogin(string $login): array
     {
         $res = $this->DB->query("
@@ -160,6 +168,9 @@ class User extends Model
         return $res;
     }
 
+    /**
+     * @param string $id
+     */
     public function confirmEmail(string $id): void
     {
         $this->DB->exec("
@@ -171,6 +182,13 @@ class User extends Model
         ]);
     }
 
+    /**
+     * @param array $user
+     * @param string $attribute
+     * @param string $newValue
+     * @param Closure|null $callback
+     * @return bool
+     */
     public function changeRoutine(array $user, string $attribute, string $newValue, Closure $callback = null): bool
     {
         if ($attribute === 'password') {

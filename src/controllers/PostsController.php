@@ -58,7 +58,7 @@ class PostsController extends AbstractController
      * @return array
      * @throws \Exception
      */
-    public function savePost()
+    public function savePost(): array
     {
         $body = Utils::fetchParse();
         $this->checkCsrf($body);
@@ -187,6 +187,10 @@ class PostsController extends AbstractController
         ];
     }
 
+    /**
+     * @return array
+     * @throws \Exception
+     */
     public function likePost(): array
     {
         $body = Utils::fetchParse();
@@ -215,6 +219,10 @@ class PostsController extends AbstractController
         ];
     }
 
+    /**
+     * @return array
+     * @throws \Exception
+     */
     public function commentPost(): array
     {
         $body = Utils::fetchParse();

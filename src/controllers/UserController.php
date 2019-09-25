@@ -13,6 +13,10 @@ use helpers\UserValidator;
 use models\Mail;
 use models\User;
 
+/**
+ * Class UserController
+ * @package controllers
+ */
 class UserController extends AbstractController
 {
     /**
@@ -25,6 +29,11 @@ class UserController extends AbstractController
      */
     private $mail;
 
+    /**
+     * UserController constructor.
+     * @param Model $model
+     * @throws Exception
+     */
     public function __construct(Model $model)
     {
         parent::__construct($model);
@@ -58,6 +67,10 @@ class UserController extends AbstractController
         $this->redirect('/');
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function changeUsername(): array
     {
         $body = Utils::fetchParse();
@@ -92,6 +105,10 @@ class UserController extends AbstractController
         ];
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function changeEmail(): array
     {
         $body = Utils::fetchParse();
@@ -136,6 +153,10 @@ class UserController extends AbstractController
         ];
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function changePassword(): array
     {
         $body = Utils::fetchParse();
@@ -174,6 +195,10 @@ class UserController extends AbstractController
         ];
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function enableNotifications(): array
     {
         $body = Utils::fetchParse();

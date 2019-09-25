@@ -1,5 +1,3 @@
-
-
 const notifyUser = (e, text) => {
     const getWindow = (color, texxt) => {
         const popup = `<div id="card-panel" class="card-panel"><span class="${color}-text text-darken-2">${texxt}</span></div>`;

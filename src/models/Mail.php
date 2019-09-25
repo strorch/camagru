@@ -10,20 +10,38 @@ use core\Model;
 use helpers\SaltGenerator;
 use Exception;
 
+/**
+ * Class Mail
+ * @package models
+ */
 class Mail extends Model
 {
+    /**
+     * @param array $user
+     * @return bool
+     */
     public function sendConfirmEmail(array $user): bool
     {
         $link = $this->createMailUrl('emailConfirm', $user);
         return mail($user['email'], 'Camagru', 'Confirm your email via link: ' . $link);
     }
 
+    /**
+     * @param array $user
+     * @param string $password
+     * @return bool
+     */
     public function sendPasswordEmail(array $user, string $password): bool
     {
         $res = mail($user['email'], 'Camagru', "Your new temporary password: $password\nChange it in settings page");
         return $res;
     }
 
+    /**
+     * @param string $action
+     * @param array $user
+     * @return string
+     */
     private function createMailUrl(string $action, array $user): string
     {
         $url = Application::getConfig()['url'];
@@ -31,6 +49,11 @@ class Mail extends Model
         return "{$url['cert']}://{$url['uri']}/$action?id={$user['id']}&secret=$salt";
     }
 
+    /**
+     * @param array $params
+     * @param User $user
+     * @throws Exception
+     */
     public function validateConfirmParams(array &$params, User $user): void
     {
         foreach (['id', 'secret'] as $key) {
@@ -48,6 +71,12 @@ class Mail extends Model
         }
     }
 
+    /**
+     * @param string $ownerEmail
+     * @param string $sender
+     * @param string $comment
+     * @return bool
+     */
     public function sendCommentNotification(string $ownerEmail, string $sender, string $comment): bool
     {
         $header  = "MIME-Version: 1.0\r\n";

@@ -20,6 +20,11 @@ class StickerController extends AbstractController
      */
     private $stickers;
 
+    /**
+     * StickerController constructor.
+     * @param Model $model
+     * @throws \Exception
+     */
     public function __construct(Model $model)
     {
         parent::__construct($model);
