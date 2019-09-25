@@ -2,7 +2,7 @@
 
 This is  UNIT Factory(42 school) web project.
 
-It includes authorisation? which login, sign up, forgot password and email confirming actions.
+It includes authorisation with login, sign up, forgot password and email confirming actions.
 
 After login you can make photos with different stickers on it, save it on gallery.
 
