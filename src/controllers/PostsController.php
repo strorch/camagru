@@ -60,6 +60,7 @@ class PostsController extends AbstractController
      */
     public function savePost(): array
     {
+        //TODO: normalize method
         $body = Utils::fetchParse();
         $this->checkCsrf($body);
         if (empty($body)) {
@@ -100,6 +101,7 @@ class PostsController extends AbstractController
         }
         $this->posts->savePost($_SESSION['id'], $fileToSave);
 
+        //TODO: wtf
         $posts = $this->posts->getPosts(0, 100, $_SESSION['id']);
         $tmp = '';
         foreach ($posts as $post) {
@@ -245,6 +247,7 @@ class PostsController extends AbstractController
                 ];
             }
         }
+        //TODO: wtf
         $tmp = '';
         $comments = $this->posts->getComments((int)$body['post_id']);
         foreach ($comments as $comment) {

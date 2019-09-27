@@ -10,6 +10,7 @@ namespace core;
  */
 class Model
 {
+    //TODO: normalize model because WTF
     /**
      * @var DB
      */

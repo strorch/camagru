@@ -73,6 +73,7 @@ class UserController extends AbstractController
      */
     public function changeUsername(): array
     {
+        //TODO: normalize
         $body = Utils::fetchParse();
         $this->checkCsrf($body);
         if (empty($body['newValue'])) {
@@ -111,6 +112,7 @@ class UserController extends AbstractController
      */
     public function changeEmail(): array
     {
+        //TODO: normalize
         $body = Utils::fetchParse();
         $this->checkCsrf($body);
         if (empty($body['newValue'])) {
@@ -159,6 +161,7 @@ class UserController extends AbstractController
      */
     public function changePassword(): array
     {
+        //TODO: normalize
         $body = Utils::fetchParse();
         $this->checkCsrf($body);
         if (empty($body['newValue'])) {

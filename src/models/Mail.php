@@ -16,6 +16,7 @@ use Exception;
  */
 class Mail extends Model
 {
+    //TODO: normalize class
     /**
      * @param array $user
      * @return bool
