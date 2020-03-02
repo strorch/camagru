@@ -2,6 +2,8 @@
 
 This is  UNIT Factory(42 school) web project.
 
+Goal - create website with pure php, without any packages.
+
 It includes authorisation with login, sign up, forgot password and email confirming actions.
 
 After login you can make photos with different stickers on it, save it on gallery.
